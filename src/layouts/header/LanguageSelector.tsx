@@ -1,9 +1,11 @@
 "use client"
 
+import { localeAtom } from "@/atoms/dictionaryAtoms"
 import { AppSelect } from "@/components/app/AppSelect"
 import { Button } from "@/components/ui/button"
 import { langs } from "@/i18n.config"
 import { GlobeHemisphereWest } from "@phosphor-icons/react"
+import { useAtom } from "jotai"
 import Image from "next/image"
 import { useParams, usePathname } from "next/navigation"
 import { useRouter } from "next/navigation"
@@ -15,7 +17,7 @@ export const LanguageSelector = (props: Props) => {
   const pathName = usePathname()
   const router = useRouter()
 
-  const [selectedLocale, setSelectedLocale] = useState(locale)
+  const [selectedLocale, setSelectedLocale] = useAtom(localeAtom)
 
   const redirectedPathName = (locale: string) => {
     const segments = pathName.split("/")
@@ -31,8 +33,9 @@ export const LanguageSelector = (props: Props) => {
         labelKey="name"
         value={selectedLocale}
         onChange={(value) => {
-          redirectedPathName(value)
+          if (value === locale) return
           setSelectedLocale(value)
+          redirectedPathName(value)
         }}
         // searchable={false}
         // cleanable={false}
@@ -55,7 +58,7 @@ export const LanguageSelector = (props: Props) => {
         //   </div>
         // )}
       />
-      <AppSelect data={[]} />
+      {/* <AppSelect data={[]} /> */}
     </>
   )
 }

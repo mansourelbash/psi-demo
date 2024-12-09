@@ -7,6 +7,7 @@ import { Locale } from "@/i18n.config"
 import { useHydrateAtoms } from "jotai/utils"
 import { localeAtom } from "@/atoms/dictionaryAtoms"
 import { HydrationProvider } from "@/components/app/HydrationProvider"
+import { getDictionary } from "@/lib/getDictionary"
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600"],
@@ -31,10 +32,12 @@ export default async function RootLayout(
 ) {
   const params = await props.params
 
+  const dictionary = await getDictionary(params.locale)
+
   return (
     <html lang={params.locale}>
       <body className={montserrat.className}>
-        <HydrationProvider locale={params.locale}>
+        <HydrationProvider locale={params.locale} dictionary={dictionary}>
           <Header locale={params.locale} />
           {props.children}
           {/* <Footer /> */}

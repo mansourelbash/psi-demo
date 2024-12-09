@@ -8,6 +8,7 @@ export const localeAtom = atom<string>(i18n.defaultLocale)
 
 // Dictionary atom derived from the current locale
 export const dictionaryAtom = atomWithDefault(async (get) => {
+  console.log("test")
   const locale = get(localeAtom)
   return await getDictionary(locale)
 })
