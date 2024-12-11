@@ -23,7 +23,7 @@ import { CheckIcon, ChevronDownIcon, Loader2Icon, PlusIcon } from "lucide-react"
 import { CommandLoading } from "cmdk"
 import { Separator } from "@/components/ui/separator"
 import { useAtomValue } from "jotai"
-import { dictionaryAtom } from "@/atoms/dictionaryAtoms"
+import { dictionaryAtom } from "@/atoms/settingsAtoms"
 
 export const selectVariants = cva(
   "w-full justify-between text-input-foreground flex border h-11 truncate font-normal text-base px-3 gap-2 shadow-none hover:text-foreground aria-[invalid=true]:border-destructive aria-[expanded=true]:ring-1 ring-ring focus-visible:ring-1 focus-visible:ring-offset-0",

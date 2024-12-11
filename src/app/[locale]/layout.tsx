@@ -4,13 +4,11 @@ import "../globals.css"
 import { Header } from "@/layouts/header/Header"
 // import { Footer } from "@/layouts/footer/Footer"
 import { Locale } from "@/i18n.config"
-import { useHydrateAtoms } from "jotai/utils"
-import { localeAtom } from "@/atoms/dictionaryAtoms"
 import { HydrationProvider } from "@/components/app/HydrationProvider"
 import { getDictionary } from "@/lib/getDictionary"
 
 const montserrat = Montserrat({
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
 })
@@ -37,11 +35,11 @@ export default async function RootLayout(
   return (
     <html lang={params.locale}>
       <body className={montserrat.className}>
-        <HydrationProvider locale={params.locale} dictionary={dictionary}>
-          <Header locale={params.locale} />
-          {props.children}
-          {/* <Footer /> */}
-        </HydrationProvider>
+        {/* <HydrationProvider locale={params.locale} dictionary={dictionary}> */}
+        <Header />
+        {props.children}
+        {/* <Footer /> */}
+        {/* </HydrationProvider> */}
       </body>
     </html>
   )
