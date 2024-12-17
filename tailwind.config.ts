@@ -35,6 +35,7 @@ export default {
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
+          white: "hsl(var(--secondary-white))",
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
@@ -50,6 +51,7 @@ export default {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        whatsapp: "hsl(var(--whats-app))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
