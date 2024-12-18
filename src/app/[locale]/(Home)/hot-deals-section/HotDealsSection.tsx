@@ -17,7 +17,7 @@ type Props = {
 export const HotDealsSection = ({ operation }: Props) => {
   return (
     <Container>
-      <Carousel className="w-full space-y-[30px]">
+      <Carousel opts={{ align: "start" }} className="w-full space-y-[30px]">
         <div className="flex justify-between gap-2">
           <TypographyH2>
             Discover the <TextHighlight>Hot Deals</TextHighlight> Units For{" "}

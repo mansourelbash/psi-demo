@@ -127,7 +127,7 @@ export const ProjectCardFlat = (props: Props) => {
   return (
     <AspectRatio
       ratio={410 / 496}
-      className="overflow-hidden relative py-[1.125rem] px-3 rounded-[12px]"
+      className="overflow-hidden relative py-[1.125rem] px-3 rounded-[12px] @container"
     >
       <Image
         src={"/images/hero.png"}
@@ -178,13 +178,32 @@ export const ProjectCardFlat = (props: Props) => {
             </Button>
           </div>
         </div>
-        <div className="h-[58px] px-4 pb-2.5 pt-4 flex gap-2">
-          <div className="size-[29px] border border-primary overflow-hidden rounded-full relative">
-            <Image src="/images/avatar.png" fill alt="" />
+        <div className="flex flex-col gap-4 text-white">
+          <div className="flex flex-col gap-2.5">
+            <h3 className="text-3xl font-medium">The Source</h3>
+            <div className="flex items-center gap-1 text-sm font-medium">
+              <MapPin size={14.5} />
+              <span>Sea La Vie | Yas Island | Abu Shabi</span>
+            </div>
+            <span className="font-light">
+              From <span className="text-2xl font-medium">2,635,000</span> AED
+            </span>
           </div>
-          <div className="text-xs text-white">
-            <div>Listed by</div>
-            <div className="font-medium">Mohammad Abuawad</div>
+          <div className="grid grid-cols-2 gap-3 flex-wrap">
+            <Button
+              className="gap-1 text-lg font-normal bg-white"
+              variant="secondary"
+            >
+              <Phone size={17} />{" "}
+              <span className="hidden @[300px]:flex">Call</span>
+            </Button>
+            <Button
+              className="gap-1 text-lg font-normal bg-white"
+              variant="secondary"
+            >
+              <WhatsAppIcon className="size-[17px]" />{" "}
+              <span className="hidden @[300px]:flex">WhatsApp</span>
+            </Button>
           </div>
         </div>
       </div>

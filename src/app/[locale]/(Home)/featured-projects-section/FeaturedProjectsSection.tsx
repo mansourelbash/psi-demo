@@ -14,7 +14,7 @@ type Props = {}
 export const FeaturedProjectsSection = (props: Props) => {
   return (
     <Container>
-      <Carousel className="w-full space-y-[30px]">
+      <Carousel opts={{ align: "start" }} className="w-full space-y-[30px]">
         <div className="flex justify-between gap-2">
           <TypographyH2>
             Discover Our <TextHighlight>Featured</TextHighlight> Projects in Abu

@@ -4,11 +4,10 @@ import "../globals.css"
 import { Header } from "@/layouts/header/Header"
 // import { Footer } from "@/layouts/footer/Footer"
 import { Locale } from "@/i18n.config"
-import { HydrationProvider } from "@/components/app/HydrationProvider"
 import { getDictionary } from "@/lib/getDictionary"
 
 const montserrat = Montserrat({
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
 })
