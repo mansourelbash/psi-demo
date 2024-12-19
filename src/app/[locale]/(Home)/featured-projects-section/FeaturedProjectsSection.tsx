@@ -35,7 +35,7 @@ export const FeaturedProjectsSection = (props: Props) => {
         </div>
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index} className="lg:basis-1/4">
+            <CarouselItem key={index} className="lg:basis-auto ps-6">
               <ProjectCard />
             </CarouselItem>
           ))}

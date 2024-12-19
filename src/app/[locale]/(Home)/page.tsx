@@ -5,6 +5,7 @@ import { FeaturedProjectsSection } from "./featured-projects-section/FeaturedPro
 import { HeroSection } from "./hero-section/HeroSection"
 import { HigherROISection } from "./higher-roi-section/HigherROISection"
 import { HotDealsSection } from "./hot-deals-section/HotDealsSection"
+import { MediaSection } from "./media-section/MediaSection"
 import { NewLaunchesProjects } from "./new-launches-projects/NewLaunchesProjects"
 import { PopularAreasSection } from "./popular-areas-section/PopularAreasSection"
 import { ReadyToMoveSection } from "./ready-to-move-section/ReadyToMoveSection"
@@ -23,6 +24,7 @@ export default function Home() {
       <AppSection />
       <HigherROISection />
       <AboutUsAwardsSection />
+      <MediaSection />
     </main>
   )
 }

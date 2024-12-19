@@ -1,3 +1,5 @@
+"use client"
+
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import Image from "next/image"
 import { Button } from "../ui/button"
@@ -15,11 +17,14 @@ import { BedIcon } from "@/components/icons/bed-icon"
 import { BoxSizeIcon } from "@/components/icons/box-size-icon"
 import { Separator } from "@/components/ui/separator"
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon"
+import { useShareDialog } from "../dialogs/useShareDialog"
 
 type Props = {}
 export const ProjectCard = (props: Props) => {
+  const { dialog, handleDialogOpen } = useShareDialog()
+
   return (
-    <div className="p-2.5 rounded-[18px] border">
+    <div className="p-2.5 rounded-[18px] border w-[410px]">
       <AspectRatio
         ratio={1.44 / 1}
         className="rounded-lg overflow-hidden relative"
@@ -48,6 +53,7 @@ export const ProjectCard = (props: Props) => {
                 size="icon"
                 className="rounded-full bg-background size-[29px]"
                 variant="ghost"
+                onClick={() => handleDialogOpen({ link: "https://izzjo.com" })}
               >
                 <ShareFat size={16} />
               </Button>
@@ -119,94 +125,97 @@ export const ProjectCard = (props: Props) => {
           </Button>
         </div>
       </div>
+      {dialog}
     </div>
   )
 }
 
 export const ProjectCardFlat = (props: Props) => {
   return (
-    <AspectRatio
-      ratio={410 / 496}
-      className="overflow-hidden relative py-[1.125rem] px-3 rounded-[12px] @container"
-    >
-      <Image
-        src={"/images/hero.png"}
-        alt="test"
-        fill
-        className="object-cover"
-      />
-      <div className="bg-gradient-to-b from-primary-dark-blue/35 from-65% to-primary-dark-blue absolute top-0 start-0 size-full"></div>
-      <div className="flex flex-col justify-between h-full relative z-10">
-        <div className="flex justify-between gap-2">
-          <div className="flex gap-2">
-            <Chip
-              variant="flat"
-              color="primary"
-              className="uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium"
-            >
-              Off Plan
-            </Chip>
-            <Chip
-              variant="flat"
-              color="primary-blue"
-              className="uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium"
-            >
-              Apartment
-            </Chip>
-          </div>
-          <div className="flex gap-2">
-            <Button
-              size="icon"
-              className="rounded-full bg-background size-[29px]"
-              variant="ghost"
-            >
-              <ShareFat size={16} />
-            </Button>
-            <Button
-              size="icon"
-              className="rounded-full bg-background size-[29px]"
-              variant="ghost"
-            >
-              <CompareIcon className="size-4" />
-            </Button>
-            <Button
-              size="icon"
-              className="rounded-full bg-background size-[29px]"
-              variant="ghost"
-            >
-              <Heart size={16} />
-            </Button>
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 text-white">
-          <div className="flex flex-col gap-2.5">
-            <h3 className="text-3xl font-medium">The Source</h3>
-            <div className="flex items-center gap-1 text-sm font-medium">
-              <MapPin size={14.5} />
-              <span>Sea La Vie | Yas Island | Abu Shabi</span>
+    <div className="w-[410px]">
+      <AspectRatio
+        ratio={410 / 496}
+        className="overflow-hidden relative py-[1.125rem] px-3 rounded-[12px] @container"
+      >
+        <Image
+          src={"/images/hero.png"}
+          alt="test"
+          fill
+          className="object-cover"
+        />
+        <div className="bg-gradient-to-b from-primary-dark-blue/35 from-65% to-primary-dark-blue absolute top-0 start-0 size-full"></div>
+        <div className="flex flex-col justify-between h-full relative z-10">
+          <div className="flex justify-between gap-2">
+            <div className="flex gap-2">
+              <Chip
+                variant="flat"
+                color="primary"
+                className="uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium"
+              >
+                Off Plan
+              </Chip>
+              <Chip
+                variant="flat"
+                color="primary-blue"
+                className="uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium"
+              >
+                Apartment
+              </Chip>
             </div>
-            <span className="font-light">
-              From <span className="text-2xl font-medium">2,635,000</span> AED
-            </span>
+            <div className="flex gap-2">
+              <Button
+                size="icon"
+                className="rounded-full bg-background size-[29px]"
+                variant="ghost"
+              >
+                <ShareFat size={16} />
+              </Button>
+              <Button
+                size="icon"
+                className="rounded-full bg-background size-[29px]"
+                variant="ghost"
+              >
+                <CompareIcon className="size-4" />
+              </Button>
+              <Button
+                size="icon"
+                className="rounded-full bg-background size-[29px]"
+                variant="ghost"
+              >
+                <Heart size={16} />
+              </Button>
+            </div>
           </div>
-          <div className="grid grid-cols-2 gap-3 flex-wrap">
-            <Button
-              className="gap-1 text-lg font-normal bg-white"
-              variant="secondary"
-            >
-              <Phone size={17} />{" "}
-              <span className="hidden @[300px]:flex">Call</span>
-            </Button>
-            <Button
-              className="gap-1 text-lg font-normal bg-white"
-              variant="secondary"
-            >
-              <WhatsAppIcon className="size-[17px]" />{" "}
-              <span className="hidden @[300px]:flex">WhatsApp</span>
-            </Button>
+          <div className="flex flex-col gap-4 text-white">
+            <div className="flex flex-col gap-2.5">
+              <h3 className="text-3xl font-medium">The Source</h3>
+              <div className="flex items-center gap-1 text-sm font-medium">
+                <MapPin size={14.5} />
+                <span>Sea La Vie | Yas Island | Abu Shabi</span>
+              </div>
+              <span className="font-light">
+                From <span className="text-2xl font-medium">2,635,000</span> AED
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-3 flex-wrap">
+              <Button
+                className="gap-1 text-lg font-normal bg-white"
+                variant="secondary"
+              >
+                <Phone size={17} />{" "}
+                <span className="hidden @[300px]:flex">Call</span>
+              </Button>
+              <Button
+                className="gap-1 text-lg font-normal bg-white"
+                variant="secondary"
+              >
+                <WhatsAppIcon className="size-[17px]" />{" "}
+                <span className="hidden @[300px]:flex">WhatsApp</span>
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-    </AspectRatio>
+      </AspectRatio>
+    </div>
   )
 }

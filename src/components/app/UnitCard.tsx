@@ -20,7 +20,7 @@ import { WhatsAppIcon } from "@/components/icons/whatsapp-icon"
 type Props = {}
 export const UnitCard = (props: Props) => {
   return (
-    <div className="p-2.5 rounded-[18px] border">
+    <div className="p-2.5 rounded-[18px] border w-[410px]">
       <AspectRatio
         ratio={1.44 / 1}
         className="rounded-lg overflow-hidden relative"

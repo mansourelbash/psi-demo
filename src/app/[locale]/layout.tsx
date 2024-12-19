@@ -5,6 +5,7 @@ import { Header } from "@/layouts/header/Header"
 // import { Footer } from "@/layouts/footer/Footer"
 import { Locale } from "@/i18n.config"
 import { getDictionary } from "@/lib/getDictionary"
+import { Footer } from "@/layouts/footer/Footer"
 
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700"],
@@ -37,7 +38,7 @@ export default async function RootLayout(
         {/* <HydrationProvider locale={params.locale} dictionary={dictionary}> */}
         <Header />
         {props.children}
-        {/* <Footer /> */}
+        <Footer />
         {/* </HydrationProvider> */}
       </body>
     </html>
