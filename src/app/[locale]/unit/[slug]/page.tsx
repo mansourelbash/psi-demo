@@ -8,11 +8,31 @@ import {
   MapPin,
   ShareNetwork,
 } from "@phosphor-icons/react/dist/ssr"
+import { GallerySection } from "./gallery-section/GallerySection"
+import { BedIcon, BedSideIcon } from "@/components/icons/bed-icon"
+import {
+  Info,
+  InfoDataContainer,
+  InfoDesc,
+  InfoIconContainer,
+  InfoTitle,
+} from "@/components/app/Info"
+import { BathIcon } from "@/components/icons/bath-icon"
+import { CityIcon } from "@/components/icons/city-icon"
+import { SizeIcon } from "@/components/icons/size-icon"
+import { SaleIcon } from "@/components/icons/sale-icon"
+import { OperationType } from "@/types/Unit"
+import { RentIcon } from "@/components/icons/rent-icon"
+import { DeveloperIcon } from "@/components/icons/developer-icon"
+import { Separator } from "@/components/ui/separator"
+import { TypographyH2 } from "@/components/ui/typography"
+import { PriceLabelIcon } from "@/components/icons/price-label-icon"
+import { HouseIcon } from "@/components/icons/house-icon"
 
 export default async function Unit() {
   const unit = await getUnit("SALE", "1933")
   // console.log(unit)
-  // const property = await getProperty(unit.property_id.toString())
+  const property = await getProperty(unit.property_id.toString())
 
   const breadcrumbData = [
     {
@@ -62,7 +82,7 @@ export default async function Unit() {
           </button>
         </div>
       </Container>
-      <Container className="mt-5">Images</Container>
+      <GallerySection unit={unit} />
       <Container className="mt-[70px] grid grid-cols-12 gap-6">
         <div className="col-span-9">
           <h1 className="text-[32px] font-medium">{unit.title}</h1>
@@ -71,10 +91,97 @@ export default async function Unit() {
             <span>{`Apartment for ${unit.operation_type?.name} in ${unit.community.name}, ${unit.community.name}, ${unit.city.name}`}</span>
           </div>
           <div className="text-primary text-[44px] leading-tight font-medium mt-[44px]">
-            {unit.selling_price}{" "}
+            {new Intl.NumberFormat().format(unit.selling_price)}{" "}
+            {/* {unit.selling_price}{" "} */}
             <span className="text-[32px] font-normal">AED</span>
           </div>
-          <div className="grid mt-[40px]">test</div>
+          <div className="grid grid-cols-3 gap-[20px] mt-[40px]">
+            <Info>
+              <InfoIconContainer>
+                <BedSideIcon className="size-6" />
+              </InfoIconContainer>
+              <InfoDataContainer>
+                <InfoTitle>Bedrooms</InfoTitle>
+                <InfoDesc>{unit.bedrooms} Beds</InfoDesc>
+              </InfoDataContainer>
+            </Info>
+            <Info>
+              <InfoIconContainer>
+                <BathIcon className="size-6" />
+              </InfoIconContainer>
+              <InfoDataContainer>
+                <InfoTitle>Bathrooms</InfoTitle>
+                <InfoDesc>{unit.bathrooms} Baths</InfoDesc>
+              </InfoDataContainer>
+            </Info>
+            <Info>
+              <InfoIconContainer>
+                <CityIcon className="size-6" />
+              </InfoIconContainer>
+              <InfoDataContainer>
+                <InfoTitle>Type</InfoTitle>
+                <InfoDesc>{unit.unit_type?.name}</InfoDesc>
+              </InfoDataContainer>
+            </Info>
+            <Info>
+              <InfoIconContainer>
+                <SizeIcon className="size-6" />
+              </InfoIconContainer>
+              <InfoDataContainer>
+                <InfoTitle>Size</InfoTitle>
+                <InfoDesc>{unit.total_area_sqft ?? "---"}</InfoDesc>
+              </InfoDataContainer>
+            </Info>
+            <Info>
+              <InfoIconContainer>
+                {unit.operation_type?.id == OperationType.Sale && (
+                  <SaleIcon className="size-6" />
+                )}
+                {unit.operation_type?.id == OperationType.Rent && (
+                  <RentIcon className="size-6" />
+                )}
+              </InfoIconContainer>
+              <InfoDataContainer>
+                <InfoTitle>Purpose</InfoTitle>
+                <InfoDesc>For {unit.operation_type?.name ?? "---"}</InfoDesc>
+              </InfoDataContainer>
+            </Info>
+            <Info>
+              <InfoIconContainer>
+                <DeveloperIcon className="size-6" />
+              </InfoIconContainer>
+              <InfoDataContainer>
+                <InfoTitle>Developer</InfoTitle>
+                <InfoDesc>{property.developer?.name ?? "---"}</InfoDesc>
+              </InfoDataContainer>
+            </Info>
+          </div>
+          <Separator className="my-10 w-[90%]" />
+          <div className="space-y-7">
+            <TypographyH2 className="font-medium">
+              Property Overview
+            </TypographyH2>
+            <div className="grid grid-cols-3 gap-[20px]">
+              <Info>
+                <InfoIconContainer>
+                  <PriceLabelIcon className="size-6" />
+                </InfoIconContainer>
+                <InfoDataContainer>
+                  <InfoTitle>Price</InfoTitle>
+                  <InfoDesc>{unit.selling_price ?? "---"}</InfoDesc>
+                </InfoDataContainer>
+              </Info>
+              <Info>
+                <InfoIconContainer>
+                  <HouseIcon className="size-6" />
+                </InfoIconContainer>
+                <InfoDataContainer>
+                  <InfoTitle>Project Name</InfoTitle>
+                  <InfoDesc>{unit.property_name ?? "---"}</InfoDesc>
+                </InfoDataContainer>
+              </Info>
+            </div>
+          </div>
         </div>
         <div className="col-span-3">col 2</div>
       </Container>

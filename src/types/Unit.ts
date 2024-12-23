@@ -80,3 +80,8 @@ export type UnitModelModel = {
   secondary_view: LookupModel[] | null
   media: ImageModel[] | null
 }
+
+export enum OperationType {
+  Rent = 431,
+  Sale = 430,
+}
