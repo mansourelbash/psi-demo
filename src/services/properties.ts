@@ -1,4 +1,8 @@
-import { PropertyListModel, PropertyModel } from "@/types/Property"
+import {
+  ProjectSummaryModel,
+  PropertyListModel,
+  PropertyModel,
+} from "@/types/Property"
 import { DefaultPaginate, LandmarkModel, PaginateParams } from "@/types/Shared"
 import { UnitModelModel } from "@/types/Unit"
 import queryString from "query-string"
@@ -7,7 +11,16 @@ const PROPERTY_URL = `${process.env.API_URL}/properties`
 
 export const getProperty = async (id: string): Promise<PropertyModel> => {
   const res = await fetch(`${PROPERTY_URL}/getPropertyById/${id}`, {
-    cache: "no-cache",
+    cache: "no-store",
+  })
+  return res.json()
+}
+
+export const getPropertySummary = async (
+  id: string
+): Promise<ProjectSummaryModel> => {
+  const res = await fetch(`${PROPERTY_URL}/getProjectSummary/${id}`, {
+    cache: "no-store",
   })
   return res.json()
 }

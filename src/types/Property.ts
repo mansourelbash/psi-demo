@@ -57,6 +57,33 @@ export type PropertyModel = Omit<BasePropertyModel, "cover_photo"> & {
   slug: string
 }
 
+export type ProjectSummaryModel = {
+  id: number
+  name: string
+  location: {
+    lat?: number
+    lng?: number
+  }
+  launch_date: string | null
+  handover_date: string | null
+  community_name: string
+  expected_roi: number
+  service_charge: number
+  developer_name: string
+  min_bedrooms: number
+  max_bedrooms: number
+  min_bathrooms: number
+  max_bathrooms: number
+  min_total_sqft: number | null
+  max_total_sqft: number | null
+  min_selling_price: number | null
+  max_selling_price: number | null
+  min_rent_price_per_year: number | null
+  max_rent_price_per_year: number | null
+  number_of_units: number | null
+  is_luxury: boolean
+}
+
 export type PropertyListModel = BasePropertyModel & {
   location: {
     lat?: number
