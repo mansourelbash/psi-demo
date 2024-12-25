@@ -6,8 +6,7 @@ import { Input } from "@/components/ui/input"
 import { MapPin } from "@phosphor-icons/react/dist/ssr"
 import Image from "next/image"
 
-type Props = {}
-export const HeroSection = (props: Props) => {
+export const HeroSection = () => {
   return (
     <Container className="rounded-[20px] overflow-hidden">
       <AspectRatio ratio={16 / 7.2} className="flex items-center">

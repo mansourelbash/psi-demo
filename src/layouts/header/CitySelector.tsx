@@ -9,14 +9,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { cities } from "@/data"
-import { langs } from "@/i18n.config"
-import { cn } from "@/lib/utils"
 import { CaretDown } from "@phosphor-icons/react"
 import { useAtom, useAtomValue } from "jotai"
 import { useState } from "react"
 
-type Props = {}
-export const CitySelector = (props: Props) => {
+export const CitySelector = () => {
   const settings = useAtomValue(settingsAtom)
   const [open, setOpen] = useState(false)
 

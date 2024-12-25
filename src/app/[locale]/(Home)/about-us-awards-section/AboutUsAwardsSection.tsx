@@ -2,8 +2,7 @@ import { Container } from "@/components/ui/container"
 import { TextHighlight, TypographyH2 } from "@/components/ui/typography"
 import Image from "next/image"
 
-type Props = {}
-export const AboutUsAwardsSection = (props: Props) => {
+export const AboutUsAwardsSection = () => {
   return (
     <Container className="bg-secondary-white rounded-[20px] pt-10 pb-16 flex flex-col items-center">
       <div className="flex flex-col items-center gap-7 pb-4">

@@ -3,7 +3,7 @@ import {
   PropertyListModel,
   PropertyModel,
 } from "@/types/Property"
-import { DefaultPaginate, LandmarkModel, PaginateParams } from "@/types/Shared"
+import { DefaultPaginate, PaginateParams } from "@/types/Shared"
 import { UnitModelModel } from "@/types/Unit"
 import queryString from "query-string"
 

@@ -15,8 +15,7 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 
-type Props = {}
-export const Footer = (props: Props) => {
+export const Footer = () => {
   return (
     <footer className="bg-secondary-white py-[30px] space-y-20">
       <Container>

@@ -10,8 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import { TextHighlight, TypographyH2 } from "@/components/ui/typography"
 import Image from "next/image"
 
-type Props = {}
-export const MediaSection = (props: Props) => {
+export const MediaSection = () => {
   return (
     <Container className="bg-secondary-white rounded-[20px] pt-10 pb-16 flex flex-col items-center gap-[100px]">
       <div className="flex flex-col items-center gap-14 pb-4">
@@ -20,8 +19,8 @@ export const MediaSection = (props: Props) => {
             <TextHighlight>Media</TextHighlight> Publications
           </TypographyH2>
           <p className="text-lg">
-            Stay updated with the latest news, insights, and trends from the
-            world of real estate.
+            {`Stay updated with the latest news, insights, and trends from the
+            world of real estate.`}
           </p>
         </div>
         <div className="flex gap-3 max-w-[1430px] w-[95%]">
@@ -63,7 +62,7 @@ export const MediaSection = (props: Props) => {
             Our Customer <TextHighlight>Feedback</TextHighlight>
           </TypographyH2>
           <p className="text-lg">
-            Don't take our word for it. Trust our customers
+            {`Don't take our word for it. Trust our customers`}
           </p>
         </div>
       </div>

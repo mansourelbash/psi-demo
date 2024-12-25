@@ -4,7 +4,7 @@ import { TypographyH2 } from "@/components/ui/typography"
 import { cn } from "@/lib/utils"
 import { UnitModel } from "@/types/Unit"
 import { ChevronDownIcon } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
 type Props = {
   unit: UnitModel

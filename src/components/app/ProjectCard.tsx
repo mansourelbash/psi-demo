@@ -19,8 +19,7 @@ import { Separator } from "@/components/ui/separator"
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon"
 import { useShareDialog } from "../dialogs/useShareDialog"
 
-type Props = {}
-export const ProjectCard = (props: Props) => {
+export const ProjectCard = () => {
   const { dialog, handleDialogOpen } = useShareDialog()
 
   return (
@@ -130,7 +129,7 @@ export const ProjectCard = (props: Props) => {
   )
 }
 
-export const ProjectCardFlat = (props: Props) => {
+export const ProjectCardFlat = () => {
   return (
     <div className="w-[410px]">
       <AspectRatio

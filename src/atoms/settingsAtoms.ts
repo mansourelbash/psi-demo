@@ -1,6 +1,5 @@
 import { i18n } from "@/i18n.config"
 import { getDictionary } from "@/lib/getDictionary"
-import { atom } from "jotai"
 import { atomWithStorage } from "jotai/utils"
 import { atomWithDefault } from "jotai/utils"
 

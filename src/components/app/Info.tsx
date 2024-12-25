@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils"
 import { Slot } from "@radix-ui/react-slot"
 import React from "react"
 
-type Props = {}
 // export const InfoWithIcon = (props: Props) => {
 //   return (
 //     <div className="flex gap-3 items-center">
@@ -68,7 +67,7 @@ export const InfoDesc = React.forwardRef<
   return (
     <div
       ref={ref}
-      className={cn("text-lg font-medium", className)}
+      className={cn("text-lg font-medium capitalize", className)}
       {...props}
     />
   )

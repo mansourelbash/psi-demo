@@ -4,8 +4,7 @@ import { TextHighlight, TypographyH2 } from "@/components/ui/typography"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
-type Props = {}
-export const PopularAreasSection = (props: Props) => {
+export const PopularAreasSection = () => {
   return (
     <Container className="space-y-[30px]">
       <TypographyH2>

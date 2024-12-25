@@ -1,6 +1,5 @@
 import { CaretDown } from "@phosphor-icons/react"
 import Link from "next/link"
-import { Children } from "react"
 
 const menuLinks = [
   {
@@ -37,8 +36,7 @@ const menuLinks = [
   },
 ]
 
-type Props = {}
-export const Nav = (props: Props) => {
+export const Nav = () => {
   return (
     <div className="flex gap-4 flex-wrap">
       {menuLinks.map((link, index) => (

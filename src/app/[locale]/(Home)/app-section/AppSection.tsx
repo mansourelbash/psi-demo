@@ -5,10 +5,8 @@ import { Separator } from "@/components/ui/separator"
 import { TextHighlight, TypographyH2 } from "@/components/ui/typography"
 import { GooglePlayLogo } from "@phosphor-icons/react/dist/ssr"
 import Image from "next/image"
-import Link from "next/link"
 
-type Props = {}
-export const AppSection = (props: Props) => {
+export const AppSection = () => {
   return (
     <Container className="bg-secondary-white rounded-[20px] pt-14 flex flex-col items-center space-y-8">
       <div className="max-w-[996px] text-center space-y-3.5">

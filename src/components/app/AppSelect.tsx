@@ -42,9 +42,9 @@ export const selectVariants = cva(
 
 type Props = {
   value?: string
-  onChange?: (value: string, item: any | null) => void
+  onChange?: (value: string, item: Record<string, string> | null) => void
   cleanable?: boolean
-  data: Record<string, any>[]
+  data: Record<string, string>[]
   labelKey?: string
   valueKey?: string
   onOpen?: () => void
@@ -63,13 +63,16 @@ type Props = {
     value: string | undefined,
     label: string | null
   ) => React.ReactNode
-  renderOption?: (item: Record<string, any>, label: string) => React.ReactNode
+  renderOption?: (
+    item: Record<string, string>,
+    label: string
+  ) => React.ReactNode
   beforeIcon?: React.ReactNode
   popoverContentClassName?: string
   icon?: React.ReactNode
   disabled?: boolean
   onPlusClick?: () => void
-  defaultData?: Record<string, any>
+  defaultData?: Record<string, string>
 } & VariantProps<typeof selectVariants>
 export const AppSelect = forwardRef<HTMLButtonElement, Props>(
   (
@@ -92,7 +95,6 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
       cachedSuggestions,
       paginated,
       searchable = true,
-      formField = false,
       variant,
       renderValue,
       renderOption,
@@ -107,7 +109,7 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
     const [selectedValue, setSelectedValue] = useState<string>(value ?? "")
     const [open, setOpen] = useState(false)
     const commandRef = useRef<HTMLDivElement>(null)
-    const [_defaultData, setDefaultData] = useState(defaultData)
+    const [_defaultData] = useState(defaultData)
     const dictionary = useAtomValue(dictionaryAtom)
 
     const _valueKey = valueKey ?? "value"
@@ -145,9 +147,14 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
         : null
     }, [selectedValue, _defaultData])
 
-    const handelSelectChange = (value: string, item: any = null) => {
+    const handelSelectChange = (
+      value: string,
+      item: Record<string, string> | null = null
+    ) => {
       setSelectedValue(value)
-      onChange && onChange(value, item)
+      if (onChange) {
+        onChange(value, item)
+      }
       setOpen(false)
     }
 

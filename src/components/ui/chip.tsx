@@ -78,6 +78,7 @@ const Chip = React.forwardRef<HTMLDivElement, ChipProps>(
     return (
       <div
         className={cn(chipVariants({ color, variant }), className)}
+        ref={ref}
         {...props}
       >
         {children}

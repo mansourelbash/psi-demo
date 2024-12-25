@@ -6,7 +6,7 @@ import Negotiator from "negotiator"
 
 // Get the preferred locale
 function getLocale(request: NextRequest) {
-  const headers: Record<string, any> = {}
+  const headers: Record<string, string | string[] | undefined> = {}
   request.headers.forEach((value, key) => (headers[key] = value))
   const languages = new Negotiator({ headers }).languages()
   const locales = i18n.locales
@@ -46,6 +46,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     // Skip all internal paths (_next)
-    "/((?!_next|api|favicon.ico|logo*|images|public/|js).*)",
+    "/((?!_next|api|favicon.ico|logo*|images|icons|public/|js).*)",
   ],
 }

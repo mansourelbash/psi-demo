@@ -14,13 +14,12 @@ import { langs } from "@/i18n.config"
 import { cn } from "@/lib/utils"
 import { CaretDown, GlobeHemisphereWest } from "@phosphor-icons/react"
 import { useAtom, useAtomValue } from "jotai"
-import { useParams, usePathname } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-type Props = {}
-export const SettingsSelector = (props: Props) => {
-  const { locale } = useParams<{ locale: string }>()
+export const SettingsSelector = () => {
+  // const { locale } = useParams<{ locale: string }>()
   const settings = useAtomValue(settingsAtom)
   const [open, setOpen] = useState(false)
 

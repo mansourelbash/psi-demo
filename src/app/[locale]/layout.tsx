@@ -4,7 +4,6 @@ import "../globals.css"
 import { Header } from "@/layouts/header/Header"
 // import { Footer } from "@/layouts/footer/Footer"
 import { Locale } from "@/i18n.config"
-import { getDictionary } from "@/lib/getDictionary"
 import { Footer } from "@/layouts/footer/Footer"
 
 const montserrat = Montserrat({
@@ -30,7 +29,7 @@ export default async function RootLayout(
 ) {
   const params = await props.params
 
-  const dictionary = await getDictionary(params.locale)
+  // const dictionary = await getDictionary(params.locale)
 
   return (
     <html lang={params.locale}>

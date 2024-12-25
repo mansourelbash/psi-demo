@@ -16,6 +16,7 @@ export const useDictionary = (locale: string) => {
         setIsLoading(true)
         const dict = await getDictionary(locale)
         setDictionary(dict)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         setError("Failed to load dictionary")
       } finally {

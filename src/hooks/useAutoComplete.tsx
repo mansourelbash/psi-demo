@@ -29,7 +29,9 @@ const useAutoComplete = ({
 
   const handelSearchDebounce = useDebouncedCallback((search: string) => {
     if (paginated) {
-      onSearch && onSearch(search)
+      if (onSearch) {
+        onSearch(search)
+      }
     }
   }, searchDelay ?? 400)
 
@@ -46,10 +48,14 @@ const useAutoComplete = ({
   const handelOpenChange = (open: boolean) => {
     if (open) {
       if (!(cachedSuggestions && data.length > 0)) {
-        onOpen && onOpen()
+        if (onOpen) {
+          onOpen()
+        }
       }
     } else {
-      onClose && onClose()
+      if (onClose) {
+        onClose()
+      }
     }
     setOpen(open)
   }

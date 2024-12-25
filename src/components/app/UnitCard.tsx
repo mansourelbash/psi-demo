@@ -11,14 +11,12 @@ import {
   ShareFat,
 } from "@phosphor-icons/react/dist/ssr"
 import { CompareIcon } from "@/components/icons/compare-icon"
-import { TextHighlight } from "@/components/ui/typography"
 import { BedIcon } from "@/components/icons/bed-icon"
 import { BoxSizeIcon } from "@/components/icons/box-size-icon"
 import { Separator } from "@/components/ui/separator"
 import { WhatsAppIcon } from "@/components/icons/whatsapp-icon"
 
-type Props = {}
-export const UnitCard = (props: Props) => {
+export const UnitCard = () => {
   return (
     <div className="p-2.5 rounded-[18px] border w-[410px]">
       <AspectRatio

@@ -30,7 +30,7 @@ export const GallerySection = ({ unit }: Props) => {
       <div className="rounded-[20px] overflow-hidden grow relative [&>div]:min-h-full">
         <AspectRatio ratio={1433 / 760}>
           <Image
-            src={coverImage.image?.url?.preview}
+            src={coverImage.image?.url?.preview ?? "/logo.svg"}
             alt=""
             fill
             className="object-cover"
@@ -40,10 +40,10 @@ export const GallerySection = ({ unit }: Props) => {
       </div>
       <div className="basis-2/12 flex flex-col gap-5 shrink-0">
         {Children.toArray(
-          media?.map((image, index) => (
+          media?.map((image) => (
             <AspectRatio ratio={267 / 160}>
               <Image
-                src={image.url?.preview}
+                src={image.url?.preview ?? "logo.svg"}
                 alt=""
                 width={279}
                 height={248}

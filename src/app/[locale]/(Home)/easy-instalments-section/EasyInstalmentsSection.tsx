@@ -10,8 +10,7 @@ import {
 import { Container } from "@/components/ui/container"
 import { TextHighlight, TypographyH2 } from "@/components/ui/typography"
 
-type Props = {}
-export const EasyInstalmentsSection = (props: Props) => {
+export const EasyInstalmentsSection = () => {
   return (
     <Container>
       <Carousel opts={{ align: "start" }} className="w-full space-y-[30px]">

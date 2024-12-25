@@ -6,7 +6,6 @@ import { useHydrateAtoms } from "jotai/utils"
 // HydrationProvider to hydrate both locale and dictionary
 export const HydrationProvider = ({
   locale,
-  dictionary,
   children,
 }: {
   locale: string
