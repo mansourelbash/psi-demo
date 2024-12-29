@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg2415" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-2 {
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3.9px;
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-1" x=".7" y=".5" width="98.6" height="98.6"/>
+    </clipPath>
+  </defs>
+  <g id="g2421">
+    <g id="g2423">
+      <g class="cls-3">
+        <g id="g2425">
+          <g id="g2431">
+            <path id="path2433" class="cls-2" d="M2.6,49.8L50,2.4l47.4,47.4-47.4,47.4L2.6,49.8Z"/>
+          </g>
+          <g id="g2435">
+            <path id="path2437" class="cls-2" d="M19.9,67c5.3-3.5,12.8-4.9,15.3-10.5,2.3-5.1,4.2-11.5,8.9-14.8,4-2.9,9.3-.2,6.3,5-3.6,6.2-4.2,14.4-4.2,21.6s-5.3,8.4-9.8,15.2"/>
+          </g>
+          <g id="g2439">
+            <path id="path2441" class="cls-2" d="M28.4,74.7c3.3-3.1,8.1-2.5,9.8-8.8"/>
+          </g>
+          <g id="g2443">
+            <path id="path2445" class="cls-2" d="M80.2,32.6c-2.3,2.5-4.9,4.8-6.4,8.3-3.1,7.3,1.6,12.3-6.3,25.5-1.9,3.1-7,10.1-3.7,17"/>
+          </g>
+          <g id="g2447">
+            <path id="path2449" class="cls-2" d="M86.2,38.7c-3.1,2.9-5.5,6.4-2.9,11,4.3,7.4-5,7.5-3.4,17.5"/>
+          </g>
+          <g id="g2451">
+            <path id="path2453" class="cls-2" d="M28,42c-1.3,1.9-2.5,3.6-3.8,4.9-3.3,3.4-10.4,4.9-15.9,8.5M67.4,19.9c-9.4,6.2-14,1.9-22.7,6-2,.9-3.7,2-5.3,3.1"/>
+          </g>
+          <g id="g2455">
+            <path id="path2457" class="cls-2" d="M58.9,11.4c-2.7,2.9-6.3,4.9-11.1,5.6-3.2.5-6.7-.8-9.9-2.3"/>
+          </g>
+          <g id="g2459">
+            <path id="path2461" class="cls-2" d="M33.1,35h0"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg645" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-2 {
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2.9px;
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-1" x="-.1" y="-.2" width="100.2" height="100.2"/>
+    </clipPath>
+  </defs>
+  <g id="g651">
+    <g id="g653">
+      <g class="cls-3">
+        <g id="g655">
+          <g id="g661">
+            <path id="path663" class="cls-2" d="M64.1,6.6c3.7-3.3,8.6-5.4,14-5.4h11.4c.4,0,.7.3.7.7v1.5c0,11.6-9.4,21-21,21h-12.1v-2.2c0-3.7,1-7.3,2.7-10.3"/>
+          </g>
+          <g id="g665">
+            <path id="path667" class="cls-2" d="M74.5,12.3l-17.1,12c-6.6,4.6-10.6,12.2-10.6,20.3v44.1"/>
+          </g>
+          <g id="g669">
+            <path id="path671" class="cls-2" d="M12.4,20.9h-2c-.4,0-.7.3-.7.7v1.5c0,11.2,9.1,20.3,20.3,20.3h11.6v-2.1c0-11.2-9.1-20.3-20.3-20.3h-2.2"/>
+          </g>
+          <g id="g673">
+            <path id="path675" class="cls-2" d="M24.9,31.5l16.6,11.7c3.3,2.3,5.3,6.1,5.3,10.1v4.8"/>
+          </g>
+          <g id="g677">
+            <path id="path679" class="cls-2" d="M60.5,52.7h-8.3v-1.5c0-8,6.5-14.5,14.5-14.5h7.7c.4,0,.7.3.7.7v.9c0,8-6.5,14.5-14.5,14.5Z"/>
+          </g>
+          <g id="g681">
+            <path id="path683" class="cls-2" d="M64.1,44.3l-12.7,8.9c-2.9,2-4.6,5.3-4.6,8.9v4.4"/>
+          </g>
+          <g id="g685">
+            <path id="path687" class="cls-2" d="M35.4,67.5h6.4v-1.2c0-6.2-5-11.2-11.2-11.2h-5.8c-.4,0-.7.3-.7.7v.5c0,6.2,5,11.2,11.2,11.2Z"/>
+          </g>
+          <g id="g689">
+            <path id="path691" class="cls-2" d="M32.6,61l9.5,6.6c3,2.1,4.8,5.6,4.8,9.2v3.6"/>
+          </g>
+          <g id="g693">
+            <path id="path695" class="cls-2" d="M55.4,98.5h8c.1,0,.2,0,.2-.2-.1-3.2-2.7-5.7-5.9-5.7s-.5,0-.8,0c-1.1.1-2.2-.3-2.9-1-1.8-1.9-4.3-3-7.1-3s-3.9.6-5.4,1.6c-.7.5-1.5.6-2.4.5-.3,0-.7,0-1,0-4.2,0-7.7,3.4-7.8,7.6,0,.1,0,.2.2.2h18.1"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

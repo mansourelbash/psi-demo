@@ -8,10 +8,11 @@ import { ToolbarSection } from "./toolbar-section/ToolbarSection"
 import { DescriptionSection } from "./description-section/DescriptionSection"
 import { ProjectSummerySection } from "./project-summery-section/ProjectSummerySection"
 import { PropertyOverviewSection } from "./property-overview-section/PropertyOverviewSection"
-import { AmenitiesSection } from "./amenities-section/ProjectSummerySection"
+import { AmenitiesSection } from "./amenities-section/AmenitiesSection"
+import { FixturesSection } from "./fixtures-section/FixturesSection"
 
 export default async function Unit() {
-  const unit = await getUnit("SALE", "1934")
+  const unit = await getUnit("SALE", "1931")
   const property = await getPropertySummary(unit.property_id.toString())
 
   const breadcrumbData = [
@@ -53,6 +54,7 @@ export default async function Unit() {
           <Separator className="my-10 w-[90%]" />
           <AmenitiesSection unit={unit} />
           <Separator className="my-10 w-[90%]" />
+          <FixturesSection unit={unit} />
         </div>
         <div className="col-span-3">col 2</div>
       </Container>

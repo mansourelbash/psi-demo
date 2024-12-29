@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg2736" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        clip-path: url(#clippath-1);
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath-2);
+      }
+
+      .cls-5 {
+        clip-path: url(#clippath);
+      }
+
+      .cls-2 {
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 3.8px;
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-1" x=".7" y=".7" width="98.5" height="98.5"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="cls-1" x=".7" y=".7" width="98.5" height="98.5"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="cls-1" x=".7" y=".7" width="98.5" height="98.5"/>
+    </clipPath>
+  </defs>
+  <g id="g2742">
+    <g id="g2744">
+      <g class="cls-5">
+        <g id="g2746">
+          <path id="path2752" class="cls-2" d="M2.7,2.7h94.7v94.7H2.7V2.7Z"/>
+          <g id="g2754">
+            <path id="path2756" class="cls-2" d="M68.1,25.9V2.7"/>
+          </g>
+          <g id="g2758">
+            <path id="path2760" class="cls-2" d="M68.1,96.2v-52.9"/>
+          </g>
+          <g id="g2762">
+            <path id="path2764" class="cls-2" d="M68.1,82H3.6"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="g2766">
+      <path id="path2768" class="cls-2" d="M77.3,51v-1.9"/>
+    </g>
+    <g id="g2770">
+      <g class="cls-3">
+        <g id="g2772">
+          <g id="g2778">
+            <path id="path2780" class="cls-2" d="M68.1,66.6H2.7V2.7h65.4"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="g2782">
+      <path id="path2784" class="cls-2" d="M34.4,74.3h1.9"/>
+    </g>
+    <g id="g2786">
+      <path id="path2788" class="cls-2" d="M34.4,89.7h1.9"/>
+    </g>
+    <g id="g2790">
+      <g class="cls-4">
+        <g id="g2792">
+          <g id="g2798">
+            <path id="path2800" class="cls-2" d="M49.2,33l2.9,3.1,8.3-8.3-6.6-7.7c-2-2.3-4.9-3.7-8-3.7h-3.8v2.1c0,3.7-3,6.6-6.6,6.6h0c-3.7,0-6.7-3-6.7-6.6v-2.1h-3.8c-3.1,0-6,1.3-8,3.7l-6.6,7.7,8.3,8.3,3.1-3.1v22.7h27.4v-22.7Z"/>
+          </g>
+          <g id="g2802">
+            <path id="path2804" class="cls-2" d="M30.5,7.5c0-2.8,2.3-5,5.1-4.8,2.4.1,4.4,2.1,4.5,4.5.1,2.3-1.3,4.2-3.2,4.9-1,.3-1.6,1.3-1.6,2.3v2.1"/>
+          </g>
+          <g id="g2806">
+            <path id="path2808" class="cls-2" d="M29.2,16.5h12.2"/>
+          </g>
+          <g id="g2810">
+            <path id="path2812" class="cls-2" d="M68.1,34.6h0"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

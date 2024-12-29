@@ -1,0 +1,18 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M28.125 56.25C31.5768 56.25 34.375 53.4518 34.375 50C34.375 46.5482 31.5768 43.75 28.125 43.75C24.6732 43.75 21.875 46.5482 21.875 50C21.875 53.4518 24.6732 56.25 28.125 56.25Z" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M184.778 62.5L175.566 71.7125" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M175.566 62.5L184.778 71.7125" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M34.5 134.375C34.5 134.444 34.444 134.5 34.375 134.5C34.306 134.5 34.25 134.444 34.25 134.375C34.25 134.306 34.306 134.25 34.375 134.25C34.444 134.25 34.5 134.306 34.5 134.375Z" fill="currentColor" stroke="currentColor" stroke-width="6"/>
+<path d="M21.875 193.75H175" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M125 65.625H71.875V178.125H125V65.625Z" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M84.375 65.625V178.125" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M112.5 65.625V178.125" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M71.875 90.625H125" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M71.875 112.5H125" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M71.875 134.375H125" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M71.875 156.25H125" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M98.4375 15.625C76.875 15.625 59.375 18.4375 59.375 21.875V193.75H137.5V21.875C137.5 18.4375 120 15.625 98.4375 15.625Z" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M125 28.125H71.875V40.625H125V28.125Z" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M143.75 118.75C147.202 118.75 150 115.952 150 112.5C150 109.048 147.202 106.25 143.75 106.25C140.298 106.25 137.5 109.048 137.5 112.5C137.5 115.952 140.298 118.75 143.75 118.75Z" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M59.375 50H137.5" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/>
+</svg>

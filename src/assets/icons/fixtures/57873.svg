@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: currentColor;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M92.6,69.9V14.2H7.4v55.6h30.4l-3.2,7.7h-9.1v8.2h49v-8.2h-9.1l-3.2-7.7h30.4ZM9.9,67.4V16.7h80.3v50.6H9.9ZM72,80v3.2H28v-3.2h44ZM62.7,77.5h-25.4l3.2-7.7h19l3.2,7.7Z"/>
+  <path class="cls-1" d="M87.6,19.2H12.4v45.6h12.4v-2.5h-9.9V21.7h70.3v40.6H27.2v2.5h60.4V19.2Z"/>
+  <path class="cls-1" d="M36.1,25h-16.8v15.6h16.8v-15.6ZM33.6,38.1h-11.8v-10.6h11.8v10.6Z"/>
+  <path class="cls-1" d="M19.2,59.1h16.8v-15.6h-16.8v15.6ZM21.7,46h11.8v10.6h-11.8v-10.6Z"/>
+  <path class="cls-1" d="M56.6,25h-16.8v15.6h16.8v-15.6ZM54.1,38.1h-11.8v-10.6h11.8v10.6Z"/>
+  <path class="cls-1" d="M39.7,59.1h16.8v-15.6h-16.8v15.6ZM42.2,46h11.8v10.6h-11.8v-10.6Z"/>
+  <path class="cls-1" d="M80.8,32.8v-7.8h-20.6v34.2h20.6v-23.9h-2.5v21.4h-15.6v-29.2h15.6v5.3h2.5Z"/>
+  <path class="cls-1" d="M76,42l-9.9-6.6v13.2l9.9-6.6ZM68.5,40.1l2.9,1.9-2.9,1.9v-3.9Z"/>
+  <path class="cls-1" d="M26.4,31.5h2.5v2.5h-2.5v-2.5Z"/>
+  <path class="cls-1" d="M26.4,50.1h2.5v2.5h-2.5v-2.5Z"/>
+  <path class="cls-1" d="M46.9,31.5h2.5v2.5h-2.5v-2.5Z"/>
+  <path class="cls-1" d="M46.9,50.1h2.5v2.5h-2.5v-2.5Z"/>
+</svg>

@@ -55,6 +55,8 @@ const nextConfig: NextConfig = {
                   params: {
                     overrides: {
                       removeViewBox: false,
+                      mergePaths: false,
+                      convertStyleToAttrs: false,
                     },
                   },
                 },
