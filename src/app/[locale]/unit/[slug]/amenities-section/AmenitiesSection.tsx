@@ -11,7 +11,7 @@ export const AmenitiesSection = ({ unit }: Props) => {
     <div className="space-y-7 max-w-[750px]">
       <TypographyH2 className="font-medium">Key Amenities</TypographyH2>
       <div className="grid grid-cols-2 gap-x-28 gap-y-3.5">
-        {unit.amenities.map((amenitie, index) => {
+        {unit.amenities?.map((amenitie, index) => {
           const Icon: ComponentType<ComponentProps<"svg">> = dynamic(() =>
             import(`@/assets/icons/amenities/${amenitie.id}.svg`).catch(
               () => import(`@/assets/icons/logo.svg`)

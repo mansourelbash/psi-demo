@@ -62,8 +62,8 @@ export interface LandmarkModel {
   }
   address: string | null
   location: {
-    lat?: 24.39182025
-    lng?: 54.64721623
+    lat?: number
+    lng?: number
   }
   website: string | null
   youtube_link: string | null

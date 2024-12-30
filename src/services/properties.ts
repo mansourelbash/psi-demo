@@ -3,7 +3,7 @@ import {
   PropertyListModel,
   PropertyModel,
 } from "@/types/Property"
-import { DefaultPaginate, PaginateParams } from "@/types/Shared"
+import { DefaultPaginate, LandmarkModel, PaginateParams } from "@/types/Shared"
 import { UnitModelModel } from "@/types/Unit"
 import queryString from "query-string"
 
@@ -34,6 +34,15 @@ export const getProperties = async (
 ): Promise<DefaultPaginate<PropertyListModel>> => {
   const query = queryString.stringify(params, { skipNull: true })
   const res = await fetch(`${PROPERTY_URL}?${query}`, {
+    cache: "no-cache",
+  })
+  return res.json()
+}
+
+export const getLandmarks = async (
+  propertyId: string
+): Promise<LandmarkModel[]> => {
+  const res = await fetch(`${PROPERTY_URL}/landmarks/${propertyId}`, {
     cache: "no-cache",
   })
   return res.json()

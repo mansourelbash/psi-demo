@@ -10,9 +10,11 @@ import { ProjectSummerySection } from "./project-summery-section/ProjectSummeryS
 import { PropertyOverviewSection } from "./property-overview-section/PropertyOverviewSection"
 import { AmenitiesSection } from "./amenities-section/AmenitiesSection"
 import { FixturesSection } from "./fixtures-section/FixturesSection"
+import { FloorSection } from "./floor-section/FloorSection"
+import { NearbySection } from "./nearby-section/NearbySection"
 
 export default async function Unit() {
-  const unit = await getUnit("SALE", "1931")
+  const unit = await getUnit("SALE", "1935")
   const property = await getPropertySummary(unit.property_id.toString())
 
   const breadcrumbData = [
@@ -55,6 +57,9 @@ export default async function Unit() {
           <AmenitiesSection unit={unit} />
           <Separator className="my-10 w-[90%]" />
           <FixturesSection unit={unit} />
+          <Separator className="my-10 w-[90%]" />
+          <FloorSection unit={unit} />
+          <NearbySection unit={unit} />
         </div>
         <div className="col-span-3">col 2</div>
       </Container>

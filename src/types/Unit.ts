@@ -31,7 +31,7 @@ export type UnitModel = BaseUnitModel & {
   media: MediaModel[] | null
   description: string
   fixtures: ItemModel[] | null
-  amenities: ItemModel[]
+  amenities: ItemModel[] | null
   views: ItemModel | null
   rent_per_month: number | null
   rent_per_sqft: number | null
