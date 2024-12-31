@@ -73,13 +73,10 @@
     @apply bg-background text-foreground;
   }
 
-  .select-scrollbar::-webkit-scrollbar {
+  .primary-scrollbar::-webkit-scrollbar {
     @apply w-3;
   }
-  /* .select-scrollbar::-webkit-scrollbar-track {
-    background: red;
-  } */
-  .select-scrollbar::-webkit-scrollbar-thumb {
+  .primary-scrollbar::-webkit-scrollbar-thumb {
     @apply bg-primary rounded-full border-[4px] border-solid border-background;
   }
 }

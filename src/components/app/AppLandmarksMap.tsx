@@ -13,7 +13,6 @@ import {
 import "mapbox-gl/dist/mapbox-gl.css"
 import { LandmarkModel } from "@/types/Shared"
 import { cn, haversine } from "@/lib/utils"
-import { SchoolIcon } from "lucide-react"
 import { AspectRatio } from "../ui/aspect-ratio"
 import { Separator } from "../ui/separator"
 import dynamic from "next/dynamic"
@@ -139,7 +138,7 @@ export const AppLandmarksMap = ({ landmarks, itemLocation }: Props) => {
         <div className="rounded-lg border h-full flex flex-col overflow-hidden p-7 pb-9 absolute top-0 start-0 size-full">
           <h3 className="text-2xl font-medium">Places Nearby</h3>
           <Separator className="my-5" />
-          <div className="space-y-3 [&>div]:rounded-lg [&>div]:bg-secondary-white [&>div]:p-3 text-sm font-medium overflow-auto grow select-scrollbar">
+          <div className="space-y-3 [&>div]:rounded-lg [&>div]:bg-secondary-white [&>div]:p-3 text-sm font-medium overflow-auto grow primary-scrollbar">
             {landmarks.map((landmark, index) => (
               <Landmark
                 landmark={landmark}
@@ -174,10 +173,18 @@ const Landmark = ({
   onActiveMarkerChange,
   itemLocation,
 }: LandmarkProps) => {
-  const Icon: ComponentType<ComponentProps<"svg">> = dynamic(() =>
-    import(`@/assets/icons/landmarks/${landmark.category.id}.svg`).catch(
-      () => import(`@/assets/icons/logo.svg`)
-    )
+  const Icon: ComponentType<ComponentProps<"svg">> = useMemo(
+    () =>
+      dynamic(
+        () =>
+          import(`@/assets/icons/landmarks/${landmark.category.id}.svg`).catch(
+            () => import(`@/assets/icons/logo.svg`)
+          ),
+        {
+          ssr: false,
+        }
+      ),
+    []
   )
   const distance = useMemo(() => {
     if (

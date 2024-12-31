@@ -260,7 +260,7 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
             ) : null}
             <>
               {!loading && <CommandEmpty>No item found.</CommandEmpty>}
-              <CommandList className="py-2 max-h-[250px] select-scrollbar">
+              <CommandList className="py-2 max-h-[250px] primary-scrollbar">
                 {loading ? (
                   <CommandLoading className="py-1 px-2">
                     <Loader2Icon className="text-xl animate-spin" />

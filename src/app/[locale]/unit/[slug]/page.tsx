@@ -12,9 +12,10 @@ import { AmenitiesSection } from "./amenities-section/AmenitiesSection"
 import { FixturesSection } from "./fixtures-section/FixturesSection"
 import { FloorSection } from "./floor-section/FloorSection"
 import { NearbySection } from "./nearby-section/NearbySection"
+import { MortgageCalculatorSection } from "./mortgage-calculator-section/MortgageCalculatorSection"
 
 export default async function Unit() {
-  const unit = await getUnit("SALE", "1935")
+  const unit = await getUnit("SALE", "1936")
   const property = await getPropertySummary(unit.property_id.toString())
 
   const breadcrumbData = [
@@ -60,6 +61,7 @@ export default async function Unit() {
           <Separator className="my-10 w-[90%]" />
           <FloorSection unit={unit} />
           <NearbySection unit={unit} />
+          <MortgageCalculatorSection unit={unit} />
         </div>
         <div className="col-span-3">col 2</div>
       </Container>
