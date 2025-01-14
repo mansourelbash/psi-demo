@@ -15,7 +15,7 @@ import { NearbySection } from "./nearby-section/NearbySection"
 import { MortgageCalculatorSection } from "./mortgage-calculator-section/MortgageCalculatorSection"
 
 export default async function Unit() {
-  const unit = await getUnit("SALE", "1936")
+  const unit = await getUnit("SALE", "1934")
   const property = await getPropertySummary(unit.property_id.toString())
 
   const breadcrumbData = [
@@ -28,15 +28,15 @@ export default async function Unit() {
       href: `/units/?operation-type=${"SALE"}&city=${unit.city.id}`,
     },
     {
-      name: unit.community.name,
+      name: unit.community?.name ?? "",
       href: `/units/?operation-type=${"SALE"}&city=${unit.city.id}&community=${
-        unit.community.id
+        unit.community?.id ?? ""
       }`,
     },
     {
       name: unit.property_name,
       href: `/units/?operation-type=${"SALE"}&city=${unit.city.id}&community=${
-        unit.community.id
+        unit.community?.id ?? ""
       }&project=${"test"}`,
     },
   ]

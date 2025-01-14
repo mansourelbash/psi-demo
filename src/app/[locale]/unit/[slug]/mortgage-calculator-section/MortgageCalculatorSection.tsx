@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { TypographyH2 } from "@/components/ui/typography"
 import { UnitModel } from "@/types/Unit"
-import Image from "next/image"
 
 type Props = {
   unit: UnitModel

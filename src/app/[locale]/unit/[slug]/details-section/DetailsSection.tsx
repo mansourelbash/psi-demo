@@ -26,7 +26,7 @@ export const DetailsSection = ({ unit, property }: Props) => {
       <h1 className="text-[32px] font-medium">{unit.title}</h1>
       <div className="flex gap-2 items-center text-lg leading-tight font-medium mt-5">
         <MapPin size={20} />
-        <span>{`Apartment for ${unit.operation_type?.name} in ${unit.community.name}, ${unit.community.name}, ${unit.city.name}`}</span>
+        <span>{`Apartment for ${unit.operation_type?.name} in ${unit.community?.name}, ${unit.community?.name}, ${unit.city.name}`}</span>
       </div>
       <div className="text-primary text-[44px] leading-tight font-medium mt-[44px]">
         {new Intl.NumberFormat().format(unit.selling_price)}{" "}

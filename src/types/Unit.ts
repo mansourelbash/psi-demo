@@ -9,7 +9,7 @@ export type BaseUnitModel = {
   is_favorite: false
   unit_type: ItemModel | null
   city: ItemModel
-  community: ItemModel
+  community: ItemModel | null
   sub_community: ItemModel
   handover_date: string | null
   cover_photo: ImageModel

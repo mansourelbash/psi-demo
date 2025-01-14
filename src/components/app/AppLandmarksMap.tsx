@@ -2,7 +2,6 @@
 
 import mapboxgl, { Map, Marker } from "mapbox-gl"
 import {
-  Children,
   ComponentProps,
   ComponentType,
   useEffect,
@@ -77,7 +76,7 @@ export const AppLandmarksMap = ({ landmarks, itemLocation }: Props) => {
     })
 
     const boundingBox = calculateBoundingBox(markersCoordinates)
-    mapRef.current.fitBounds(boundingBox as any, {
+    mapRef.current.fitBounds(boundingBox, {
       padding: { top: 40, bottom: 20, left: 20, right: 20 },
       maxZoom: 15,
     })
@@ -229,7 +228,9 @@ const Landmark = ({
   )
 }
 
-function calculateBoundingBox(coordinates: [number, number][]) {
+function calculateBoundingBox(
+  coordinates: [number, number][]
+): [[number, number], [number, number]] {
   // Initialize variables to store the min/max values
   let minLat = Infinity,
     minLng = Infinity,
