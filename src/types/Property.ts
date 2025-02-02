@@ -18,7 +18,7 @@ export type BasePropertyModel = {
   min_total_sqft: null | number
   max_total_sqft: null | number
   cover_photo: ImageModel
-  unit_types: ItemModel
+  unit_types?: ItemModel[]
   developer: {
     id: number
     name: string

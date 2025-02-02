@@ -10,6 +10,9 @@ const nextConfig: NextConfig = {
       {
         hostname: "apigateway.dubai-crm.com",
       },
+      {
+        hostname: "apigateway.psiassets-crm.com",
+      },
     ],
   },
   reactStrictMode: false,

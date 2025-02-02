@@ -24,6 +24,7 @@
     "cmdk": "1.0.4",
     "embla-carousel-react": "^8.5.1",
     "jotai": "^2.10.3",
+    "jotai-ssr": "^0.2.0",
     "lucide-react": "^0.465.0",
     "mapbox-gl": "^3.9.1",
     "negotiator": "^1.0.0",

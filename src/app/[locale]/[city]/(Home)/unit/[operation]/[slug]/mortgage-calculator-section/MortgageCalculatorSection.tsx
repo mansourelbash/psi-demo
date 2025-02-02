@@ -19,8 +19,8 @@ export const MortgageCalculatorSection = ({ unit }: Props) => {
             <div className="relative">
               <Input
                 placeholder="Price"
-                value={unit.selling_price}
-                disabled
+                defaultValue={unit.selling_price}
+                readOnly
                 className="bg-background disabled:opacity-100"
               />
               <span className="absolute top-1/2 -translate-y-1/2 end-4 font-medium pointer-events-none">
@@ -33,7 +33,7 @@ export const MortgageCalculatorSection = ({ unit }: Props) => {
             <div className="flex gap-3">
               <Input
                 placeholder="Price"
-                value={unit.selling_price}
+                defaultValue={unit.selling_price}
                 className="bg-background"
               />
             </div>
@@ -42,7 +42,7 @@ export const MortgageCalculatorSection = ({ unit }: Props) => {
             <Label>Property Price</Label>
             <Input
               placeholder="Price"
-              value={unit.selling_price}
+              defaultValue={unit.selling_price}
               className="bg-background"
             />
           </div>
@@ -50,7 +50,7 @@ export const MortgageCalculatorSection = ({ unit }: Props) => {
             <Label>Property Price</Label>
             <Input
               placeholder="Price"
-              value={unit.selling_price}
+              defaultValue={unit.selling_price}
               className="bg-background"
             />
           </div>

@@ -37,7 +37,6 @@ export const AppLandmarksMap = ({ landmarks, itemLocation }: Props) => {
     index: number,
     coordinates: [number, number]
   ) => {
-    debugger
     mapRef.current?.flyTo({
       center: coordinates,
       zoom: 15,

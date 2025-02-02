@@ -1,24 +1,27 @@
-"use client"
+'use client';
 
-import { settingsAtom, settingsDefault } from "@/atoms/settingsAtoms"
-import { useHydrateAtoms } from "jotai/utils"
+import { settingsAtom, settingsDefault } from '@/atoms/settingsAtoms';
+import { useHydrateAtoms } from 'jotai/utils';
 
 // HydrationProvider to hydrate both locale and dictionary
 export const HydrationProvider = ({
   locale,
   children,
 }: {
-  locale: string
-  dictionary: Record<string, string>
-  children: React.ReactNode
+  locale: string;
+  dictionary?: Record<string, string>;
+  children: React.ReactNode;
 }) => {
   const settings =
-    typeof window !== "undefined"
-      ? localStorage.getItem("settings")
-        ? JSON.parse(localStorage.getItem("settings")!)
+    typeof window !== 'undefined'
+      ? localStorage.getItem('settings')
+        ? JSON.parse(localStorage.getItem('settings')!)
         : settingsDefault
-      : null
-  useHydrateAtoms([[settingsAtom, { ...settings, locale }]])
+      : null;
+  useHydrateAtoms([[settingsAtom, { ...settings, locale }]], {
+    dangerouslyForceHydrate: true,
+  });
+  console.log('🚀 ~ settings:', settings);
 
-  return <>{children}</>
-}
+  return <>{children}</>;
+};
