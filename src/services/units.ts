@@ -4,7 +4,7 @@ import {
   DefaultPaginate,
   OperationType,
   PaginateParams,
-  PropertyRequestModel,
+  UnitRequestModel,
 } from '@/types/Shared';
 import { BaseUnitModel, ListingAgent, UnitModel } from '@/types/Unit';
 import queryString from 'query-string';
@@ -96,9 +96,3 @@ export const getListingAgents = async (
   return res;
 };
 
-export const propertyListRequest = async (params: PropertyRequestModel) => {
-  const res = await fetchWithErrorHandling(`${API_URL}/propertyListRequest`, {
-    method: 'POST',
-    body: JSON.stringify(params),
-  });
-};

@@ -1,3 +1,4 @@
+import { fetchWithErrorHandling } from '@/lib/fetchErrorHandling';
 import {
   ProjectLabel,
   ProjectSummaryModel,
@@ -9,11 +10,14 @@ import {
   DefaultPaginate,
   LandmarkModel,
   PaginateParams,
+  UnitRequestModel,
 } from '@/types/Shared';
 import { UnitModelModel } from '@/types/Unit';
 import queryString from 'query-string';
 
-const PROPERTY_URL = `${process.env.API_URL}/properties`;
+const API_URL = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
+
+const PROPERTY_URL = `${API_URL}/properties`;
 
 export const getProperty = async (id: string): Promise<PropertyModel> => {
   const res = await fetch(`${PROPERTY_URL}/getPropertyById/${id}`, {
@@ -79,4 +83,13 @@ export const getPropertiesByLabel = async (
     }
   );
   return res.json();
+};
+
+export const propertyListRequest = async (params: UnitRequestModel) => {
+  const res = await fetchWithErrorHandling(`${PROPERTY_URL}/viewInquiry`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(params),
+    cache: 'no-cache',
+  });
 };

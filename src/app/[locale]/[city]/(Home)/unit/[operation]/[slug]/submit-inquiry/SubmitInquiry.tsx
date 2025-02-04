@@ -4,13 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { TextHighlight, TypographyH2 } from '@/components/ui/typography';
-import { OperationType, PropertyRequestModel } from '@/types/Shared';
+import { OperationType, UnitRequestModel } from '@/types/Shared';
 import { MessagesSquare } from 'lucide-react';
 import { FC } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { propertyListRequest } from '@/services/units';
 import { phoneExpression } from '@/lib/regex';
+import { propertyListRequest } from '@/services/properties';
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required('First Name is required'),
@@ -24,16 +24,16 @@ const schema = Yup.object().shape({
   projects: Yup.boolean().required(),
 });
 type SubmitInquiryProps = {
-  propertyPurpose: OperationType;
-  propertyName: string;
-  propertyTypeId: number;
-  cityId: number;
+  unitTypeId: number;
+  propertyId: number;
+  bedrooms: number;
+  bathrooms: number;
 };
 const SubmitInquiry: FC<SubmitInquiryProps> = ({
-  propertyName,
-  propertyPurpose,
-  cityId,
-  propertyTypeId,
+  unitTypeId,
+  propertyId,
+  bedrooms,
+  bathrooms,
 }) => {
   const initialState = {
     firstName: '',
@@ -43,27 +43,28 @@ const SubmitInquiry: FC<SubmitInquiryProps> = ({
     calls: false,
     channels: false,
     projects: false,
-    property_purpose: propertyPurpose,
-    property_name: propertyName,
-    property_type_id: propertyTypeId,
-    city_id: cityId,
   };
   const form = useFormik({
     initialValues: initialState,
     validationSchema: schema,
     onSubmit: async (values, formikHelpers) => {
-      const body: PropertyRequestModel = {
-        first_name: values.firstName,
-        last_name: values.lastName,
-        email: values.email,
-        phone_number: values.phone,
-        property_purpose: values.property_purpose,
-        property_name: values.property_name,
-        property_type_id: values.property_type_id,
-        city_id: values.city_id,
-        external_images: [],
-      };
-      await propertyListRequest(body);
+      try {
+        const body: UnitRequestModel = {
+          first_name: values.firstName,
+          last_name: values.lastName,
+          email: values.email,
+          phone_number: values.phone + '',
+          unit_type_id: unitTypeId,
+          property_id: propertyId,
+          lead_class_id: 3,
+          bedrooms,
+          bathrooms,
+        };
+        await propertyListRequest(body);
+        formikHelpers.resetForm();
+      } catch (error) {
+        console.error(error);
+      }
     },
   });
   return (

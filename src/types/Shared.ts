@@ -89,14 +89,14 @@ export interface ExternalMediaModel {
   tmp_name: 'string';
   category_id?: number;
 }
-export type PropertyRequestModel = {
+export type UnitRequestModel = {
   first_name: string;
   last_name: string;
   email: string;
   phone_number: string;
-  property_purpose: string;
-  property_name: string;
-  property_type_id: number;
-  city_id: number;
-  external_images: ExternalMediaModel[];
+  lead_class_id: number;
+  unit_type_id: number;
+  property_id: number;
+  bedrooms: number;
+  bathrooms: number;
 };
