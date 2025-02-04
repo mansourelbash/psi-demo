@@ -12,7 +12,6 @@ import {
 import { currencies } from '@/data';
 import { langs } from '@/i18n.config';
 import { cn } from '@/lib/utils';
-import { CityIds } from '@/types/Shared';
 import { CaretDown, GlobeHemisphereWest } from '@phosphor-icons/react';
 import { useAtom, useAtomValue } from 'jotai';
 import { usePathname } from 'next/navigation';

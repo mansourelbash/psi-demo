@@ -17,7 +17,6 @@ import { SizeIcon } from '@/components/icons/size-icon';
 import { ProjectSummaryModel } from '@/types/Property';
 import { OperationType, UnitModel } from '@/types/Unit';
 import { MapPin } from '@phosphor-icons/react/dist/ssr';
-import { Space } from 'lucide-react';
 
 type Props = {
   unit: UnitModel;

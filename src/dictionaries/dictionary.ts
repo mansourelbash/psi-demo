@@ -1,6 +1,6 @@
 import { Locale } from '@/i18n.config';
 
-export const dictionaries: Record<Locale, Record<string, string | Object>> = {
+export const dictionaries: Record<Locale, Record<string, string | object>> = {
   en: {},
   ar: {},
   fr: {},

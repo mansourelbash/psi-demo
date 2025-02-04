@@ -17,8 +17,6 @@ import { BaseUnitModel } from '@/types/Unit';
 import { FC } from 'react';
 import SpaceUnitConverter from './SpaceUnitConverter';
 import Link from 'next/link';
-import { Locale } from '@/i18n.config';
-import { CityIds } from '@/types/Shared';
 import { Bath, Bed, Copy } from 'lucide-react';
 import CurrencyConverter from './CurrencyConverter';
 

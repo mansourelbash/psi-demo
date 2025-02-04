@@ -161,7 +161,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
   );
 };
 
-export const ProjectCardFlat = () => {
+export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
   return (
     <div className='w-[410px]'>
       <AspectRatio
@@ -169,7 +169,7 @@ export const ProjectCardFlat = () => {
         className='overflow-hidden relative py-[1.125rem] px-3 rounded-[12px] @container'
       >
         <Image
-          src={'/images/hero.png'}
+          src={project.cover_photo?.preview ?? '/images/hero.png'}
           alt='test'
           fill
           className='object-cover'
@@ -185,13 +185,16 @@ export const ProjectCardFlat = () => {
               >
                 Off Plan
               </Chip>
-              <Chip
-                variant='flat'
-                color='primary-blue'
-                className='uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium'
-              >
-                Apartment
-              </Chip>
+              {project.unit_types?.map((type) => (
+                <Chip
+                  key={type.id}
+                  variant='flat'
+                  color='primary-blue'
+                  className='uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium'
+                >
+                  {type.name}
+                </Chip>
+              ))}
             </div>
             <div className='flex gap-2'>
               <Button
@@ -222,10 +225,24 @@ export const ProjectCardFlat = () => {
               <h3 className='text-3xl font-medium'>The Source</h3>
               <div className='flex items-center gap-1 text-sm font-medium'>
                 <MapPin size={14.5} />
-                <span>Sea La Vie | Yas Island | Abu Shabi</span>
+                <span>
+                  {' '}
+                  {[
+                    project.city?.name,
+                    project.community?.name,
+                    project.sub_community?.name,
+                  ]
+                    .filter(Boolean)
+                    .join(' | ')}
+                </span>
               </div>
               <span className='font-light'>
-                From <span className='text-2xl font-medium'>2,635,000</span> AED
+                From{' '}
+                <span className='text-2xl font-medium'>
+                  <CurrencyConverter className='text-sm font-medium'>
+                    {project?.min_selling_price}
+                  </CurrencyConverter>
+                </span>{' '}
               </span>
             </div>
             <div className='grid grid-cols-2 gap-3 flex-wrap'>

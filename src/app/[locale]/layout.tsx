@@ -5,10 +5,7 @@ import { Header } from '@/layouts/header/Header';
 // import { Footer } from "@/layouts/footer/Footer"
 import { Locale } from '@/i18n.config';
 import { Footer } from '@/layouts/footer/Footer';
-import { HydrationProvider } from '@/components/app/HydrationProvider';
-import { getDictionary } from '@/lib/getDictionary';
-import { HydrationBoundary } from 'jotai-ssr';
-import { settingsAtom, settingsDefault } from '@/atoms/settingsAtoms';
+// import { getDictionary } from '@/lib/getDictionary';
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '600', '700'],
@@ -33,7 +30,7 @@ export default async function RootLayout(
 ) {
   const params = await props.params;
 
-  const dictionary = await getDictionary(params.locale);
+  // const dictionary = await getDictionary(params.locale);
 
   return (
     <html lang={params.locale} dir={params.locale === 'ar' ? 'rtl' : 'ltr'}>

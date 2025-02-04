@@ -16,6 +16,12 @@ import { MortgageCalculatorSection } from './mortgage-calculator-section/Mortgag
 import { CityIds, OperationType } from '@/types/Shared';
 import ListingAgentCard from './listing-agent/ListingAgentCard';
 import UnitsSectionCarousel from '@/components/app/UnitsSectionCarousel';
+import { TextHighlight } from '@/components/ui/typography';
+import ProjectSectionCarousel from '@/components/app/ProjectSectionCarousel';
+import { getInterestRate } from '@/services/mortgage';
+import SubmitInquiry from './submit-inquiry/SubmitInquiry';
+import RegulatoryInformation from './regulatory-information/RegulatoryInformation';
+import Banner from './banner/Banner';
 
 type UnitProps = {
   params: Promise<{
@@ -29,6 +35,7 @@ export default async function Unit({ params }: UnitProps) {
   const { slug, operation, city } = await params;
   const unit = await getUnit(operation, slug);
   const property = await getPropertySummary(unit.property_id.toString());
+  const initialInterest = await getInterestRate();
   const breadcrumbData = [
     {
       name: 'Home',
@@ -72,21 +79,48 @@ export default async function Unit({ params }: UnitProps) {
           <Separator className='my-10 w-[90%]' />
           <FloorSection unit={unit} />
           <NearbySection unit={unit} />
-          <MortgageCalculatorSection unit={unit} />
+          <MortgageCalculatorSection
+            unit={unit}
+            initialInterest={initialInterest}
+          />
         </div>
-        <div className='col-span-3'>
+        <div className='col-span-3 flex flex-col gap-9'>
           <ListingAgentCard unitId={unit.id} operation={operation} />
+          <SubmitInquiry
+            cityId={unit.city.id}
+            propertyPurpose={operation}
+            propertyName={unit.property_name}
+            propertyTypeId={unit.property_id}
+          />
+          <RegulatoryInformation />
+          <Banner />
         </div>
-        <div className='col-span-12 gap-16'>
+        <div className='col-span-12 flex flex-col gap-16'>
           <UnitsSectionCarousel
             operation='SALE'
             city={city}
-            title='Similar Units'
+            title={
+              <>
+                Available Units in {unit.community?.name}{' '}
+                <TextHighlight>For Sale</TextHighlight>
+              </>
+            }
           />
           <UnitsSectionCarousel
             operation='RENT'
             city={city}
-            title='Similar Units'
+            title={
+              <>
+                Available Units in {unit.community?.name}{' '}
+                <TextHighlight>For Rent</TextHighlight>
+              </>
+            }
+          />
+          <ProjectSectionCarousel
+            city={city}
+            label='RESIDENTIAL'
+            title={'Residential Projects'}
+            flatCard
           />
         </div>
       </Container>

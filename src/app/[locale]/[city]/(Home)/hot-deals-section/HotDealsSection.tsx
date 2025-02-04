@@ -9,16 +9,14 @@ import {
 } from '@/components/ui/carousel';
 import { Container } from '@/components/ui/container';
 import { TextHighlight, TypographyH2 } from '@/components/ui/typography';
-import { Locale } from '@/i18n.config';
 import { getUnits } from '@/services/units';
 import { CityIds } from '@/types/Shared';
 
 type Props = {
   operation: 'SALE' | 'RENT';
   city: keyof typeof CityIds;
-  locale: Locale;
 };
-export const HotDealsSection = async ({ operation, city, locale }: Props) => {
+export const HotDealsSection = async ({ operation, city }: Props) => {
   const units = await getUnits(operation, CityIds[city]);
   if (!units.length) return null;
   return (

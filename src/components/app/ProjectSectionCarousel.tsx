@@ -1,4 +1,4 @@
-import { ProjectCardFlat } from '@/components/app/ProjectCard';
+import { ProjectCard, ProjectCardFlat } from '@/components/app/ProjectCard';
 import { Button } from '@/components/ui/button';
 import {
   Carousel,
@@ -8,30 +8,31 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Container } from '@/components/ui/container';
-import { TextHighlight, TypographyH2 } from '@/components/ui/typography';
+import { TypographyH2 } from '@/components/ui/typography';
 import { getPropertiesByLabel } from '@/services/properties';
-import { CityIds } from '@/types/Shared';
-import { FC } from 'react';
+import { ProjectLabel } from '@/types/Property';
+import { CityIds, ComponentWithCity } from '@/types/Shared';
+import React, { FC, ReactNode } from 'react';
 
-type NewLaunchesProjectsProps = {
-  city: keyof typeof CityIds;
-};
-export const NewLaunchesProjects: FC<NewLaunchesProjectsProps> = async ({
-  city,
-}) => {
+const ProjectSectionCarousel: FC<
+  ComponentWithCity & {
+    flatCard?: boolean;
+    label: ProjectLabel;
+    title: ReactNode;
+  }
+> = async ({ city, flatCard, label, title }) => {
   const properties = await getPropertiesByLabel(CityIds[city], {
-    label: 'NEW_LAUNCHES',
+    label,
     page: 1,
     per_page: 10,
   });
+  const Card = flatCard ? ProjectCardFlat : ProjectCard;
   if (!properties.items.length) return null;
   return (
     <Container>
       <Carousel opts={{ align: 'start' }} className='w-full space-y-[30px]'>
         <div className='flex justify-between gap-2'>
-          <TypographyH2>
-            <TextHighlight>New Launches</TextHighlight> Projects {city}
-          </TypographyH2>
+          <TypographyH2>{title}</TypographyH2>
           <div className='flex gap-3 items-center'>
             <div className='flex gap-3'>
               <CarouselPrevious className='size-[50px] relative top-0 left-0 right-0 translate-y-0' />
@@ -48,7 +49,7 @@ export const NewLaunchesProjects: FC<NewLaunchesProjectsProps> = async ({
         <CarouselContent>
           {properties.items?.map((project, index) => (
             <CarouselItem key={index} className='lg:basis-auto ps-6'>
-              <ProjectCardFlat project={project} />
+              <Card project={project} />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -56,3 +57,5 @@ export const NewLaunchesProjects: FC<NewLaunchesProjectsProps> = async ({
     </Container>
   );
 };
+
+export default ProjectSectionCarousel;

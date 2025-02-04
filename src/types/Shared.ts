@@ -83,3 +83,20 @@ export enum CityIds {
 export interface ComponentWithCity {
   city: keyof typeof CityIds;
 }
+
+export interface ExternalMediaModel {
+  file_name: 'string';
+  tmp_name: 'string';
+  category_id?: number;
+}
+export type PropertyRequestModel = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  property_purpose: string;
+  property_name: string;
+  property_type_id: number;
+  city_id: number;
+  external_images: ExternalMediaModel[];
+};

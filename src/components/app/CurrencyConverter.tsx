@@ -1,6 +1,7 @@
 'use client';
 
 import { Currencies, settingsAtom } from '@/atoms/settingsAtoms';
+import { formatNumber } from '@/lib/utils';
 import { useAtom } from 'jotai';
 import { FC } from 'react';
 
@@ -15,12 +16,6 @@ const CurrencyConverter: FC<CurrencyConverterProps> = ({
   emptyValue,
 }) => {
   const [settings] = useAtom(settingsAtom);
-  const formatNumber = (number: number): string => {
-    const formattedNumber = new Intl.NumberFormat('en-US').format(
-      +number.toFixed()
-    );
-    return formattedNumber;
-  };
   if (!children) return emptyValue ?? null;
   switch (settings.currency) {
     case Currencies.USD:

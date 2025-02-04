@@ -9,14 +9,11 @@ import {
 } from '@/components/ui/carousel';
 import { Container } from '@/components/ui/container';
 import { TextHighlight, TypographyH2 } from '@/components/ui/typography';
-import { Locale } from '@/i18n.config';
 import { getUnits } from '@/services/units';
 import { CityIds, ComponentWithCity } from '@/types/Shared';
 import { FC } from 'react';
 
-export const ReadyToMoveSection: FC<
-  ComponentWithCity & { locale: Locale }
-> = async ({ city, locale }) => {
+export const ReadyToMoveSection: FC<ComponentWithCity> = async ({ city }) => {
   const units = await getUnits('SALE', CityIds[city]);
   if (!units.length) return null;
   return (
@@ -48,7 +45,7 @@ export const ReadyToMoveSection: FC<
         <CarouselContent>
           {units?.map((unit, index) => (
             <CarouselItem key={index} className='lg:basis-auto ps-6'>
-              <UnitCard unit={unit} operation='SALE' locale={locale} />
+              <UnitCard unit={unit} operation='SALE' />
             </CarouselItem>
           ))}
         </CarouselContent>

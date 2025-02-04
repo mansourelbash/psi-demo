@@ -32,12 +32,12 @@ export default async function Home({ params }: HomeProps) {
       <main className='py-[50px] space-y-[70px]'>
         <HeroSection />
         <FeaturedProjectsSection city={city} />
-        <HotDealsSection operation='SALE' city={city} locale={locale} />
-        <HotDealsSection operation='RENT' city={city} locale={locale} />
+        <HotDealsSection operation='SALE' city={city} />
+        <HotDealsSection operation='RENT' city={city} />
         <PopularAreasSection />
         <NewLaunchesProjects city={city} />
         <EasyInstallmentsSection city={city} />
-        <ReadyToMoveSection city={city} locale={locale} />
+        <ReadyToMoveSection city={city} />
         <AppSection />
         <HigherROISection city={city} locale={locale} />
         <AboutUsAwardsSection />

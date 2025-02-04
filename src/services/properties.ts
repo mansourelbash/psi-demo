@@ -1,4 +1,5 @@
 import {
+  ProjectLabel,
   ProjectSummaryModel,
   PropertyListModel,
   PropertyModel,
@@ -63,13 +64,7 @@ export const getPropertyUnitModels = async (
 };
 
 type GetPropertiesByLabelParams = PaginateParams & {
-  label?:
-    | 'FEATURED'
-    | 'BEST_FOR_SCHOOLS'
-    | 'TOP_PROJECTS'
-    | 'RESIDENTIAL'
-    | 'NEW_LAUNCHES'
-    | 'WITH_PAYMENT_PLANS';
+  label?: ProjectLabel;
   developer_id?: string | null;
 };
 export const getPropertiesByLabel = async (
