@@ -80,3 +80,10 @@
     @apply bg-primary rounded-full border-[4px] border-solid border-background;
   }
 }
+
+
+.basic-multi-select .select__control.css-13cymwt-control{
+  height: 50px;
+  border-radius: 12px;
+  border: 0px;
+}

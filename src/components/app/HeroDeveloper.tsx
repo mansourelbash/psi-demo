@@ -6,26 +6,32 @@ import { Container } from '../ui/container';
 import { Input } from '../ui/input';
 import { MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from '../ui/button';
-import { HeroDeveloperProps } from '@/types/HeroDeveloper';
+import { HeroDeveloperProps, OptionType } from '@/types/HeroDeveloper';
+import dynamic from 'next/dynamic';
+import { redirect } from 'next/navigation';
+const Select = dynamic(() => import('react-select'), { ssr: false });
+import { ActionMeta, OnChangeValue, MultiValue } from 'react-select';
 
 const HeroDeveloper: React.FC<HeroDeveloperProps> = ({ developers }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [selectedCity, setSelectedCity] = useState<string>(''); 
+  const [selectedCities, setSelectedCities] = useState<MultiValue<OptionType>>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
 
-  const normalizeCity = (city: string) => city.toLowerCase();
+  const options:OptionType[] = [
+    { value: 'dubai', label: 'Dubai' },
+    { value: 'abudhabi', label: 'Abu Dhabi' },
+    { value: 'sharjah', label: 'Sharjah' },
+  ];
 
   const filteredDevelopers = developers.filter((developer) => {
     const matchesSearch = developer.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCity = selectedCity ? normalizeCity(developer.city) === selectedCity : true;
+    const matchesCity = selectedCities.length === 0 || selectedCities.some(city => city.value === developer.city.toLowerCase());
     return matchesSearch && matchesCity;
   });
 
   const totalPages = Math.ceil(filteredDevelopers.length / itemsPerPage);
-
   const currentDevelopers = filteredDevelopers.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -33,6 +39,14 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = ({ developers }) => {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleSelectChange = (selectedOptions: OnChangeValue<OptionType, true>, actionMeta: ActionMeta<OptionType>) => {
+    setSelectedCities(selectedOptions);
+  };
+
+  const handleImageClick = (developerId: string) => {
+    redirect(`/developers/${developerId}`);
   };
 
   return (
@@ -53,7 +67,7 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = ({ developers }) => {
               <div className="bg-white rounded-[24px] max-w-[1150px] w-[95%] py-6 flex items-center justify-center">
                 <div className="w-[1100px] space-y-2.5">
                   <div className="flex flex-col gap-4 md:flex-row">
-                    <div className="flex-1 relative">
+                    <div className="w-[65%] relative">
                       <Input
                         type="text"
                         placeholder="Search by Developer Name"
@@ -66,17 +80,22 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = ({ developers }) => {
                       />
                       <MapPin className="absolute w-5 h-5 text-gray-400 transform -translate-y-9 left-[10px]" />
                     </div>
-                    <Select onValueChange={(value) => setSelectedCity(value)}>
-                      <SelectTrigger className="h-12 bg-white border-0 w-full md:w-[200px]">
-                        <SelectValue placeholder="City" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="dubai">Dubai</SelectItem>
-                        <SelectItem value="abudhabi">Abu Dhabi</SelectItem>
-                        <SelectItem value="sharjah">Sharjah</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Button className="h-12 px-8 text-white bg-[#2e325c] hover:bg-[#373b6a]">
+
+                      <div className="w-[35%] relative">
+                    <Select 
+                      isMulti
+                      options={options}
+                      value={selectedCities}
+                      onChange={handleSelectChange}
+                      placeholder="Select Cities"
+                        className="basic-multi-select"
+                      classNamePrefix="select"
+                   
+                      
+                    />
+                    
+                     </div>
+                    <Button className="h-12 px-8 text-white bg-[#2e325c] hover:bg-[#373b6a] w-[25%]">
                       Search
                     </Button>
                   </div>
@@ -93,11 +112,14 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = ({ developers }) => {
             {currentDevelopers.map((developer) => (
               <motion.div
                 key={developer.logo}
-                className="flex items-center justify-center p-4"
+                className="flex items-center justify-center p-4 hover:cursor-pointer"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3 }}
+                whileHover={{ scale: 1.1 }} 
+                onClick={() => handleImageClick(developer.name)}
+
               >
                 <Image
                   src={developer.logo}

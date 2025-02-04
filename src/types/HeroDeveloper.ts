@@ -7,3 +7,8 @@ export interface Developer {
 export interface HeroDeveloperProps {
   developers: Developer[];
 }
+
+export interface OptionType {
+    value: string;
+    label: string;
+  }
