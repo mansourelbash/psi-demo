@@ -1,79 +1,84 @@
-"use client"
+'use client';
 
-import useClear from "@/hooks/useClear"
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react"
-import { cn } from "@/lib/utils"
+import useClear from '@/hooks/useClear';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import { cn } from '@/lib/utils';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { Button, ButtonProps } from "@/components/ui/button"
+} from '@/components/ui/popover';
+import { Button, ButtonProps } from '@/components/ui/button';
 import {
   Command,
   CommandEmpty,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command"
-import useAutoComplete from "@/hooks/useAutoComplete"
+} from '@/components/ui/command';
+import useAutoComplete from '@/hooks/useAutoComplete';
 // import { Wrapper } from "../ui/wrapper"
-import { VariantProps, cva } from "class-variance-authority"
-import { CheckIcon, ChevronDownIcon, Loader2Icon, PlusIcon } from "lucide-react"
-import { CommandLoading } from "cmdk"
-import { Separator } from "@/components/ui/separator"
-import { useAtomValue } from "jotai"
-import { dictionaryAtom } from "@/atoms/settingsAtoms"
+import { VariantProps, cva } from 'class-variance-authority';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  Loader2Icon,
+  PlusIcon,
+} from 'lucide-react';
+import { CommandLoading } from 'cmdk';
+import { Separator } from '@/components/ui/separator';
+import { useAtomValue } from 'jotai';
+import { dictionaryAtom } from '@/atoms/settingsAtoms';
 
 export const selectVariants = cva(
-  "w-full justify-between text-input-foreground flex border h-11 truncate font-normal text-base px-3 gap-2 shadow-none hover:text-foreground aria-[invalid=true]:border-destructive aria-[expanded=true]:ring-1 ring-ring focus-visible:ring-1 focus-visible:ring-offset-0",
+  'w-full justify-between text-input-foreground flex border h-11 truncate font-normal text-base px-3 gap-2 shadow-none hover:text-foreground aria-[invalid=true]:border-destructive aria-[expanded=true]:ring-1 ring-ring focus-visible:ring-1 focus-visible:ring-offset-0',
   {
     variants: {
       variant: {
-        default: "border !bg-input/0",
-        card: "!bg-card dark:border-card border",
+        default: 'border !bg-input/0',
+        card: '!bg-card dark:border-card border',
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: 'default',
     },
   }
-)
+);
 
 type Props = {
-  value?: string
-  onChange?: (value: string, item: Record<string, string> | null) => void
-  cleanable?: boolean
-  data: Record<string, string>[]
-  labelKey?: string
-  valueKey?: string
-  onOpen?: () => void
-  onClose?: () => void
-  onSearch?: (search: string) => void
-  searchDelay?: number
-  loading?: boolean
-  placeholder?: string
-  triggerButton?: ButtonProps
-  initText?: string
-  cachedSuggestions?: boolean
-  paginated?: boolean
-  searchable?: boolean
-  formField?: boolean
+  value?: string;
+  onChange?: (value: string, item: Record<string, string> | null) => void;
+  cleanable?: boolean;
+  data: Record<string, string>[];
+  labelKey?: string;
+  valueKey?: string;
+  onOpen?: () => void;
+  onClose?: () => void;
+  onSearch?: (search: string) => void;
+  searchDelay?: number;
+  loading?: boolean;
+  placeholder?: string;
+  triggerButton?: ButtonProps;
+  initText?: string;
+  cachedSuggestions?: boolean;
+  paginated?: boolean;
+  searchable?: boolean;
+  formField?: boolean;
   renderValue?: (
     value: string | undefined,
     label: string | null
-  ) => React.ReactNode
+  ) => React.ReactNode;
   renderOption?: (
     item: Record<string, string>,
     label: string
-  ) => React.ReactNode
-  beforeIcon?: React.ReactNode
-  popoverContentClassName?: string
-  icon?: React.ReactNode
-  disabled?: boolean
-  onPlusClick?: () => void
-  defaultData?: Record<string, string>
-} & VariantProps<typeof selectVariants>
+  ) => React.ReactNode;
+  beforeIcon?: React.ReactNode;
+  popoverContentClassName?: string;
+  icon?: React.ReactNode;
+  disabled?: boolean;
+  onPlusClick?: () => void;
+  defaultData?: Record<string, string>;
+} & VariantProps<typeof selectVariants>;
 export const AppSelect = forwardRef<HTMLButtonElement, Props>(
   (
     {
@@ -106,14 +111,14 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
     }: Props,
     ref
   ) => {
-    const [selectedValue, setSelectedValue] = useState<string>(value ?? "")
-    const [open, setOpen] = useState(false)
-    const commandRef = useRef<HTMLDivElement>(null)
-    const [_defaultData] = useState(defaultData)
-    const dictionary = useAtomValue(dictionaryAtom)
+    const [selectedValue, setSelectedValue] = useState<string>(value ?? '');
+    const [open, setOpen] = useState(false);
+    const commandRef = useRef<HTMLDivElement>(null);
+    const [_defaultData] = useState(defaultData);
+    const dictionary = useAtomValue(dictionaryAtom);
 
-    const _valueKey = valueKey ?? "value"
-    const _labelKey = labelKey ?? "label"
+    const _valueKey = valueKey ?? 'value';
+    const _labelKey = labelKey ?? 'label';
 
     const {
       handelFilter,
@@ -132,51 +137,51 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
       cachedSuggestions,
       onClose,
       onOpen,
-    })
+    });
 
-    const selectedLabel = useMemo(() => {
-      // debugger
+    function getSelectedLabel() {
       const selectedItem = data.find(
-        (item) => item[_valueKey].toString() == selectedValue
-      )
+        (item) => item[_valueKey].toString() === selectedValue.toString()
+      );
 
       return selectedItem
         ? selectedItem[_labelKey]
         : _defaultData
         ? _defaultData[_labelKey]
-        : null
-    }, [selectedValue, _defaultData])
+        : null;
+    }
+
+    const selectedLabel = getSelectedLabel();
 
     const handelSelectChange = (
       value: string,
       item: Record<string, string> | null = null
     ) => {
-      setSelectedValue(value)
+      setSelectedValue(value);
       if (onChange) {
-        onChange(value, item)
+        onChange(value, item);
       }
-      setOpen(false)
-    }
+      setOpen(false);
+    };
 
     const { Clean } = useClear(
       selectedValue,
       cleanable,
       (value) => handelSelectChange(value),
-      ""
-    )
+      ''
+    );
 
     useEffect(() => {
-      // debugger
-      setSelectedValue(value?.toString() ?? "")
-    }, [value])
+      setSelectedValue(value?.toString() ?? '');
+    }, [value]);
 
     useEffect(() => {
       if (open) {
         setTimeout(() => {
-          commandRef.current?.focus()
-        }, 100)
+          commandRef.current?.focus();
+        }, 100);
       }
-    }, [open])
+    }, [open]);
 
     return (
       <Popover open={open} onOpenChange={handelOpenChange}>
@@ -184,23 +189,23 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
           <Button
             {...triggerButton}
             ref={ref}
-            role="combobox"
+            role='combobox'
             aria-expanded={open}
             className={cn(
               selectVariants({
                 variant,
-                className: cn("font-medium", triggerButton?.className),
+                className: cn('font-medium', triggerButton?.className),
               }),
               {
-                "text-muted-foreground": !selectedValue,
+                'text-muted-foreground': !selectedValue,
               }
             )}
             disabled={disabled}
           >
             {beforeIcon}
-            <div className="flex gap-1 items-center overflow-hidden text-sm">
+            <div className='flex gap-1 items-center overflow-hidden text-sm'>
               {icon && icon}
-              <div className="truncate">
+              <div className='truncate'>
                 {renderValue
                   ? (renderValue(value, selectedLabel) || selectedLabel) ??
                     initText ??
@@ -212,40 +217,40 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
                     dictionary!.SELECT_PLACEHOLDER}
               </div>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className='flex gap-2 items-center'>
               {onPlusClick && (
                 <>
                   <PlusIcon
-                    className="size-5 opacity-50"
+                    className='size-5 opacity-50'
                     onClick={(event) => {
-                      event.stopPropagation()
-                      onPlusClick()
+                      event.stopPropagation();
+                      onPlusClick();
                     }}
                   />
-                  <Separator orientation="vertical" className="h-4" />
+                  <Separator orientation='vertical' className='h-4' />
                 </>
               )}
               {selectedValue && cleanable ? (
-                <Clean className="relative" />
+                <Clean className='relative' />
               ) : (
-                <ChevronDownIcon className="size-4 shrink-0 opacity-50" />
+                <ChevronDownIcon className='size-4 shrink-0 opacity-50' />
               )}
             </div>
           </Button>
         </PopoverTrigger>
         <PopoverContent
           className={cn(
-            "w-[var(--radix-popper-anchor-width)] min-w-[200px] p-0",
+            'w-[var(--radix-popper-anchor-width)] min-w-[200px] p-0',
             popoverContentClassName
           )}
           forceMount
-          align="start"
+          align='start'
           avoidCollisions
         >
           <Command
             shouldFilter={!paginated}
             filter={handelFilter}
-            className="flex-1 h-auto"
+            className='flex-1 h-auto'
             ref={commandRef}
           >
             {searchable ? (
@@ -253,41 +258,41 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
                 value={searchValue}
                 placeholder={dictionary!.SELECT_SEARCH_PLACEHOLDER}
                 onValueChange={(search) => {
-                  setSearchValue(search)
-                  handelSearchDebounce(search)
+                  setSearchValue(search);
+                  handelSearchDebounce(search);
                 }}
               />
             ) : null}
             <>
               {!loading && <CommandEmpty>No item found.</CommandEmpty>}
-              <CommandList className="py-2 max-h-[250px] primary-scrollbar">
+              <CommandList className='py-2 max-h-[250px] primary-scrollbar'>
                 {loading ? (
-                  <CommandLoading className="py-1 px-2">
-                    <Loader2Icon className="text-xl animate-spin" />
+                  <CommandLoading className='py-1 px-2'>
+                    <Loader2Icon className='text-xl animate-spin' />
                   </CommandLoading>
                 ) : (
                   <>
                     {data.map((item) => {
                       const active =
-                        selectedValue === item[_valueKey].toString()
+                        selectedValue === item[_valueKey].toString();
 
                       return (
                         <CommandItem
                           key={item[_valueKey].toString()}
                           value={item[_valueKey].toString()}
                           onSelect={(value) => handelSelectChange(value, item)}
-                          className={cn("rounded-none", {
-                            "!bg-primary/5 !text-primary flex gap-2": active,
+                          className={cn('rounded-none', {
+                            '!bg-primary/5 !text-primary flex gap-2': active,
                           })}
                         >
                           {active ? (
-                            <CheckIcon className={cn("h-4 w-4")} />
+                            <CheckIcon className={cn('h-4 w-4')} />
                           ) : null}
                           {renderOption
                             ? renderOption(item, item[_labelKey])
                             : item[_labelKey]}
                         </CommandItem>
-                      )
+                      );
                     })}
                   </>
                 )}
@@ -296,8 +301,8 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
           </Command>
         </PopoverContent>
       </Popover>
-    )
+    );
   }
-)
+);
 
-AppSelect.displayName = "AppSelect"
+AppSelect.displayName = 'AppSelect';

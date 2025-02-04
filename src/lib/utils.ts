@@ -32,3 +32,11 @@ export const haversine = ({
 
   return R * c // Distance in kilometers
 }
+
+
+export const formatNumber = (number: number): string => {
+  const formattedNumber = new Intl.NumberFormat('en-US').format(
+    +number.toFixed()
+  );
+  return formattedNumber;
+};
