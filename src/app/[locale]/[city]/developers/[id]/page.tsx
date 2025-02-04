@@ -1,8 +1,11 @@
+import HeroCompanyCard from '@/components/app/HeroCompanyCard'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <HeroCompanyCard />
+    </div>
   )
 }
 
