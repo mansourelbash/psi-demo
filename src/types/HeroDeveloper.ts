@@ -12,3 +12,11 @@ export interface OptionType {
     value: string;
     label: string;
   }
+
+
+export interface ShareModalProps {
+  isOpen: boolean
+  onClose: () => void
+  url: string
+}
+  
