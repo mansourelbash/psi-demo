@@ -20,3 +20,8 @@ export interface ShareModalProps {
   url: string
 }
   
+
+export interface DeveloperModel {  
+  page: number;
+  per_page: number;
+}
