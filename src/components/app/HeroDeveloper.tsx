@@ -27,7 +27,7 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const req = await getDevelopers(currentPage, 10);
+      const req = await getDevelopers(currentPage, 18);
       setDevelopers(req.items);
       setTotalPages(req.pages);
     };
@@ -128,7 +128,7 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
       </Container>
 
       <div className="px-4 py-8 bg-white">
-        <div className="grid max-w-[80%] mx-auto gap-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4">
+        <div className="grid max-w-[80%] mx-auto gap-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
           <AnimatePresence mode="wait">
             {filteredDevelopers.map((developer) => (
               <motion.div
