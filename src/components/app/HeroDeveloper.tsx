@@ -28,8 +28,23 @@ const HeroDeveloper: React.FC = () => {
   const searchParams = useSearchParams();
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const [loading, setLoading] = useState(true);
+  const localStorageKey = "developerPage";
+  const [pageLoaded, setPageLoaded] = useState(false); // new state variable
 
   useEffect(() => {
+    const savedPage = localStorage.getItem(localStorageKey);
+    if (savedPage) {
+      setCurrentPage(parseInt(savedPage, 10));
+    }
+    setPageLoaded(true); // Indicate that the page number has been loaded
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, currentPage.toString());
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (!pageLoaded) return; // Prevent fetching until page is loaded from localStorage
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -42,7 +57,7 @@ const HeroDeveloper: React.FC = () => {
     };
 
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, pageLoaded]);
 
   const options: OptionType[] = [
     { value: "dubai", label: "Dubai" },
