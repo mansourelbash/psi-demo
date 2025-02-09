@@ -19,7 +19,9 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
   const [developers, setDevelopers] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedCities, setSelectedCities] = useState<MultiValue<OptionType>>([]);
+  const [selectedCities, setSelectedCities] = useState<MultiValue<OptionType>>(
+    []
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -48,7 +50,9 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
       .includes(searchTerm.toLowerCase());
     const matchesCity =
       selectedCities.length === 0 ||
-      selectedCities.some((city) => city.value === developer.city.toLowerCase());
+      selectedCities.some(
+        (city) => city.value === developer.city.toLowerCase()
+      );
     return matchesSearch && matchesCity;
   });
 
@@ -128,7 +132,7 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
       </Container>
 
       <div className="px-4 py-8 bg-white">
-        <div className="grid max-w-[80%] mx-auto gap-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-6">
+        <div className="grid max-w-[80%] mx-auto gap-8 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
           <AnimatePresence mode="wait">
             {filteredDevelopers.map((developer) => (
               <motion.div
@@ -139,7 +143,7 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3 }}
                 whileHover={{ scale: 1.1 }}
-                onClick={() => handleImageClick(developer.name)}
+                onClick={() => handleImageClick(developer.id)}
               >
                 <Image
                   src={developer.logo?.preview || "/images/media.jpg"}
@@ -168,7 +172,9 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
           <>
             <Button
               variant="outline"
-              className={`px-4 py-2 ${currentPage === 1 ? "bg-[#2e325c] text-white" : "text-gray-500"}`}
+              className={`px-4 py-2 ${
+                currentPage === 1 ? "bg-[#2e325c] text-white" : "text-gray-500"
+              }`}
               onClick={() => handlePageChange(1)}
             >
               1
@@ -188,7 +194,11 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
             <Button
               key={page}
               variant="outline"
-              className={`px-4 py-2 ${currentPage === page ? "bg-[#2e325c] text-white" : "text-gray-500"}`}
+              className={`px-4 py-2 ${
+                currentPage === page
+                  ? "bg-[#2e325c] text-white"
+                  : "text-gray-500"
+              }`}
               onClick={() => handlePageChange(page)}
             >
               {page}
@@ -197,10 +207,16 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
 
         {currentPage < totalPages - 2 && (
           <>
-            {currentPage < totalPages - 3 && <span className="text-gray-500">...</span>}
+            {currentPage < totalPages - 3 && (
+              <span className="text-gray-500">...</span>
+            )}
             <Button
               variant="outline"
-              className={`px-4 py-2 ${currentPage === totalPages ? "bg-[#2e325c] text-white" : "text-gray-500"}`}
+              className={`px-4 py-2 ${
+                currentPage === totalPages
+                  ? "bg-[#2e325c] text-white"
+                  : "text-gray-500"
+              }`}
               onClick={() => handlePageChange(totalPages)}
             >
               {totalPages}
