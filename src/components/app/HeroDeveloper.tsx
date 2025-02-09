@@ -7,16 +7,17 @@ import { Input } from "../ui/input";
 import { MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../ui/button";
-import { HeroDeveloperProps, OptionType } from "@/types/HeroDeveloper";
+import { Developer, OptionType } from "@/types/HeroDeveloper";
 import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 const Select = dynamic(() => import("react-select"), { ssr: false });
 import { ActionMeta, OnChangeValue, MultiValue } from "react-select";
 import { useMediaQuery } from "react-responsive";
 import { getDevelopers } from "@/services/developers";
+import LoaderSpinner from "./Loader";
 
-const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
-  const [developers, setDevelopers] = useState([]);
+const HeroDeveloper: React.FC = () => {
+  const [developers, setDevelopers] = useState<Developer[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedCities, setSelectedCities] = useState<MultiValue<OptionType>>(
@@ -26,12 +27,18 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isMobile = useMediaQuery({ maxWidth: 767 });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const req = await getDevelopers(currentPage, 18);
-      setDevelopers(req.items);
-      setTotalPages(req.pages);
+      setLoading(true);
+      try {
+        const req = await getDevelopers(currentPage, 18);
+        setDevelopers(req.items as Developer[]);
+        setTotalPages(req.pages);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchData();
@@ -46,15 +53,18 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
   const filteredDevelopers = developers.filter((developer) => {
     if (!developer) return false;
     const matchesSearch = developer.name
-      .toLowerCase()
+      ?.toLowerCase()
       .includes(searchTerm.toLowerCase());
+
     const matchesCity =
       selectedCities.length === 0 ||
       selectedCities.some(
-        (city) => city.value === developer.city.toLowerCase()
+        (city) => city.value === developer?.city?.toLowerCase()
       );
     return matchesSearch && matchesCity;
   });
+
+  const hasDevelopers = filteredDevelopers.length > 0;
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
@@ -62,9 +72,10 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
   };
 
   const handleSelectChange = (
-    selectedOptions: OnChangeValue<OptionType, true>,
-    actionMeta: ActionMeta<OptionType>
+    newValue: unknown,
+    _actionMeta: ActionMeta<unknown>
   ) => {
+    const selectedOptions = newValue as MultiValue<OptionType>;
     setSelectedCities(selectedOptions);
     setCurrentPage(1);
   };
@@ -107,19 +118,17 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
                       />
                       <MapPin className="absolute w-5 h-5 text-gray-400 transform -translate-y-9 left-[10px]" />
                     </div>
-
                     <div className="w-full md:w-[35%]">
                       <Select
                         isMulti
                         options={options}
                         value={selectedCities}
                         onChange={handleSelectChange}
-                        placeholder="Select Cities"
+                        placeholder="Property Name"
                         className="basic-multi-select"
                         classNamePrefix="select"
                       />
-                    </div>
-
+                    </div>{" "}
                     <Button className="h-12 px-8 text-white bg-[#2e325c] hover:bg-[#373b6a] w-full md:w-[25%]">
                       Search
                     </Button>
@@ -130,109 +139,117 @@ const HeroDeveloper: React.FC<HeroDeveloperProps> = () => {
           </div>
         </AspectRatio>
       </Container>
-
       <div className="px-4 py-8 bg-white">
-        <div className="grid max-w-[80%] mx-auto gap-8 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
-          <AnimatePresence mode="wait">
-            {filteredDevelopers.map((developer) => (
-              <motion.div
-                key={developer.id}
-                className="flex items-center justify-center p-4 hover:cursor-pointer"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.3 }}
-                whileHover={{ scale: 1.1 }}
-                onClick={() => handleImageClick(developer.id)}
+        {loading ? (
+          <div className="relative inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
+            <LoaderSpinner />
+          </div>
+        ) : (
+          <>
+            <div className="grid max-w-[80%] mx-auto gap-8 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+              <AnimatePresence mode="wait">
+                {filteredDevelopers.map((developer) => (
+                  <motion.div
+                    key={developer.id ?? null}
+                    className="flex items-center justify-center p-4 hover:cursor-pointer"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.3 }}
+                    whileHover={{ scale: 1.1 }}
+                    onClick={() =>
+                      developer.id && handleImageClick(developer.id as string)
+                    }
+                  >
+                    <Image
+                      src={developer.logo?.preview || "/images/media.jpg"}
+                      alt={developer.name.replace(/\s+/g, "-")}
+                      width={120}
+                      height={60}
+                      className="w-full"
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </>
+        )}
+      </div>
+      {hasDevelopers && (
+        <div className="flex flex-wrap items-center justify-center gap-2 py-8 bg-white">
+          <Button
+            variant="outline"
+            className="text-gray-500 px-4 py-2"
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+          >
+            Previous
+          </Button>
+          {currentPage > 3 && (
+            <>
+              <Button
+                variant="outline"
+                className={`px-4 py-2 ${
+                  currentPage === 1
+                    ? "bg-[#2e325c] text-white"
+                    : "text-gray-500"
+                }`}
+                onClick={() => handlePageChange(1)}
               >
-                <Image
-                  src={developer.logo?.preview || "/images/media.jpg"}
-                  alt={developer.name.replace(/\s+/g, "-")}
-                  width={120}
-                  height={60}
-                  className="w-full"
-                />
-              </motion.div>
+                1
+              </Button>
+              {currentPage > 4 && <span className="text-gray-500">...</span>}
+            </>
+          )}
+          {Array.from({ length: totalPages }, (_, index) => index + 1)
+            .filter(
+              (page) =>
+                page === 1 ||
+                page === totalPages ||
+                Math.abs(currentPage - page) <= (isMobile ? 1 : 2)
+            )
+            .map((page) => (
+              <Button
+                key={page}
+                variant="outline"
+                className={`px-4 py-2 ${
+                  currentPage === page
+                    ? "bg-[#2e325c] text-white"
+                    : "text-gray-500"
+                }`}
+                onClick={() => handlePageChange(page)}
+              >
+                {page}
+              </Button>
             ))}
-          </AnimatePresence>
+          {currentPage < totalPages - 2 && (
+            <>
+              {currentPage < totalPages - 3 && (
+                <span className="text-gray-500">...</span>
+              )}
+              <Button
+                variant="outline"
+                className={`px-4 py-2 ${
+                  currentPage === totalPages
+                    ? "bg-[#2e325c] text-white"
+                    : "text-gray-500"
+                }`}
+                onClick={() => handlePageChange(totalPages)}
+              >
+                {totalPages}
+              </Button>
+            </>
+          )}
+          <Button
+            variant="outline"
+            className="text-gray-500 px-4 py-2"
+            disabled={currentPage === totalPages || totalPages === 0}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            Next
+          </Button>
         </div>
-      </div>
-
-      <div className="flex flex-wrap items-center justify-center gap-2 py-8 bg-white">
-        <Button
-          variant="outline"
-          className="text-gray-500 px-4 py-2"
-          disabled={currentPage === 1}
-          onClick={() => handlePageChange(currentPage - 1)}
-        >
-          Previous
-        </Button>
-
-        {currentPage > 3 && (
-          <>
-            <Button
-              variant="outline"
-              className={`px-4 py-2 ${
-                currentPage === 1 ? "bg-[#2e325c] text-white" : "text-gray-500"
-              }`}
-              onClick={() => handlePageChange(1)}
-            >
-              1
-            </Button>
-            {currentPage > 4 && <span className="text-gray-500">...</span>}
-          </>
-        )}
-
-        {Array.from({ length: totalPages }, (_, index) => index + 1)
-          .filter(
-            (page) =>
-              page === 1 ||
-              page === totalPages ||
-              Math.abs(currentPage - page) <= (isMobile ? 1 : 2)
-          )
-          .map((page) => (
-            <Button
-              key={page}
-              variant="outline"
-              className={`px-4 py-2 ${
-                currentPage === page
-                  ? "bg-[#2e325c] text-white"
-                  : "text-gray-500"
-              }`}
-              onClick={() => handlePageChange(page)}
-            >
-              {page}
-            </Button>
-          ))}
-
-        {currentPage < totalPages - 2 && (
-          <>
-            {currentPage < totalPages - 3 && (
-              <span className="text-gray-500">...</span>
-            )}
-            <Button
-              variant="outline"
-              className={`px-4 py-2 ${
-                currentPage === totalPages
-                  ? "bg-[#2e325c] text-white"
-                  : "text-gray-500"
-              }`}
-              onClick={() => handlePageChange(totalPages)}
-            >
-              {totalPages}
-            </Button>
-          </>
-        )}
-
-        <Button
-          variant="outline"
-          className="text-gray-500 px-4 py-2"
-          disabled={currentPage === totalPages || totalPages === 0}
-          onClick={() => handlePageChange(currentPage + 1)}
-        >
-          Next
-        </Button>
-      </div>
+      )}
     </>
   );
 };

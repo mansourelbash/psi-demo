@@ -3,11 +3,58 @@
 import { Button } from "@/components/ui/button"
 import {ForwardIcon} from "../icons/forward-icon"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ShareModal from "./ShareModal"
+import { getDevelopersProfile } from "@/services/developers"
+import { DeveloperProfileModel } from "@/types/HeroDeveloper"
 
-export default function HeroCompanyCard() {
+interface Props {
+  propertyId: number
+}
+
+
+
+
+export default function HeroCompanyCard({propertyId}:Props) {
+  
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false);
+  
+  const [propertyProfile, setPropertyProfile] = useState<DeveloperProfileModel>({
+    name: "Aldar Properties PJSC",
+    properties: 105,
+    founded: 2000,
+    logo: { preview: "/images/developers/aldar-logo.png" },
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const developerProjectsData = await getDevelopersProfile(propertyId);
+        console.log("Developer Projects Data:", developerProjectsData);
+  
+        if (!developerProjectsData) {
+          throw new Error("Developer data not found");
+        }
+  
+        setPropertyProfile({
+          name: developerProjectsData.name || "Unknown",
+          properties: developerProjectsData.properties || 0,
+          founded: developerProjectsData.founded || 2000,
+          logo: developerProjectsData.logo || { preview: "/images/developers/default-logo.png" }
+        });
+  
+      } catch (error) {
+        console.error("Error fetching developer projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchData();
+  }, [propertyId]);
+  
+  
   return (
     <div className="relative w-full max-w-[108rem] mx-auto overflow-hidden rounded-xl bg-[#051831] p-6">
       <button onClick={() => setIsOpen(true)} className="bg-white flex justify-center w-[40px] h-[40px] absolute right-4 rounded-full top-4 text-black/80 hover:black/100">
@@ -22,7 +69,7 @@ export default function HeroCompanyCard() {
       <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center mx-[60px]">
         <div className="relative h-[180px] w-[180px] shrink-0 overflow-hidden rounded-full bg-white">
           <Image
-            src={"/images/developers/aldar-logo.png"}
+            src={propertyProfile?.logo?.preview ? propertyProfile?.logo?.preview : "/images/developers/aldar-logo.png"}
             alt="Aldar Properties Logo"
             fill
             className="object-contain p-2"
@@ -30,7 +77,7 @@ export default function HeroCompanyCard() {
         </div>
 
         <div className="space-y-3 ms-[40px]">
-          <h2 className="text-2xl font-medium text-white">Aldar Properties PJSC</h2>
+          <h2 className="text-2xl font-medium text-white"> {propertyProfile.name || "Aldar Properties PJSC"}</h2>
 
           <div className="space-y-1 text-sm text-white/80">
             <p>Properties: 105</p>

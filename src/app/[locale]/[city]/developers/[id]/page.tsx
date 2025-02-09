@@ -1,97 +1,54 @@
-'use client'
-import HeroCompanyCard from '@/components/app/HeroCompanyCard'
-import MultiCheckboxSelect from '@/components/app/MultiCheckboxSelect'
-import Image from 'next/image'
-import React, { useState } from 'react'
+"use client";
+import DeveloperProfileProjects from "@/components/app/DeveloperProfileProjects";
+import HeroCompanyCard from "@/components/app/HeroCompanyCard";
+import MultiCheckboxSelect from "@/components/app/MultiCheckboxSelect";
+import Image from "next/image";
+import React, { useState } from "react";
+import { useParams } from "next/navigation";
 
 const page = () => {
-  const locations = [
-    { id: "abu-dhabi", name: "Abu Dhabi" },
-    { id: "dubai", name: "Dubai" },
-    { id: "sharjah", name: "Sharjah" },
-    { id: "al-ain", name: "Al Ain" },
-    { id: "ras-al-khaimah", name: "Ras Al Khaimah" },
-  ];
+  const { id } = useParams<{ id: string }>();
 
-  const Statues = [
-    { id: "ready", name: "Ready" },
-    { id: "offplan", name: "Off Plan" },
-  ];
-
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([
-    "dubai",
-  ]);
-  const [selectedStatues, setSelectedStatues] = useState<string[]>([
-    "ready",
-  ]);
-
-  const handleToggleLocation = (locationId: string) => {
-    setSelectedLocations((prev) =>
-      prev.includes(locationId)
-        ? prev.filter((id) => id !== locationId)
-        : [...prev, locationId]
-    );
-  };
-
-  const handleToggleStatues = (statusId: string) => {
-    setSelectedStatues(statusId);
-  };
   return (
     <div>
-      <HeroCompanyCard />
-
-      <div className="grid grid-cols-4 gap-8 h-screen container mt-[40px]">
-        <div className="col-span-3">
-        <div className="flex justify-between mb-8">
-        <h1 className="text-2xl font-semibold">Properties Developed By Aldar</h1>
-        <div className="flex gap-2 w-[30%]">
-          <MultiCheckboxSelect
-        options={locations}
-        selectedOptions={selectedLocations}
-        onToggleOption={handleToggleLocation}
-        title="Choose a Location"
-        isMulti={true}
-        variant="default"
-      />
-
-      <MultiCheckboxSelect
-        options={Statues}
-        selectedOptions={selectedStatues}
-        onToggleOption={handleToggleStatues}
-        title="Statues"
-        isMulti={false}
-        variant="outlined"
-      />
-        </div>
-      </div>
+      <HeroCompanyCard propertyId={parseInt(id)} />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 h-auto container mt-[40px]">
+        <div className="col-span-1 md:col-span-2 lg:col-span-3">
+          <DeveloperProfileProjects propertyId={parseInt(id)} />
         </div>
         <div className="col-span-1">
-          <div className='border-gray-300 h-[450px] rounded-[15px] border p-[30px]'>
-            <h4 className='text-center font-semibold text-[24px]'>About Aldar 🏢</h4>
+          <div className="border-gray-300 h-auto md:h-[450px] rounded-[15px] border p-[20px] md:p-[30px]">
+            <h4 className="text-center font-semibold text-[20px] md:text-[24px]">
+              About Aldar 🏢
+            </h4>
 
-            <p className='mt-4 mb-4 text-[#414042] text-[18px]'>
-            Aldar Properties PJSC is the leading real estate developer and manager in the UAE with a diversified and sustainable operating model centred around two core businesses: Aldar Development and Aldar Investment.
+            <p className="mt-4 mb-4 text-[#414042] text-[16px] md:text-[18px]">
+              Aldar Properties PJSC is the leading real estate developer and
+              manager in the UAE with a diversified and sustainable operating
+              model centred around two core businesses: Aldar Development and
+              Aldar Investment.
             </p>
-            <p className='mt-4 mb-4 text-[#414042] text-[18px]'>
-            Aldar Development is a master developer of integrated, livable, and thriving communities across Abu Dhabi’s most desirable destinations, including Yas Island, Saadiyat Island, Al Raha, and Reem Island. 
+            <p className="mt-4 mb-4 text-[#414042] text-[16px] md:text-[18px]">
+              Aldar Development is a master developer of integrated, livable,
+              and thriving communities across Abu Dhabi’s most desirable
+              destinations, including Yas Island, Saadiyat Island, Al Raha, and
+              Reem Island.
             </p>
           </div>
-          <div className='relative mt-[20px] rounded-[15px] overflow-hidden'>
-          <Image
-            src="/images/book-now.jpg"
-            alt="Yas Riva Property"
-            width={800}
-            height={1000}
-            className="w-full"
-            priority
-          />
-
+          <div className="relative mt-[20px] rounded-[15px] overflow-hidden">
+            <Image
+              src="/images/book-now.jpg"
+              alt="Yas Riva Property"
+              width={800}
+              height={1000}
+              className="w-full"
+              priority
+            />
           </div>
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
