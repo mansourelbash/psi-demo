@@ -23,7 +23,6 @@ export function CustomPagination({
   onPageChange,
   showFirstLast = true,
   maxVisiblePages = 5,
-  isMobile = false,
 }: CustomPaginationProps) {
   const getVisiblePages = () => {
     const delta = Math.floor(maxVisiblePages / 2)

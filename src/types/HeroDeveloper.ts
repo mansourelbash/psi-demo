@@ -1,9 +1,6 @@
-import { SetStateAction } from "jotai";
-import { Key } from "readline";
-
 export interface Developer {
-  [x: string]: Key | null | undefined;
-  name: string;
+  id: number | string;
+  name?: string;
   logo: {
     preview: string;
   };
@@ -28,17 +25,21 @@ export interface ShareModalProps {
   
 
 export interface DeveloperModel {
-  [x: string]: Developer[];  
   page: number;
   per_page: number;
+  developers?: Developer[]; 
+  pages?: number;           
 }
 
+
+
 export interface ProjectDeveloperModel {
-  [x: string]: SetStateAction<never[]>;
   id: number;
   page?: number;
   per_page?: number;
+  [x: string]: number | undefined;
 };
+
 
 export type DeveloperProfileProjectsProps = {
     propertyId: number;

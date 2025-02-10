@@ -1,7 +1,6 @@
 'use server'
 
 import { DeveloperModel, DeveloperProfileModel, ProjectDeveloperModel } from "@/types/HeroDeveloper";
-import { revalidatePath } from "next/cache";
 
 const DEVELOPER_URL = `${process.env.API_URL}/developers`;
 

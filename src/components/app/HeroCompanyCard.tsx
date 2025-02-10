@@ -12,13 +12,9 @@ interface Props {
   propertyId: number
 }
 
-
-
-
 export default function HeroCompanyCard({propertyId}:Props) {
   
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
   
   const [propertyProfile, setPropertyProfile] = useState<DeveloperProfileModel>({
     name: "Aldar Properties PJSC",
@@ -28,7 +24,6 @@ export default function HeroCompanyCard({propertyId}:Props) {
   });
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
         const developerProjectsData = await getDevelopersProfile(propertyId);
         console.log("Developer Projects Data:", developerProjectsData);
@@ -47,7 +42,7 @@ export default function HeroCompanyCard({propertyId}:Props) {
       } catch (error) {
         console.error("Error fetching developer projects:", error);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
   

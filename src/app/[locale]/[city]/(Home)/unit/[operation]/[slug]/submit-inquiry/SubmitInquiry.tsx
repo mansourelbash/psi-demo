@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { TextHighlight, TypographyH2 } from '@/components/ui/typography';
-import { OperationType, UnitRequestModel } from '@/types/Shared';
+import { UnitRequestModel } from '@/types/Shared';
 import { MessagesSquare } from 'lucide-react';
 import { FC } from 'react';
 import * as Yup from 'yup';

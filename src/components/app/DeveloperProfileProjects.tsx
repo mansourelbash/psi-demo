@@ -5,14 +5,24 @@ import React, { useEffect, useState } from "react";
 import { ProjectCard } from "./ProjectCard";
 import { DeveloperProfileProjectsProps } from "@/types/HeroDeveloper";
 import { useMediaQuery } from "usehooks-ts";
-import { Button } from "../ui/button";
 import MultiCheckboxSelect from "./MultiCheckboxSelect";
 import LoaderSpinner from "./Loader";
 import { CustomPagination } from "./CustomPagination";
 import { useRouter, useSearchParams } from "next/navigation";
-
+import { PropertyListModel } from "@/types/Property";
 
 const itemsPerPage = 6;
+
+interface Location {
+  lat?: number;
+  lng?: number;
+}
+
+interface Project extends PropertyListModel {
+  id: number;
+  location: Location;
+  handover_date: string | null;
+}
 
 const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
   propertyId,
@@ -21,10 +31,10 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
   const searchParams = useSearchParams();
   const initialPage = Number(searchParams.get("page")) || 1;
 
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [currentPage, setCurrentPage] = useState(initialPage);
-  const [totalPages, setTotalPages] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
@@ -66,18 +76,24 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
           currentPage,
           itemsPerPage
         );
-
-        setProjects(developerProjectsData.items || []);
-        setTotalPages(developerProjectsData.pages || 1);
+  
+        if (Array.isArray(developerProjectsData.items)) {
+          setProjects(developerProjectsData.items as Project[]);
+        } else {
+          setProjects([]);
+        }
+  
+        setTotalPages(developerProjectsData.pages !== undefined ? developerProjectsData.pages : 1);
       } catch (error) {
         console.error("Error fetching developer projects:", error);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, [propertyId, currentPage]);
+  
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);

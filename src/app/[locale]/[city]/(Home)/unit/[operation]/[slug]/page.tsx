@@ -88,7 +88,7 @@ export default async function Unit({ params }: UnitProps) {
         <div className='col-span-3 flex flex-col gap-9'>
           <ListingAgentCard unitId={unit.id} operation={operation} />
           <SubmitInquiry
-            unitTypeId={unit.unit_type?.id!}
+            unitTypeId={Number(unit.unit_type?.id) || 0} 
             propertyId={unit.property_id}
             bedrooms={unit.bedrooms}
             bathrooms={unit.bathrooms}

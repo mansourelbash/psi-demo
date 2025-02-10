@@ -1,5 +1,4 @@
 import { CaretDown } from "@phosphor-icons/react";
-import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 
 // Placeholder Mega Menu Components (replace with your actual content)
@@ -95,21 +94,20 @@ const menuLinks = [
 ];
 
 export const Nav = () => {
-  const [openMenuIndex, setOpenMenuIndex] = useState(null); // Track open menu
-  const navRef = useRef(null);
+  const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
+  const navRef = useRef<HTMLDivElement>(null); 
 
-  const handleMenuToggle = (index) => {
-    setOpenMenuIndex(openMenuIndex === index ? null : index); // Toggle open state
+  const handleMenuToggle = (index: number) => {
+    setOpenMenuIndex(openMenuIndex === index ? null : index);
   };
 
-  //Close mega menu on outside click
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (navRef.current && !navRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) { 
         setOpenMenuIndex(null);
       }
     }
-
+  
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);

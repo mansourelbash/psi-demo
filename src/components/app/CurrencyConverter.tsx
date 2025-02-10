@@ -1,7 +1,6 @@
 'use client';
 
 import { Currencies, settingsAtom } from '@/atoms/settingsAtoms';
-import { formatNumber } from '@/lib/utils';
 import { useAtom } from 'jotai';
 import { FC, useEffect, useState } from 'react';
 

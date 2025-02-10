@@ -9,9 +9,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../ui/button";
 import { Developer, OptionType } from "@/types/HeroDeveloper";
 import dynamic from "next/dynamic";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 const Select = dynamic(() => import("react-select"), { ssr: false });
-import { ActionMeta, OnChangeValue, MultiValue } from "react-select";
+import {MultiValue } from "react-select";
 import { useMediaQuery } from "react-responsive";
 import { getDevelopers } from "@/services/developers";
 import LoaderSpinner from "./Loader";
@@ -26,7 +26,6 @@ const HeroDeveloper: React.FC = () => {
   );
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
-  const searchParams = useSearchParams();
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const [loading, setLoading] = useState(true);
   const localStorageKey = "developerPage";
@@ -51,13 +50,20 @@ const HeroDeveloper: React.FC = () => {
       setLoading(true);
       try {
         const req = await getDevelopers(currentPage, 18);
-        setDevelopers(req.items as Developer[]);
-        setTotalPages(req.pages);
+        // Ensure the response has the correct structure.
+        // Adjust if the actual response uses a different key (like 'developers').
+        setDevelopers(req.developers as Developer[]);  // Assuming 'developers' is the correct key
+    
+        if (typeof req.pages === 'number') {
+          setTotalPages(req.pages);
+        } else {
+          setTotalPages(1);
+        }
       } finally {
         setLoading(false);
       }
     };
-
+    
     fetchData();
   }, [currentPage, pageLoaded]);
 
@@ -88,10 +94,7 @@ const HeroDeveloper: React.FC = () => {
     setCurrentPage(page);
   };
 
-  const handleSelectChange = (
-    newValue: unknown,
-    _actionMeta: ActionMeta<unknown>
-  ) => {
+  const handleSelectChange = (newValue: unknown)  => {
     const selectedOptions = newValue as MultiValue<OptionType>;
     setSelectedCities(selectedOptions);
     setCurrentPage(1);
@@ -167,7 +170,7 @@ const HeroDeveloper: React.FC = () => {
               <AnimatePresence mode="wait">
                 {filteredDevelopers.map((developer) => (
                   <motion.div
-                    key={developer.id ?? null}
+                    key={developer.name}  
                     className="flex items-center justify-center p-4 hover:cursor-pointer"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -175,12 +178,12 @@ const HeroDeveloper: React.FC = () => {
                     transition={{ duration: 0.3 }}
                     whileHover={{ scale: 1.1 }}
                     onClick={() =>
-                      developer.id && handleImageClick(developer.id as string)
+                      developer.id && handleImageClick(String(developer.id))
                     }
                   >
                     <Image
                       src={developer.logo?.preview || "/images/media.jpg"}
-                      alt={developer.name.replace(/\s+/g, "-")}
+                      alt={(developer.name?.replace(/\s+/g, "-") || "default-developer").toLowerCase()}
                       width={120}
                       height={60}
                       className="w-full"

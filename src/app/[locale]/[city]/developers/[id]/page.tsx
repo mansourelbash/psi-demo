@@ -1,12 +1,11 @@
 "use client";
 import DeveloperProfileProjects from "@/components/app/DeveloperProfileProjects";
 import HeroCompanyCard from "@/components/app/HeroCompanyCard";
-import MultiCheckboxSelect from "@/components/app/MultiCheckboxSelect";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const { id } = useParams<{ id: string }>();
 
   return (
@@ -51,4 +50,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

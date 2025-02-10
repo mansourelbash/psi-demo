@@ -21,11 +21,12 @@ export enum Sizes {
 }
 
 export type SettingsProps = {
-  locale: string;
+  locale: 'en' | 'ar' | 'cn' | 'de' | 'fr' | 'it' | 'ru' | 'tr'; 
   size: Sizes;
   currency: Currencies;
   city: CityIds;
 };
+
 export const settingsDefault: SettingsProps = {
   locale: i18n.defaultLocale,
   size: Sizes.SQ_FT,
@@ -37,10 +38,9 @@ export const settingsAtom = atomWithStorage<SettingsProps>(
   settingsDefault
 );
 
-// Dictionary atom derived from the current locale
 export const dictionaryAtom = atomWithDefault(async (get) => {
   const locale = get(settingsAtom)?.locale ?? i18n.defaultLocale;
-  return await getDictionary(locale);
+  return await getDictionary(locale as 'en' | 'ar' | 'cn' | 'de' | 'fr' | 'it' | 'ru' | 'tr');
 });
 
 export const getCity = atomWithRefresh(async (get) => {
