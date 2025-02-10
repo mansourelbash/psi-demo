@@ -52,7 +52,7 @@ const HeroDeveloper: React.FC = () => {
         const req = await getDevelopers(currentPage, 18);
         // Ensure the response has the correct structure.
         // Adjust if the actual response uses a different key (like 'developers').
-        setDevelopers(req.developers as Developer[]);  // Assuming 'developers' is the correct key
+        setDevelopers(req.items as Developer[]);  // Assuming 'developers' is the correct key
     
         if (typeof req.pages === 'number') {
           setTotalPages(req.pages);
@@ -73,7 +73,7 @@ const HeroDeveloper: React.FC = () => {
     { value: "sharjah", label: "Sharjah" },
   ];
 
-  const filteredDevelopers = developers.filter((developer) => {
+  const filteredDevelopers = developers?.filter((developer) => {
     if (!developer) return false;
     const matchesSearch = developer.name
       ?.toLowerCase()
@@ -87,7 +87,7 @@ const HeroDeveloper: React.FC = () => {
     return matchesSearch && matchesCity;
   });
 
-  const hasDevelopers = filteredDevelopers.length > 0;
+  const hasDevelopers = filteredDevelopers?.length > 0;
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
@@ -168,7 +168,7 @@ const HeroDeveloper: React.FC = () => {
           <>
             <div className="grid max-w-[80%] mx-auto gap-8 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
               <AnimatePresence mode="wait">
-                {filteredDevelopers.map((developer) => (
+                {filteredDevelopers?.map((developer) => (
                   <motion.div
                     key={developer.name}  
                     className="flex items-center justify-center p-4 hover:cursor-pointer"
