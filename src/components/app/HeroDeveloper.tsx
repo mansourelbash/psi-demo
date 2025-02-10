@@ -15,6 +15,7 @@ import { ActionMeta, OnChangeValue, MultiValue } from "react-select";
 import { useMediaQuery } from "react-responsive";
 import { getDevelopers } from "@/services/developers";
 import LoaderSpinner from "./Loader";
+import { CustomPagination } from "./CustomPagination";
 
 const HeroDeveloper: React.FC = () => {
   const [developers, setDevelopers] = useState<Developer[]>([]);
@@ -31,12 +32,13 @@ const HeroDeveloper: React.FC = () => {
   const localStorageKey = "developerPage";
   const [pageLoaded, setPageLoaded] = useState(false); // new state variable
 
+
   useEffect(() => {
     const savedPage = localStorage.getItem(localStorageKey);
     if (savedPage) {
       setCurrentPage(parseInt(savedPage, 10));
     }
-    setPageLoaded(true); // Indicate that the page number has been loaded
+    setPageLoaded(true); 
   }, []);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const HeroDeveloper: React.FC = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    if (!pageLoaded) return; // Prevent fetching until page is loaded from localStorage
+    if (!pageLoaded) return;
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -191,79 +193,14 @@ const HeroDeveloper: React.FC = () => {
         )}
       </div>
       {hasDevelopers && (
-        <div className="flex flex-wrap items-center justify-center gap-2 py-8 bg-white">
-          <Button
-            variant="outline"
-            className="text-gray-500 px-4 py-2"
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            Previous
-          </Button>
-          {currentPage > 3 && (
-            <>
-              <Button
-                variant="outline"
-                className={`px-4 py-2 ${
-                  currentPage === 1
-                    ? "bg-[#2e325c] text-white"
-                    : "text-gray-500"
-                }`}
-                onClick={() => handlePageChange(1)}
-              >
-                1
-              </Button>
-              {currentPage > 4 && <span className="text-gray-500">...</span>}
-            </>
-          )}
-          {Array.from({ length: totalPages }, (_, index) => index + 1)
-            .filter(
-              (page) =>
-                page === 1 ||
-                page === totalPages ||
-                Math.abs(currentPage - page) <= (isMobile ? 1 : 2)
-            )
-            .map((page) => (
-              <Button
-                key={page}
-                variant="outline"
-                className={`px-4 py-2 ${
-                  currentPage === page
-                    ? "bg-[#2e325c] text-white"
-                    : "text-gray-500"
-                }`}
-                onClick={() => handlePageChange(page)}
-              >
-                {page}
-              </Button>
-            ))}
-          {currentPage < totalPages - 2 && (
-            <>
-              {currentPage < totalPages - 3 && (
-                <span className="text-gray-500">...</span>
-              )}
-              <Button
-                variant="outline"
-                className={`px-4 py-2 ${
-                  currentPage === totalPages
-                    ? "bg-[#2e325c] text-white"
-                    : "text-gray-500"
-                }`}
-                onClick={() => handlePageChange(totalPages)}
-              >
-                {totalPages}
-              </Button>
-            </>
-          )}
-          <Button
-            variant="outline"
-            className="text-gray-500 px-4 py-2"
-            disabled={currentPage === totalPages || totalPages === 0}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            Next
-          </Button>
-        </div>
+        <CustomPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          showFirstLast={true}
+          maxVisiblePages={5}
+          isMobile={isMobile}
+        />
       )}
     </>
   );

@@ -8,15 +8,28 @@ import { useMediaQuery } from "usehooks-ts";
 import { Button } from "../ui/button";
 import MultiCheckboxSelect from "./MultiCheckboxSelect";
 import LoaderSpinner from "./Loader";
+import { CustomPagination } from "./CustomPagination";
+import { useRouter, useSearchParams } from "next/navigation";
+
 
 const itemsPerPage = 6;
 
-const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({ propertyId }) => {
+const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
+  propertyId,
+}) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialPage = Number(searchParams.get("page")) || 1;
+
   const [projects, setProjects] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  useEffect(() => {
+    setCurrentPage(initialPage);
+  }, [searchParams]);
 
   const locations = [
     { id: "abu-dhabi", name: "Abu Dhabi" },
@@ -41,17 +54,21 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({ pro
   };
 
   const handleToggleStatues = (statusId: string) => {
-    setSelectedStatues(statusId);
+    setSelectedStatues(statusId.toString());
   };
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const developerProjectsData = await getProjectsDeveloper(propertyId, currentPage, itemsPerPage);
+        const developerProjectsData = await getProjectsDeveloper(
+          propertyId,
+          currentPage,
+          itemsPerPage
+        );
 
         setProjects(developerProjectsData.items || []);
-        setTotalPages(developerProjectsData.pages || 0);
+        setTotalPages(developerProjectsData.pages || 1);
       } catch (error) {
         console.error("Error fetching developer projects:", error);
       } finally {
@@ -64,6 +81,9 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({ pro
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
+    router.replace(`?page=${newPage}`, { scroll: false });
+
+
   };
 
   return (
@@ -111,43 +131,14 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({ pro
             </div>
 
             {totalPages > 1 && (
-              <div className="flex flex-wrap items-center justify-center gap-2 py-8 bg-white">
-                {currentPage > 1 && (
-                  <Button
-                    variant="outline"
-                    className="text-gray-500 px-4 py-2"
-                    onClick={() => handlePageChange(currentPage - 1)}
-                  >
-                    Previous
-                  </Button>
-                )}
-
-                {Array.from({ length: totalPages }, (_, index) => index + 1)
-                  .filter(
-                    (page) =>
-                      page === 1 || page === totalPages || Math.abs(currentPage - page) <= (isMobile ? 1 : 1)
-                  )
-                  .map((page) => (
-                    <Button
-                      key={page}
-                      variant="outline"
-                      className={`px-4 py-2 ${currentPage === page ? "bg-[#2e325c] text-white" : "text-gray-500"}`}
-                      onClick={() => handlePageChange(page)}
-                    >
-                      {page}
-                    </Button>
-                  ))}
-
-                {currentPage < totalPages && (
-                  <Button
-                    variant="outline"
-                    className="text-gray-500 px-4 py-2"
-                    onClick={() => handlePageChange(currentPage + 1)}
-                  >
-                    Next
-                  </Button>
-                )}
-              </div>
+              <CustomPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                showFirstLast={true}
+                maxVisiblePages={5}
+                isMobile={isMobile}
+              />
             )}
           </>
         )}
