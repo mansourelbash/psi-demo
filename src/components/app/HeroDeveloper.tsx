@@ -50,9 +50,8 @@ const HeroDeveloper: React.FC = () => {
       setLoading(true);
       try {
         const req = await getDevelopers(currentPage, 18);
-        // Ensure the response has the correct structure.
-        // Adjust if the actual response uses a different key (like 'developers').
-        setDevelopers(req.items as Developer[]);  // Assuming 'developers' is the correct key
+        console.log(req,'req req req req')
+        setDevelopers(req.items as Developer[]); 
     
         if (typeof req.pages === 'number') {
           setTotalPages(req.pages);
