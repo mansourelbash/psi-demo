@@ -27,7 +27,7 @@ export interface ShareModalProps {
 export interface DeveloperModel {
   page: number;
   per_page: number;
-  developers?: Developer[]; 
+  items: Developer[]; 
   pages?: number;           
 }
 
