@@ -141,7 +141,7 @@ const HeroDeveloper: React.FC = () => {
                         options={options}
                         value={selectedCities}
                         onChange={handleSelectChange}
-                        placeholder="Property Name"
+                        placeholder="Property Type"
                         className="basic-multi-select"
                         classNamePrefix="select"
                       />

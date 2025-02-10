@@ -7,7 +7,7 @@ const DEVELOPER_URL = `${process.env.API_URL}/developers`;
 
 export const getDevelopers = async (page: number, per_page: number): Promise<DeveloperModel> => {
     const res = await fetch(`${DEVELOPER_URL}?page=${page}&per_page=${per_page}`, {
-      cache: 'no-store',
+      cache: 'force-cache',
     });
   
     if (!res.ok) {
@@ -19,7 +19,7 @@ export const getDevelopers = async (page: number, per_page: number): Promise<Dev
 
   export const getDevelopersProfile = async (id:number): Promise<DeveloperProfileModel> => {
     const res = await fetch(`${DEVELOPER_URL}/${id}`, {
-      cache: 'no-store',
+      cache: 'force-cache',
     });
   
     if (!res.ok) {
@@ -31,7 +31,7 @@ export const getDevelopers = async (page: number, per_page: number): Promise<Dev
 
   export const getProjectsDeveloper = async (id:number, page: number, per_page: number, ): Promise<ProjectDeveloperModel> => {
     const res = await fetch(`${DEVELOPER_URL}/projects/${id}?page=${page}&per_page=${per_page}`, {
-      cache: 'no-store',
+      cache: 'force-cache',
     });
   
     if (!res.ok) {
