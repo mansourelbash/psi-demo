@@ -12,7 +12,6 @@ import { CalendarIcon } from '@/components/icons/calendar-icon';
 import { BoxSizeIcon } from '@/components/icons/box-size-icon';
 import { HardHatIcon } from '@/components/icons/hard-hat-icon';
 import { SecurityCameraIcon } from '@/components/icons/security-camera-icon';
-import SpaceUnitConverter from '@/components/app/SpaceUnitConverter';
 import CurrencyConverter from '@/components/app/CurrencyConverter';
 
 type Props = {

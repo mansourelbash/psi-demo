@@ -4,11 +4,13 @@ import {
   DefaultPaginate,
   OperationType,
   PaginateParams,
+  UnitRequestModel,
 } from '@/types/Shared';
 import { BaseUnitModel, ListingAgent, UnitModel } from '@/types/Unit';
 import queryString from 'query-string';
 
-const UNITS_URL = `${process.env.API_URL}/units`;
+const API_URL = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
+const UNITS_URL = `${API_URL}/units`;
 
 type GetUnitsParams = {
   label?:
@@ -93,3 +95,4 @@ export const getListingAgents = async (
   );
   return res;
 };
+

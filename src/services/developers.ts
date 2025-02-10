@@ -41,7 +41,3 @@ export const getDevelopers = async (page: number, per_page: number): Promise<Dev
     }
     return await res.json();
   };
-
-
-
-  getProjectsDeveloper

@@ -1,4 +1,3 @@
-import { getCity, settingsAtom } from '@/atoms/settingsAtoms';
 import { ProjectCard } from '@/components/app/ProjectCard';
 import { Button } from '@/components/ui/button';
 import {

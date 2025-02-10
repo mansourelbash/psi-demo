@@ -10,8 +10,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Container } from '@/components/ui/container';
-import { TextHighlight, TypographyH2 } from '@/components/ui/typography';
-import { Locale } from '@/i18n.config';
+import { TypographyH2 } from '@/components/ui/typography';
 import { getUnits } from '@/services/units';
 import { CityIds, OperationType } from '@/types/Shared';
 

@@ -13,6 +13,7 @@
     "@phosphor-icons/react": "^2.1.7",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
+    "@radix-ui/react-checkbox": "^1.1.3",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.2",
@@ -24,7 +25,11 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
     "embla-carousel-react": "^8.5.1",
+<<<<<<< HEAD
     "framer-motion": "^12.0.11",
+=======
+    "formik": "^2.4.6",
+>>>>>>> d45eec779bf55196349f6eadd6c645a8962a9273
     "jotai": "^2.10.3",
     "jotai-ssr": "^0.2.0",
     "lucide-react": "^0.465.0",
@@ -39,7 +44,11 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "use-debounce": "^10.0.4",
+<<<<<<< HEAD
     "usehooks-ts": "^3.1.1"
+=======
+    "yup": "^1.6.1"
+>>>>>>> d45eec779bf55196349f6eadd6c645a8962a9273
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
@@ -49,6 +58,7 @@
     "@types/react-dom": "^19",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
+    "mini-css-extract-plugin": "^2.9.2",
     "postcss": "^8",
     "svg-inline-loader": "^0.8.2",
     "tailwindcss": "^3.4.1",

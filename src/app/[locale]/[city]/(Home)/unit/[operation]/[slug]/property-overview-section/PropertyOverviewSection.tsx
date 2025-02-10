@@ -6,7 +6,6 @@ import {
   InfoIconContainer,
   InfoTitle,
 } from '@/components/app/Info';
-import SpaceUnitConverter from '@/components/app/SpaceUnitConverter';
 import { CommunityIcon } from '@/components/icons/community-icon';
 import { HouseIcon } from '@/components/icons/house-icon';
 import { OwnershipIcon } from '@/components/icons/ownership-icon';

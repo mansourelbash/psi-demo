@@ -24,7 +24,7 @@ export const NewLaunchesProjects: FC<NewLaunchesProjectsProps> = async ({
     page: 1,
     per_page: 10,
   });
-  if (!properties.items.length) return null;
+  if (!properties.items?.length) return null;
   return (
     <Container>
       <Carousel opts={{ align: 'start' }} className='w-full space-y-[30px]'>
@@ -46,9 +46,9 @@ export const NewLaunchesProjects: FC<NewLaunchesProjectsProps> = async ({
           </div>
         </div>
         <CarouselContent>
-          {properties.items?.map((_, index) => (
+          {properties.items?.map((project, index) => (
             <CarouselItem key={index} className='lg:basis-auto ps-6'>
-              <ProjectCardFlat />
+              <ProjectCardFlat project={project} />
             </CarouselItem>
           ))}
         </CarouselContent>
