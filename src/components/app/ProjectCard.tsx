@@ -24,7 +24,7 @@ import SpaceUnitConverter from './SpaceUnitConverter';
 import CurrencyConverter from './CurrencyConverter';
 
 type ProjectCardProps = {
-  project: PropertyListModel;
+  project?: PropertyListModel;
 };
 export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
   const { dialog, handleDialogOpen } = useShareDialog();
@@ -37,11 +37,16 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
         ratio={1.44 / 1}
         className='rounded-lg overflow-hidden relative'
       >
-        <Image
-          src={project?.cover_photo?.preview ?? '/images/hero.png'}
-          alt='test'
-          fill
-        />
+        {project ? (
+          <Image
+            src={project.cover_photo?.preview ?? '/images/hero.png'}
+            alt='test'
+            fill
+            className='object-cover'
+          />
+        ) : (
+          <div>Loading...</div>
+        )}
         <div className='flex flex-col justify-between h-full relative z-10 pt-5'>
           <div className='flex justify-between gap-2 px-3'>
             <div className='flex gap-2'>
@@ -112,9 +117,9 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
           <MapPin size={14.5} />
           <span>
             {[
-              project.city?.name,
-              project.community?.name,
-              project.sub_community?.name,
+              project?.city?.name,
+              project?.community?.name,
+              project?.sub_community?.name,
             ]
               .filter(Boolean)
               .join(' | ')}
@@ -124,13 +129,13 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
           <div className='flex gap-2.5 items-center'>
             <BedIcon />
             <span>
-              {project.min_bedrooms}-{project.max_bedrooms}
+              {project?.min_bedrooms}-{project?.max_bedrooms}
             </span>
           </div>
           <div className='flex gap-2.5 items-center'>
             <BoxSizeIcon />
             <span>
-              <SpaceUnitConverter>{project.min_total_sqft}</SpaceUnitConverter>
+              <SpaceUnitConverter>{project?.min_total_sqft}</SpaceUnitConverter>
             </span>
           </div>
         </div>
@@ -169,7 +174,7 @@ export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
         className='overflow-hidden relative py-[1.125rem] px-3 rounded-[12px] @container'
       >
         <Image
-          src={project.cover_photo?.preview ?? '/images/hero.png'}
+          src={project?.cover_photo?.preview ?? '/images/hero.png'}
           alt='test'
           fill
           className='object-cover'
@@ -185,7 +190,7 @@ export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
               >
                 Off Plan
               </Chip>
-              {project.unit_types?.map((type) => (
+              {project?.unit_types?.map((type) => (
                 <Chip
                   key={type.id}
                   variant='flat'
@@ -228,9 +233,9 @@ export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
                 <span>
                   {' '}
                   {[
-                    project.city?.name,
-                    project.community?.name,
-                    project.sub_community?.name,
+                    project?.city?.name,
+                    project?.community?.name,
+                    project?.sub_community?.name,
                   ]
                     .filter(Boolean)
                     .join(' | ')}

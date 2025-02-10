@@ -23,6 +23,7 @@ import CurrencyConverter from './CurrencyConverter';
 type UnitCardProps = {
   unit: BaseUnitModel;
   operation: 'SALE' | 'RENT';
+  locale?: string;
 };
 export const UnitCard: FC<UnitCardProps> = ({ unit, operation }) => {
   if (!unit) return null;

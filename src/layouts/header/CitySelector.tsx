@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { settingsAtom } from '@/atoms/settingsAtoms';
+import { dictionaryAtom, settingsAtom } from '@/atoms/settingsAtoms';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import {
@@ -42,6 +42,8 @@ export const CitySelector = () => {
 };
 
 const SettingsPopoverContent = ({ onSave }: { onSave: () => void }) => {
+  const dictionary = useAtomValue(dictionaryAtom);
+
   const pathName = usePathname();
   const router = useRouter();
   const [settings, setSettings] = useAtom(settingsAtom);
@@ -57,7 +59,12 @@ const SettingsPopoverContent = ({ onSave }: { onSave: () => void }) => {
     <>
       <div className='flex flex-col gap-2.5'>
         <div className='flex flex-col gap-2.5'>
-          <Label className='font-medium'>Select City</Label>
+          <Label className='font-medium'>
+            {/* Ensure dictionary!.SELECT_CITY is a string */}
+            {typeof dictionary!.SELECT_CITY === 'string' 
+              ? dictionary!.SELECT_CITY
+              : 'Select City'}
+          </Label>
           <div className='flex flex-col gap-1 flex-wrap'>
             {cities.map((city, index) => (
               <Button

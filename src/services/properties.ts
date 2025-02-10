@@ -10,9 +10,9 @@ import {
   DefaultPaginate,
   LandmarkModel,
   PaginateParams,
-  UnitRequestModel,
 } from '@/types/Shared';
 import { UnitModelModel } from '@/types/Unit';
+import{ UnitRequestModel} from '@/types/Shared';
 import queryString from 'query-string';
 
 const API_URL = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
@@ -82,7 +82,7 @@ export const getPropertiesByLabel = async (
       cache: 'no-cache',
     }
   );
-  return res.json();
+return res.json();
 };
 
 export const propertyListRequest = async (params: UnitRequestModel) => {
@@ -92,4 +92,4 @@ export const propertyListRequest = async (params: UnitRequestModel) => {
     body: JSON.stringify(params),
     cache: 'no-cache',
   });
-};
+  return res};

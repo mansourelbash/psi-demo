@@ -4,7 +4,6 @@ import {
   DefaultPaginate,
   OperationType,
   PaginateParams,
-  UnitRequestModel,
 } from '@/types/Shared';
 import { BaseUnitModel, ListingAgent, UnitModel } from '@/types/Unit';
 import queryString from 'query-string';

@@ -1,9 +1,8 @@
 'use client';
 
 import { Currencies, settingsAtom } from '@/atoms/settingsAtoms';
-import { formatNumber } from '@/lib/utils';
 import { useAtom } from 'jotai';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 type CurrencyConverterProps = {
   children?: number | null;
@@ -16,8 +15,21 @@ const CurrencyConverter: FC<CurrencyConverterProps> = ({
   emptyValue,
 }) => {
   const [settings] = useAtom(settingsAtom);
+  const [currency, setCurrency] = useState<Currencies | null>(null);
+
+  useEffect(() => {
+    setCurrency(settings.currency);
+  }, [settings.currency]);
+
+  const formatNumber = (number: number): string => {
+    return new Intl.NumberFormat('en-US').format(+number.toFixed());
+  };
+
   if (!children) return emptyValue ?? null;
-  switch (settings.currency) {
+
+  if (!currency) return null; // adding this line to mismatch the hydration rendering
+
+  switch (currency) {
     case Currencies.USD:
       return (
         <>

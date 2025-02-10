@@ -35,7 +35,7 @@ export const Footer = () => {
         </div>
         <Separator className="mt-[30px]" />
       </Container>
-      <Container className="flex justify-between gap-12">
+      <Container className="flex justify-between gap-12 flex-col md:flex-row"> {/* Adjusted for responsiveness */}
         <div className="max-w-[370px] space-y-11">
           <div className="space-y-6">
             <h4>Property Shop Investment L.L.C</h4>
@@ -65,7 +65,7 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-between grow">
+        <div className="flex justify-between grow flex-col sm:flex-row"> {/* Adjusted for responsiveness */}
           <div className="space-y-8">
             <h4 className="text-lg font-medium">Explore</h4>
             <div className="flex flex-col gap-5 text-primary text-sm font-medium">
