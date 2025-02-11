@@ -1,17 +1,13 @@
 import type { Config } from "tailwindcss"
 
 export default {
-  optimizeCss: false, 
-  enableBabelRuntime: true,
   darkMode: ["class"],
-  
+
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./layouts/**/*.{js,ts,jsx,tsx}",
-  ],
-  purge: [
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./layouts/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   safelist: [
     "max-w-[108rem]",
@@ -19,14 +15,14 @@ export default {
     "max-w-[1724px]",
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "0",
+    extend: {
+      container: {
+        center: true,
+        padding: "0",
+      },
       screens: {
         xl: "1724px",
       },
-    },
-    extend: {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -109,4 +105,3 @@ export default {
     require("@tailwindcss/container-queries"),
   ],
 } satisfies Config
-
