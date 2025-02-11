@@ -8,6 +8,11 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/layouts/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    "max-w-[108rem]",
+    "container",
+    "max-w-[1724px]",
+  ],
   theme: {
     container: {
       center: true,
