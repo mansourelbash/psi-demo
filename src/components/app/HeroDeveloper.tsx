@@ -50,7 +50,6 @@ const HeroDeveloper: React.FC = () => {
       setLoading(true);
       try {
         const req = await getDevelopers(currentPage, 18);
-        console.log(req,'req req req req')
         setDevelopers(req.items as Developer[]); 
     
         if (typeof req.pages === 'number') {
