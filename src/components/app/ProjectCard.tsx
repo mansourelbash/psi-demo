@@ -32,7 +32,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
     return null;
   }
   return (
-    <div className='p-2.5 rounded-[18px] border w-[410px]'>
+    <div className='p-2.5 rounded-[18px] border w-[370px]'>
       <AspectRatio
         ratio={1.44 / 1}
         className='rounded-lg overflow-hidden relative'

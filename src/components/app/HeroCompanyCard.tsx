@@ -51,7 +51,7 @@ export default function HeroCompanyCard({propertyId}:Props) {
   
   
   return (
-    <div className="relative w-full max-w-[108rem] mx-auto overflow-hidden rounded-xl bg-[#051831] p-6">
+    <div className="container relative mx-auto overflow-hidden rounded-xl bg-[#051831] p-6 mt-[50px]">
       <button onClick={() => setIsOpen(true)} className="bg-white flex justify-center w-[40px] h-[40px] absolute right-4 rounded-full top-4 text-black/80 hover:black/100">
         <ForwardIcon className='size-6 text-[#000] top-[5px] relative'   />
       </button>

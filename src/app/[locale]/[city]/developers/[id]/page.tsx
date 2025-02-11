@@ -21,13 +21,13 @@ const Page = () => {
               About Aldar 🏢
             </h4>
 
-            <p className="mt-4 mb-4 text-[#414042] text-[16px] md:text-[18px]">
+            <p className="mt-4 mb-4 text-[#414042] text-[16px] md:text-[15px]">
               Aldar Properties PJSC is the leading real estate developer and
               manager in the UAE with a diversified and sustainable operating
               model centred around two core businesses: Aldar Development and
               Aldar Investment.
             </p>
-            <p className="mt-4 mb-4 text-[#414042] text-[16px] md:text-[18px]">
+            <p className="mt-4 mb-4 text-[#414042] text-[16px] md:text-[15px]">
               Aldar Development is a master developer of integrated, livable,
               and thriving communities across Abu Dhabi’s most desirable
               destinations, including Yas Island, Saadiyat Island, Al Raha, and
