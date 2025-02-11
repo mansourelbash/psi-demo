@@ -99,3 +99,13 @@
 .react-select-container {
   width: 100%;
 }
+
+@media (min-width: 1724px) {
+  .container {
+      max-width: 1724px;
+  }
+}
+
+.max-w-108 {
+  max-width: 108rem !important;
+}
