@@ -111,7 +111,7 @@ const HeroDeveloper: React.FC = () => {
           className="flex items-center relative"
         >
           <Image
-            src="/images/herodeveloper.png"
+            src="/images/hero-developer.png"
             alt="Hero"
             fill
             className="object-cover absolute top-0 left-0 -z-10"

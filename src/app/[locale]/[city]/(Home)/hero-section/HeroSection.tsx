@@ -11,7 +11,7 @@ export const HeroSection = () => {
     <Container className="rounded-[20px] overflow-hidden">
       <AspectRatio ratio={16 / 7.2} className="flex items-center">
         <Image
-          src={"/images/hero.png"}
+          src={"/images/hero1.png"}
           alt="Hero"
           fill
           className="object-cover absolute top-0 left-0 -z-10"

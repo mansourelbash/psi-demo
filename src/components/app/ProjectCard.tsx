@@ -39,7 +39,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
       >
         {project ? (
           <Image
-            src={project.cover_photo?.preview ?? '/images/hero.png'}
+            src={project.cover_photo?.preview ?? '/images/hero1.png'}
             alt='test'
             fill
             className='object-cover'
@@ -174,7 +174,7 @@ export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
         className='overflow-hidden relative py-[1.125rem] px-3 rounded-[12px] @container'
       >
         <Image
-          src={project?.cover_photo?.preview ?? '/images/hero.png'}
+          src={project?.cover_photo?.preview ?? '/images/hero1.png'}
           alt='test'
           fill
           className='object-cover'

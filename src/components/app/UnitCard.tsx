@@ -35,7 +35,7 @@ export const UnitCard: FC<UnitCardProps> = ({ unit, operation }) => {
           className='rounded-lg overflow-hidden relative '
         >
           <Image
-            src={unit.cover_photo?.at(0)?.preview ?? '/images/hero.png'}
+            src={unit.cover_photo?.at(0)?.preview ?? '/images/hero1.png'}
             alt='test'
             fill
           />
