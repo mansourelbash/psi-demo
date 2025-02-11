@@ -1,12 +1,17 @@
 import type { Config } from "tailwindcss"
 
 export default {
+  optimizeCss: false, 
+  enableBabelRuntime: true,
   darkMode: ["class"],
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/layouts/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  purge: [
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   safelist: [
     "max-w-[108rem]",
