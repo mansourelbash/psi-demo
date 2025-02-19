@@ -76,7 +76,7 @@ const AgentDetailsPage = () => {
 
   return (
     <div>
-      {agentDetails && (
+      {/* {agentDetails && (
         <>
           {" "}
           <ProfileCard
@@ -254,7 +254,7 @@ const AgentDetailsPage = () => {
             </div>
           </div>
         </Tabs>
-      </nav>
+      </nav> */}
     </div>
   );
 };
