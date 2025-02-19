@@ -34,7 +34,6 @@ type UnitProps = {
 export default async function Unit({ params }: UnitProps) {
   const { slug, operation, city } = await params;
   const unit = await getUnit(operation, slug);
-  console.log("🚀 ~ Unit ~ unit:", unit)
   const property = await getPropertySummary(unit.property_id.toString());
   const initialInterest = await getInterestRate();
   const breadcrumbData = [
@@ -88,7 +87,7 @@ export default async function Unit({ params }: UnitProps) {
         <div className='col-span-3 flex flex-col gap-9'>
           <ListingAgentCard unitId={unit.id} operation={operation} />
           <SubmitInquiry
-            unitTypeId={Number(unit.unit_type?.id) || 0} 
+            unitTypeId={unit.unit_type!.id!}
             propertyId={unit.property_id}
             bedrooms={unit.bedrooms}
             bathrooms={unit.bathrooms}

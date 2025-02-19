@@ -94,4 +94,3 @@ export const getListingAgents = async (
   );
   return res;
 };
-

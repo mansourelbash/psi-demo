@@ -1,3 +1,6 @@
+import { FC, SVGProps } from 'react';
+import { LookupModel } from './Lookup';
+
 export type ImageModel = {
   original: string;
   preview: string;
@@ -100,3 +103,41 @@ export type UnitRequestModel = {
   bedrooms: number;
   bathrooms: number;
 };
+
+export type Installment = {
+  id: number;
+  amount_percentage: number;
+  installment_type: LookupModel;
+};
+
+export type PaymentPlan = {
+  id: number;
+  description: string;
+  plan_type: LookupModel;
+  installments: Installment[];
+};
+
+export type SvgFC = FC<SVGProps<SVGSVGElement>>;
+
+export type Positions =
+  | 'MOBILE_HOME_SCREEN'
+  | 'MOBILE_FILTER_SCREEN'
+  | 'WEB_HOME_PAGE_MAIN_IMAGE'
+  | 'GENERAL';
+
+
+  export type CardProps = {
+    title: string;
+    description?: string;
+    children?: React.ReactNode;
+    className?: string;
+  };
+  
+  export interface ProfileCardProps {
+    id: string
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+    isOpen: boolean
+    imageSrc: string
+    children: React.ReactNode
+    cover?: string
+  }

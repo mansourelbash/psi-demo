@@ -83,7 +83,6 @@
 
 
 .basic-multi-select .select__control.css-13cymwt-control{
-  height: 50px;
   border-radius: 12px;
   border: 0px;
 }
@@ -99,8 +98,7 @@
 .react-select-container {
   width: 100%;
 }
-
-
-.max-w-108 {
-  max-width: 108rem !important;
+.select__indicator-separator.css-1u9des2-indicatorSeparator{
+  display: none;
 }
+.tabs-agent-profile button{box-shadow: none !important;}

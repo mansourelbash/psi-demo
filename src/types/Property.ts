@@ -110,3 +110,24 @@ export type ProjectLabel =
   | 'RESIDENTIAL'
   | 'NEW_LAUNCHES'
   | 'WITH_PAYMENT_PLANS';
+
+export enum InstallmentTypes {
+  DownPayment = 20681,
+  HandoverPayment = 70071,
+  Installment = 57930,
+  PostHandoverInstallment = 70070,
+}
+
+export type Developer = {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  website: string;
+  license_number: string;
+  language: string;
+  overview: string;
+  establish_date: string;
+  logo: ImageModel;
+  properties_count: number;
+};

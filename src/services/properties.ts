@@ -1,5 +1,6 @@
 import { fetchWithErrorHandling } from '@/lib/fetchErrorHandling';
 import {
+  Developer,
   ProjectLabel,
   ProjectSummaryModel,
   PropertyListModel,
@@ -10,9 +11,10 @@ import {
   DefaultPaginate,
   LandmarkModel,
   PaginateParams,
+  PaymentPlan,
+  UnitRequestModel,
 } from '@/types/Shared';
 import { UnitModelModel } from '@/types/Unit';
-import{ UnitRequestModel} from '@/types/Shared';
 import queryString from 'query-string';
 
 const API_URL = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
@@ -93,3 +95,24 @@ export const propertyListRequest = async (params: UnitRequestModel) => {
     cache: 'no-cache',
   });
   return res};
+
+  export const getPropertyPaymentPlans = async (id: number) => {
+    const res = await fetchWithErrorHandling<PaymentPlan[]>(
+      `${PROPERTY_URL}/paymentPlans/${id}`,
+      {
+        cache: 'no-cache',
+      }
+    );
+    return res;
+  };
+  
+  export const getDeveloperByProperty = async (id: number) => {
+    const res = await fetchWithErrorHandling<Developer>(
+      `${API_URL}/developers/getDeveloperByProperty/${id}`,
+      {
+        cache: 'no-cache',
+      }
+    );
+    return res;
+  };
+  

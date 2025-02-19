@@ -43,14 +43,14 @@ export function CustomPagination({
       <PaginationContent>
         {currentPage > 1 && (
           <PaginationItem>
-            <PaginationPrevious className="hover:cursor-pointer" onClick={() => onPageChange(currentPage - 1)} />
+            <PaginationPrevious className="hover:cursor-pointer text-[#2C2D65] font-semibold" onClick={() => onPageChange(currentPage - 1)} />
           </PaginationItem>
         )}
 
         {showFirstLast && currentPage > 2 && (
           <>
             <PaginationItem>
-              <PaginationLink className="hover:cursor-pointer" onClick={() => onPageChange(1)}>1</PaginationLink>
+              <PaginationLink className="hover:cursor-pointer text-[#2C2D65] font-semibold" onClick={() => onPageChange(1)}>1</PaginationLink>
             </PaginationItem>
             {currentPage > 3 && (
               <PaginationItem>
@@ -65,7 +65,7 @@ export function CustomPagination({
             <PaginationLink
               isActive={currentPage === page}
               onClick={() => onPageChange(page)}
-              className={currentPage === page ? "bg-[rgb(204,102,51)] text-white hover:bg-[rgb(204,102,51)] hover:text-white" : "hover:cursor-pointer"}
+              className={currentPage === page ? "border-2 border-[#ECECEC] text-[#2C2D65] font-semibold" : "hover:cursor-pointer text-[#2C2D65] font-semibold"}
             >
               {page}
             </PaginationLink>
@@ -80,14 +80,14 @@ export function CustomPagination({
               </PaginationItem>
             )}
             <PaginationItem>
-              <PaginationLink className="hover:cursor-pointer" onClick={() => onPageChange(totalPages)}>{totalPages}</PaginationLink>
+              <PaginationLink className="hover:cursor-pointer text-[#2C2D65] font-semibold" onClick={() => onPageChange(totalPages)}>{totalPages}</PaginationLink>
             </PaginationItem>
           </>
         )}
 
         {currentPage < totalPages && (
           <PaginationItem>
-            <PaginationNext className="hover:cursor-pointer" onClick={() => onPageChange(currentPage + 1)} />
+            <PaginationNext className="hover:cursor-pointer text-[#2C2D65] font-semibold" onClick={() => onPageChange(currentPage + 1)} />
           </PaginationItem>
         )}
       </PaginationContent>

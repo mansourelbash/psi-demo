@@ -120,10 +120,10 @@ export const AppLandmarksMap = ({ landmarks, itemLocation }: Props) => {
   }, [mapContainerRef.current])
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4">
       <div>
         <AspectRatio ratio={635 / 753}>
-          <div className="h-full absolute top-0 start-0 w-full">
+          <div className="h-full top-0 start-0 w-full">
             <div
               id="map-container"
               className="h-full rounded-lg border"

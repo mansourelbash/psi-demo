@@ -17,7 +17,7 @@ import Link from "next/link"
 
 export const Footer = () => {
   return (
-    <footer className="bg-secondary-white py-[30px] space-y-20">
+    <footer className="bg-secondary-white py-[30px] space-y-20 max-w-full">
       <Container>
         <div className="flex justify-between gap-2 flex-wrap">
           <Image src="/logo.svg" width={84} height={74} alt="" />

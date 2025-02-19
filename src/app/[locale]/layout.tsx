@@ -6,6 +6,7 @@ import { Header } from '@/layouts/header/Header';
 import { Locale } from '@/i18n.config';
 import { Footer } from '@/layouts/footer/Footer';
 // import { getDictionary } from '@/lib/getDictionary';
+import { Toaster } from 'sonner';
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '600', '700'],
@@ -33,11 +34,12 @@ export default async function RootLayout(
   // const dictionary = await getDictionary(params.locale);
 
   return (
-    <html lang={params.locale} dir={params.locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html lang={params.locale} dir={params.locale === 'ar' ? 'rtl' : 'ltr'} >
       <body className={montserrat.className}>
-        <Header />
+      <Header />
         {props.children}
         <Footer />
+        <Toaster richColors position='top-center' closeButton duration={4000} />
       </body>
     </html>
   );
