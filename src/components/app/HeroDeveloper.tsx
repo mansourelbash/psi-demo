@@ -52,7 +52,12 @@ const HeroDeveloper: React.FC = () => {
       try {
         const req = await getDevelopers(currentPage, 18);
 
-        setDevelopers(req.items as Developer[]);
+       
+        if (req.items) {
+          setDevelopers(req.items);
+        } else {
+          setDevelopers([]);
+        }
     
         if (typeof req.pages === 'number') {
           setTotalPages(req.pages);
