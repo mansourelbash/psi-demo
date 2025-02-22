@@ -20,6 +20,7 @@ type Props = {
   community_id?: string;
   title: string | ReactNode;
   showSeeMore?: boolean;
+  property_id?: string;
 };
 
 const UnitsSectionCarousel: FC<Props> = async ({
@@ -28,14 +29,18 @@ const UnitsSectionCarousel: FC<Props> = async ({
   community_id,
   title,
   showSeeMore,
+  property_id,
 }) => {
-  const units = await getUnits(operation, CityIds[city], { community_id });
+  const units = await getUnits(operation, CityIds[city], {
+    community_id,
+    property_id,
+  });
   if (!units.length) return null;
   return (
     <Container>
       <Carousel opts={{ align: 'start' }} className='w-full space-y-[30px]'>
         <div className='flex justify-between gap-2'>
-          <TypographyH2>{title}</TypographyH2>
+          <TypographyH2 className=' capitalize'>{title}</TypographyH2>
           <div className='flex gap-3 items-center'>
             <div className='flex gap-3'>
               <CarouselPrevious className='size-[50px] relative top-0 left-0 right-0 translate-y-0' />

@@ -22,7 +22,7 @@ export const FeaturedProjectsSection: FC<
   const properties = await getPropertiesByLabel(CityIds[city], {
     label: 'FEATURED',
     page: 1,
-    per_page: 5,
+    per_page: 10,
   });
   if (!properties?.items?.length) return null;
   return (

@@ -72,9 +72,11 @@ export const DetailsSection = ({ unit, property }: Props) => {
           </InfoIconContainer>
           <InfoDataContainer>
             <InfoTitle>Size</InfoTitle>
-            <InfoDesc>
-              <SpaceUnitConverter>{unit.built_up_area_sqft}</SpaceUnitConverter>
-            </InfoDesc>
+            {unit.built_up_area_sqft !== undefined && (
+              <InfoDesc>
+                <SpaceUnitConverter>{unit.built_up_area_sqft ?? 0}</SpaceUnitConverter>
+              </InfoDesc>
+            )}
           </InfoDataContainer>
         </Info>
         <Info>

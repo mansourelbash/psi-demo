@@ -27,7 +27,7 @@ export interface ShareModalProps {
 export interface DeveloperModel {
   page: number;
   per_page: number;
-  developers?: Developer[]; 
+  items?: Developer[]; 
   pages?: number;           
 }
 
@@ -47,7 +47,9 @@ export type DeveloperProfileProjectsProps = {
 
 export interface DeveloperProfileModel {
   name: string;
-  properties: number | undefined;
+  properties_count: number | undefined;
   founded: number;
   logo?: { preview: string };
+  phone?: string;
+  overview?: string;
 }

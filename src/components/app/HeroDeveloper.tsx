@@ -16,6 +16,7 @@ import { useMediaQuery } from "react-responsive";
 import { getDevelopers } from "@/services/developers";
 import LoaderSpinner from "./Loader";
 import { CustomPagination } from "./CustomPagination";
+import { v4 as uuidv4 } from "uuid";
 
 const HeroDeveloper: React.FC = () => {
   const [developers, setDevelopers] = useState<Developer[]>([]);
@@ -29,7 +30,7 @@ const HeroDeveloper: React.FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   const [loading, setLoading] = useState(true);
   const localStorageKey = "developerPage";
-  const [pageLoaded, setPageLoaded] = useState(false); // new state variable
+  const [pageLoaded, setPageLoaded] = useState(false);
 
 
   useEffect(() => {
@@ -50,9 +51,13 @@ const HeroDeveloper: React.FC = () => {
       setLoading(true);
       try {
         const req = await getDevelopers(currentPage, 18);
-        // Ensure the response has the correct structure.
-        // Adjust if the actual response uses a different key (like 'developers').
-        setDevelopers(req.items as Developer[]);  // Assuming 'developers' is the correct key
+
+       
+        if (req.items) {
+          setDevelopers(req.items);
+        } else {
+          setDevelopers([]);
+        }
     
         if (typeof req.pages === 'number') {
           setTotalPages(req.pages);
@@ -63,7 +68,7 @@ const HeroDeveloper: React.FC = () => {
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, [currentPage, pageLoaded]);
 
@@ -94,7 +99,7 @@ const HeroDeveloper: React.FC = () => {
     setCurrentPage(page);
   };
 
-  const handleSelectChange = (newValue: unknown)  => {
+  const handleSelectChange = (newValue: unknown) => {
     const selectedOptions = newValue as MultiValue<OptionType>;
     setSelectedCities(selectedOptions);
     setCurrentPage(1);
@@ -106,10 +111,10 @@ const HeroDeveloper: React.FC = () => {
 
   return (
     <>
-      <Container className="overflow-hidden">
+      <Container className="overflow-hidden w-[100%]">
         <AspectRatio
-          ratio={isMobile ? 1 : 16 / 6}
-          className="flex items-center relative"
+          ratio={isMobile ? 4/4 : 16 / 6}
+          className="flex items-center relative p-2"
         >
           <Image
             src="/images/herodeveloper.png"
@@ -122,9 +127,9 @@ const HeroDeveloper: React.FC = () => {
               Developers in UAE
             </h1>
             <div className="flex flex-col items-center gap-5">
-              <div className="bg-white rounded-[24px] w-[90%] max-w-5xl py-6 flex items-center justify-center">
+              <div className="bg-white rounded-[24px] w-[90%] max-w-5xl py-[10px] flex items-center justify-center">
                 <div className="w-[90%] space-y-2.5">
-                  <div className="flex flex-col md:flex-row gap-4">
+                  <div className="flex flex-col md:flex-row gap-4 items-center">
                     <div className="relative w-full md:w-[65%]">
                       <Input
                         type="text"
@@ -138,15 +143,21 @@ const HeroDeveloper: React.FC = () => {
                       />
                       <MapPin className="absolute w-5 h-5 text-gray-400 transform -translate-y-9 left-[10px]" />
                     </div>
-                    <div className="w-full md:w-[35%]">
+                    <div className="w-full md:w-[35%] border-l border-gray-300 pl-[10px]">
                       <Select
                         isMulti
                         options={options}
                         value={selectedCities}
                         onChange={handleSelectChange}
-                        placeholder="Property Type"
+                        placeholder="City"
                         className="basic-multi-select"
                         classNamePrefix="select"
+                        styles={{
+                          placeholder: (base) => ({
+                            ...base,
+                            fontSize: '16px', 
+                          }),
+                        }}
                       />
                     </div>{" "}
                     <Button className="h-12 px-8 text-white bg-[#2e325c] hover:bg-[#373b6a] w-full md:w-[25%]">
@@ -170,7 +181,7 @@ const HeroDeveloper: React.FC = () => {
               <AnimatePresence mode="wait">
                 {filteredDevelopers?.map((developer) => (
                   <motion.div
-                    key={developer.name}  
+                    key={uuidv4()}
                     className="flex items-center justify-center p-4 hover:cursor-pointer"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}

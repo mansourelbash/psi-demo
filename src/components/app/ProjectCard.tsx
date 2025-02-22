@@ -17,27 +17,47 @@ import { BedIcon } from '@/components/icons/bed-icon';
 import { BoxSizeIcon } from '@/components/icons/box-size-icon';
 import { Separator } from '@/components/ui/separator';
 import { WhatsAppIcon } from '@/components/icons/whatsapp-icon';
-import { useShareDialog } from '../dialogs/useShareDialog';
 import { PropertyListModel } from '@/types/Property';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import SpaceUnitConverter from './SpaceUnitConverter';
 import CurrencyConverter from './CurrencyConverter';
+import ShareModal from './ShareModal';
+import Link from 'next/link';
+import { useAtom } from 'jotai';
+import { settingsAtom } from '@/atoms/settingsAtoms';
+import { CityIds } from '@/types/Shared';
+import { useRouter } from 'next/navigation';
+import moment from 'moment';
 
 type ProjectCardProps = {
   project?: PropertyListModel;
+  useResponsive?: boolean;
 };
-export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
-  const { dialog, handleDialogOpen } = useShareDialog();
+export const ProjectCard: FC<ProjectCardProps> = ({ project, useResponsive }) => {
+  const [settings] = useAtom(settingsAtom);
+  const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter();
+  const currentDate = moment();
+  const handoverDate = project?.handover_date ? moment(project.handover_date) : null;
+
+
   if (!project) {
     return null;
   }
   return (
-    <div className='p-2.5 rounded-[18px] border w-[410px]'>
+    <div
+      className={`p-2.5 rounded-[18px] border ${useResponsive ? 'col' : 'w-[410px]'} `}
+      onClick={() =>
+        router.push(
+          `/${settings.locale}/${CityIds[settings.city]}/project/${project.id}`
+        )
+      }
+    >
       <AspectRatio
         ratio={1.44 / 1}
         className='rounded-lg overflow-hidden relative'
       >
-        {project ? (
+           {project ? (
           <Image
             src={project.cover_photo?.preview ?? '/images/hero.png'}
             alt='test'
@@ -50,13 +70,15 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
         <div className='flex flex-col justify-between h-full relative z-10 pt-5'>
           <div className='flex justify-between gap-2 px-3'>
             <div className='flex gap-2'>
-              <Chip
-                variant='flat'
-                color='primary'
-                className='uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium'
-              >
-                Off Plan
-              </Chip>
+              {project.handover_date && (
+                <Chip
+                  variant='flat'
+                  color='primary'
+                  className='uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium'
+                >
+                  {currentDate.diff(handoverDate) > 0 ? 'Ready' : 'Off Plan'}
+                </Chip>
+              )}
               {project.unit_types?.map((type) => (
                 <Chip
                   key={type.id}
@@ -73,10 +95,16 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
                 size='icon'
                 className='rounded-full bg-background size-[29px]'
                 variant='ghost'
-                onClick={() => handleDialogOpen({ link: 'https://izzjo.com' })}
+                onClick={() => setIsOpen(true)}
+
               >
                 <ShareFat size={16} />
               </Button>
+              <ShareModal
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                url="Https://Psinv.Net/En/Developer/Aldar-Properties-Pjsc"
+              />
               <Button
                 size='icon'
                 className='rounded-full bg-background size-[29px]'
@@ -129,44 +157,56 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
           <div className='flex gap-2.5 items-center'>
             <BedIcon />
             <span>
-              {project?.min_bedrooms}-{project?.max_bedrooms}
+            {project?.min_bedrooms}-{project?.max_bedrooms}
             </span>
           </div>
           <div className='flex gap-2.5 items-center'>
             <BoxSizeIcon />
             <span>
-              <SpaceUnitConverter>{project?.min_total_sqft}</SpaceUnitConverter>
+              <SpaceUnitConverter>{project?.min_total_sqft ?? 0}</SpaceUnitConverter>
+
             </span>
           </div>
         </div>
         <Separator className='mt-2.5 mb-3.5' />
         <div className='flex flex-wrap gap-2'>
-          <Button
-            variant='primary-blue'
-            className='font-normal gap-1 w-[80px] h-9 px-0'
-          >
-            <Phone size={14} /> Call
-          </Button>
-          <Button
-            variant='primary-blue'
-            className='font-normal gap-1 w-[80px] h-9 px-0'
-          >
-            <EnvelopeSimple size={14} /> Email
-          </Button>
+          <Link href="tel:+1234567890" passHref>
+            <Button
+              variant='primary-blue'
+              className='font-normal gap-1 w-[80px] h-9 px-0'
+            >
+              <Phone size={14} /> Call
+            </Button>
+          </Link>
+
+          <Link href="mailto:example@example.com" passHref>
+            <Button
+              variant='primary-blue'
+              className='font-normal gap-1 w-[80px] h-9 px-0'
+            >
+              <EnvelopeSimple size={14} /> Email
+            </Button>
+          </Link>
+
           <Button
             variant='outline'
             className='font-normal gap-1 grow h-9 px-0 border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white'
+            onClick={() => window.open('https://wa.me/1234567890', '_blank', 'noopener,noreferrer')}
           >
             <WhatsAppIcon /> WhatsApp
           </Button>
         </div>
+
       </div>
-      {dialog}
     </div>
   );
 };
-
 export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
+  if (!project) {
+    return null;
+  }
+  const currentDate = moment();
+  const handoverDate = moment(project?.handover_date);
   return (
     <div className='w-[410px]'>
       <AspectRatio
@@ -183,13 +223,15 @@ export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
         <div className='flex flex-col justify-between h-full relative z-10'>
           <div className='flex justify-between gap-2'>
             <div className='flex gap-2'>
-              <Chip
-                variant='flat'
-                color='primary'
-                className='uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium'
-              >
-                Off Plan
-              </Chip>
+              {project?.handover_date && (
+                <Chip
+                  variant='flat'
+                  color='primary'
+                  className='uppercase py-1.5 px-2.5 h-auto rounded-full border-0 font-medium'
+                >
+                  {currentDate.diff(handoverDate) > 0 ? 'Ready' : 'Off Plan'}
+                </Chip>
+              )}
               {project?.unit_types?.map((type) => (
                 <Chip
                   key={type.id}

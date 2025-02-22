@@ -85,7 +85,6 @@ const SettingsPopoverContent = ({ onSave }: { onSave: () => void }) => {
             className='grow text-xs font-medium'
             variant={selectedSize == Sizes.SQ_FT ? 'primary-blue' : 'outline'}
             onClick={() => setSelectedSize(Sizes.SQ_FT)}
-            
           >
             SQ FT
           </Button>
@@ -113,7 +112,7 @@ const SettingsPopoverContent = ({ onSave }: { onSave: () => void }) => {
                   }
                 )}
                 onClick={() => setSelectedLang(lang.locale as "en" | "ar" | "cn" | "de" | "fr" | "it" | "ru" | "tr")}
-              >
+                >
                 {lang.name}
               </Button>
             ))}

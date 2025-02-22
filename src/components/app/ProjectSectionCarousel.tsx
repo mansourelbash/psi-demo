@@ -17,10 +17,11 @@ import React, { FC, ReactNode } from 'react';
 const ProjectSectionCarousel: FC<
   ComponentWithCity & {
     flatCard?: boolean;
-    label: ProjectLabel;
+    label?: ProjectLabel;
     title: ReactNode;
+    showSeeMore?: boolean;
   }
-> = async ({ city, flatCard, label, title }) => {
+> = async ({ city, flatCard, label, title, showSeeMore }) => {
   const properties = await getPropertiesByLabel(CityIds[city], {
     label,
     page: 1,
@@ -38,12 +39,14 @@ const ProjectSectionCarousel: FC<
               <CarouselPrevious className='size-[50px] relative top-0 left-0 right-0 translate-y-0' />
               <CarouselNext className='size-[50px] relative top-0 left-0 right-0 translate-y-0' />
             </div>
-            <Button
-              variant='primary-blue'
-              className='w-[165px] h-[50px] rounded-lg'
-            >
-              See More
-            </Button>
+            {showSeeMore && (
+              <Button
+                variant='primary-blue'
+                className='w-[165px] h-[50px] rounded-lg'
+              >
+                See More
+              </Button>
+            )}
           </div>
         </div>
         <CarouselContent>
