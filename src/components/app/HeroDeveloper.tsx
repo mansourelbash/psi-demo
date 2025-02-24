@@ -157,7 +157,7 @@ const HeroDeveloper: React.FC = () => {
       <Container>
         <HeroSearch
           title="Meet Our Experts"
-          backgroundImage="/images/hero-developer.png"
+          backgroundImage="/images/hero-developer.png" 
           searchComponents={searchInputs}
         />
       </Container>
