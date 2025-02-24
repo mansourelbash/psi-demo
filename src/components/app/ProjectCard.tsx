@@ -46,7 +46,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project, useResponsive }) =>
   }
   return (
     <div
-      className={`p-2.5 rounded-[18px] border ${useResponsive ? 'col' : 'w-[410px]'} `}
+      className={`p-2.5 rounded-[18px] xs:mx-5px border ${useResponsive ? 'col' : 'w-[410px]'} `}
       onClick={() =>
         router.push(
           `/${settings.locale}/${CityIds[settings.city]}/project/${project.id}`

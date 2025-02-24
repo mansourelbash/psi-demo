@@ -30,7 +30,7 @@ const AboutDeveloper = ({propertyId}:Props) => {
     }, [propertyId]);
 
   return (
-    <div className="border-gray-300 min-h-[200px] md:min-h-[300px] rounded-[15px] border p-[20px] md:p-[30px]">
+    <div className="border-gray-300 min-h-[200px] md:min-h-[300px] rounded-[15px] border p-[20px] md:p-[30px] xs:mx-5px">
       <h4 className="text-center font-semibold text-[16px] md:text-[20px]">
         About Aldar 🏢
       </h4>

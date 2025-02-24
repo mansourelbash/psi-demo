@@ -124,7 +124,8 @@ const MultiCheckboxSelect: React.FC<MultiCheckboxSelectProps> = ({
         <ChevronDown
           className={cn(
             "h-5 w-5 transition-transform text-[#414042]",
-            isOpen && "transform rotate-180 text-[#414042]"
+            isOpen && "transform rotate-180 text-[#414042]",
+            variant === "default" ? "text-white" : "text-[#414042]"
           )}
         />
       </button>

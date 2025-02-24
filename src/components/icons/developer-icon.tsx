@@ -19,6 +19,5 @@ export const DeveloperIcon = (props: SVGProps<SVGSVGElement>) => (
         <path fill="#fff" d="M.782.665h23.91v23.91H.782z" />
       </clipPath>
     </defs>
-    
   </svg>
 )

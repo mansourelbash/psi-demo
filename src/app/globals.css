@@ -102,3 +102,59 @@
   display: none;
 }
 .tabs-agent-profile button{box-shadow: none !important;}
+
+
+@media (min-width: 300px) and (max-width: 640px) {
+  .xs\:mt-0 {
+    margin-top: 0px;
+  }
+  .xs\:overflow-show {
+    overflow: visible;
+  }
+  .xs\:bg-mob-custom {
+    background-size: 100% 33% !important;
+    background-position: center center !important;
+    height: auto !important;
+    background-attachment: local !important;
+    background-repeat: no-repeat !important;
+    background-position: top !important;
+  }
+
+  .xs\:text-black{
+    color: black;
+  }
+  .xs\:mx-3px{
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+  .xs\:mx-5px{
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .xs\:bg-blue-custom {
+    background-color: #2C2D65;
+    color: white;
+
+  }
+  .xs\:w-\[140px\] {
+    width: 140px;
+  }
+  .xs\:h-\[140px\] {
+    height: 140px;
+  }
+  .xs\:w-full{
+    width: 100%;
+  }  
+  .xs\:justify-center{
+    justify-content: center;
+  }
+
+  .xs\:text-14px{
+    font-size: 14px;
+  }
+}
+.text-white-loader svg, .text-white-loader h3 {
+  color: #fff
+}
+
+
