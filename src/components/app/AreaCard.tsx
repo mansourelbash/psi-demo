@@ -9,7 +9,7 @@ import { AreaCardProps } from '@/types/agent'
   return (
     <Card
     key={index}
-    className="group relative h-[430px] w-[350px] overflow-hidden rounded-lg border-0 bg-transparent"
+    className="group relative h-[430px] w-[350px] xs:w-full overflow-hidden rounded-lg border-0 bg-transparent"
   >
     <div className="aspect-[4/3] relative h-full w-full overflow-hidden rounded-lg">
       <Image

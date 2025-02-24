@@ -1,29 +1,46 @@
-"use client"
+"use client";
 
-import { ForwardIcon } from "../icons/forward-icon"
-import Image from "next/image"
-import ShareModal from "./ShareModal"
-import { ProfileCardProps } from "@/types/Shared"
+import { ForwardIcon } from "../icons/forward-icon";
+import Image from "next/image";
+import ShareModal from "./ShareModal";
+import { ProfileCardProps } from "@/types/Shared";
+import { useState, useEffect } from "react";
+import LoaderSpinner from "./Loader"; 
 
-export default function ProfileCard({ setIsOpen, isOpen, imageSrc, children, cover }: ProfileCardProps) {
+export default function ProfileCard({
+  setIsOpen,
+  isOpen,
+  imageSrc,
+  children,
+  cover,
+  className = "",
+}: ProfileCardProps & { className?: string }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (imageSrc || children) {
+      setIsLoading(false);
+    }
+  }, [imageSrc, children]);
 
   const handleOpenModal = () => {
-    setIsOpen(true)
-  }
+    setIsOpen(true);
+  };
 
   const handleCloseModal = () => {
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   return (
-    <div 
-      className={`relative container mx-auto overflow-hidden rounded-[20px] p-6 mt-[50px] ${cover ?? 'bg-[#051831]'}`} 
+    <div
+      className={`relative container mx-auto overflow-hidden p-6 mt-[50px] xs:mt-0 ${cover ?? 'bg-[#051831]'} ${className}`}
       style={{ backgroundImage: cover ? `url(${cover})` : 'none', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
-      <button 
-        onClick={handleOpenModal} 
-        className="bg-white flex justify-center w-[35px] h-[35px] absolute right-4 rounded-full top-4 text-black/80 hover:text-black/100">
-        <ForwardIcon className='size-4 text-[#000] top-[8px] relative' />
+      <button
+        onClick={handleOpenModal}
+        className="bg-white flex justify-center w-[35px] h-[35px] absolute right-4 rounded-full top-4 text-black/80 hover:text-black/100"
+      >
+        <ForwardIcon className="size-4 text-[#000] top-[8px] relative" />
       </button>
       <ShareModal
         isOpen={isOpen}
@@ -31,20 +48,26 @@ export default function ProfileCard({ setIsOpen, isOpen, imageSrc, children, cov
         url="Https://Psinv.Net/En/Developer/Aldar-Properties-Pjsc"
       />
 
-      <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center mx-[60px]">
-        <div className="relative h-[180px] w-[180px] shrink-0 overflow-hidden rounded-full bg-white">
-          <Image
-            src={imageSrc ? imageSrc : "/images/developers/aldar-logo.png"}
-            alt="Aldar Properties Logo"
-            fill
-            className="object-cover p-2"
-          />
+      {isLoading ? (
+        <div className="flex justify-center items-center h-[180px]">
+          <LoaderSpinner className="text-white-loader" /> 
         </div>
+      ) : (
+        <div className="flex flex-col gap-4 sm:flex-row items-center sm:mx-10 lg:mx-[60px]">
+          <div className="relative h-[180px] w-[180px] sm:h-[200px] sm:w-[200px] lg:h-[180px] lg:w-[180px] xs:w-[140px] xs:h-[140px] shrink-0 overflow-hidden rounded-full bg-white">
+            <Image
+              src={imageSrc ? imageSrc : "/images/developers/aldar-logo.png"}
+              alt=""
+              fill
+              className="object-cover"
+            />
+          </div>
 
-        <div className="ms-[30px]">
-          {children}
+          <div className="mt-4 sm:mt-0 sm:ms-[30px] text-center sm:text-left">
+            {children}
+          </div>
         </div>
-      </div>
+      )}
     </div>
-  )
+  );
 }

@@ -9,22 +9,22 @@ interface HeroSectionProps {
 
 const HeroSearch: React.FC<HeroSectionProps> = ({ title, backgroundImage, searchComponents }) => {
   return (
-    <section className="relative min-h-[400px] w-full bg-cover bg-center">
+    <section className="relative min-h-[400px] w-full bg-cover bg-center my-[30px]">
       <Image
         src={backgroundImage}
         alt="Hero Background"
         layout="fill"
         objectFit="cover"
-        className="absolute inset-0 rounded-[20px]"
+        className="absolute inset-0 rounded-[20px] xs:mx-5px"
       />
       <div className="absolute inset-0">
         <div className="container mx-auto flex h-full flex-col items-center justify-center px-4">
           <h1 className="mb-8 text-3xl font-bold text-white">{title}</h1>
           {searchComponents && (
-            <div className="w-full max-w-6xl rounded-lg bg-white/95 p-4 shadow-lg">
-              <div className="grid gap-4 md:grid-cols-5 items-center">
+            <div className="w-full max-w-6xl rounded-lg bg-white p-4 shadow-lg">
+            
                 {searchComponents}
-              </div>
+              
             </div>
           )}
         </div>
