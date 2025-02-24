@@ -128,7 +128,7 @@ const Page = () => {
               alt="Yas Riva Property"
               width={800}
               height={1000}
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover rounded-[15px]"
               priority
             />
           </div>
