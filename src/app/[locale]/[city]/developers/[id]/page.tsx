@@ -10,6 +10,7 @@ import { getDevelopersProfile } from "@/services/developers";
 import { useAtom } from "jotai";
 import { sectionRefAtom } from "@/atoms/settingsAtoms";
 import { DeveloperProfileModel } from "@/types/HeroDeveloper";
+import { capitalizeWords } from "@/lib/capitlizeWords";
 
 const Page = () => {
   const { id } = useParams<{ id: string }>();
@@ -53,17 +54,6 @@ const Page = () => {
       sectionRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  const capitalizeWords = (str: string) => {
-    return str
-      .split(' ')
-      .map(word => 
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-      )
-      .join(' '); 
-  };
-
-
 
   return (
     <div>

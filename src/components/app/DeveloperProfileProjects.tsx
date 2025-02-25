@@ -1,6 +1,6 @@
 "use client";
 
-import { getProjectsDeveloper } from "@/services/developers";
+import { getDevelopersProfile, getProjectsDeveloper } from "@/services/developers";
 import React, { useEffect, useState } from "react";
 import { ProjectCard } from "./ProjectCard";
 import { DeveloperProfileProjectsProps } from "@/types/HeroDeveloper";
@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { sectionRefAtom } from "@/atoms/settingsAtoms";
 import { useAtom } from "jotai";
 import { PropertyListModel } from "@/types/Property";
+import { capitalizeWords } from "@/lib/capitlizeWords";
 const itemsPerPage = 6;
 
 interface Location {
@@ -60,7 +61,7 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
 
   const [selectedLocations, setSelectedLocations] = useState<string[]>(["dubai"]);
   const [selectedStatues, setSelectedStatues] = useState<string>("ready");
-
+  const [profileData, setProfileData] = useState({});
   const handleToggleLocation = (locationId: string) => {
     setSelectedLocations((prev) =>
       prev.includes(locationId) ? prev.filter((id) => id !== locationId) : [...prev, locationId]
@@ -70,7 +71,6 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
 
   const handleToggleStatues = (statusId: string) => {
     setSelectedStatues(statusId.toString());
-    console.log(statusId,'statusId')
   };
 
   useEffect(() => {
@@ -82,7 +82,8 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
           currentPage,
           itemsPerPage
         );
-
+        const developerProfileData = await getDevelopersProfile(propertyId);
+        developerProfileData ? setProfileData(developerProfileData) : ''
         if (Array.isArray(developerProjectsData.items)) {
           setProjects(developerProjectsData.items as Project[]);
         } else {
@@ -112,7 +113,7 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
   return (
     <>
       <div ref={sectionRef} className="flex items-center justify-between mb-8 md:flex-row xs:flex-col">
-        <h1 className="text-xl font-semibold">Properties Developed By Aldar</h1>
+        <h1 className="text-xl font-semibold">Properties Developed By {capitalizeWords(profileData?.name)}</h1>
         <div className="flex gap-2 lg:w-[300px]">
           <div className="relative w-full max-w-md">
             <MultiCheckboxSelect
