@@ -1,4 +1,4 @@
-import { FC, SVGProps } from 'react';
+import React, { FC, SVGProps } from 'react';
 import { LookupModel } from './Lookup';
 
 export type ImageModel = {
@@ -140,4 +140,5 @@ export type Positions =
     imageSrc: string
     children: React.ReactNode
     cover?: string
+    loading?: React.ReactNode
   }
