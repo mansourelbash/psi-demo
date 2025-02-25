@@ -45,25 +45,24 @@ const HeroDeveloper: React.FC = () => {
 
   useEffect(() => {
     if (!pageLoaded) return;
+  
     const fetchData = async () => {
       setLoading(true);
       try {
         const req = await getDevelopers(currentPage, 18);
-
-        setDevelopers(req.items as Developer[]);
-
-        if (typeof req.pages === "number") {
-          setTotalPages(req.pages);
-        } else {
-          setTotalPages(1);
-        }
-      } finally {
+        setTimeout(() => {
+          setDevelopers(req.items as Developer[]);
+          setTotalPages(typeof req.pages === "number" ? req.pages : 1);
+          setLoading(false);
+        }, 200);
+      } catch {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, [currentPage, pageLoaded]);
+  
 
   const cityiesOptions = [
     { id: "dubai", name: "Dubai" },
@@ -105,7 +104,6 @@ const HeroDeveloper: React.FC = () => {
         ? prev.filter((id) => id !== locationId)
         : [...prev, locationId]
     );
-    setCurrentPage(1);
   };
 
   const handleImageClick = (developerId: string) => {
@@ -157,7 +155,7 @@ const HeroDeveloper: React.FC = () => {
       <Container>
         <HeroSearch
           title="Meet Our Experts"
-          backgroundImage="/images/hero-developer.png" 
+          backgroundImage="/images/hero-developer.png"
           searchComponents={searchInputs}
         />
       </Container>

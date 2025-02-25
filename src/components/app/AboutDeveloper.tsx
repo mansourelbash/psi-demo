@@ -32,7 +32,7 @@ const AboutDeveloper = ({propertyId}:Props) => {
   return (
     <div className="border-gray-300 min-h-[200px] md:min-h-[300px] rounded-[15px] border p-[20px] md:p-[30px] xs:mx-5px">
       <h4 className="text-center font-semibold text-[16px] md:text-[20px]">
-        About Aldar 🏢
+        About Company 🏢
       </h4>
 
       <p className="mt-4 text-[#414042] text-[16px] md:text-[14px]">

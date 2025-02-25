@@ -16,19 +16,13 @@ const Page = () => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [sectionRef] = useAtom(sectionRefAtom);
-  const [propertyProfile, setPropertyProfile] = useState<DeveloperProfileModel>(
-    {
-      name: "",
-      properties_count: 0,
-      founded: 0,
-      logo: { preview: "" },
-      phone: "",
-      overview: "",
-    }
-  );
+  const [propertyProfile, setPropertyProfile] = useState<DeveloperProfileModel | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const developerProjectsData = await getDevelopersProfile(parseInt(id));
         if (!developerProjectsData) {
           throw new Error("Developer data not found");
@@ -47,6 +41,7 @@ const Page = () => {
       } catch (error) {
         console.error("Error fetching developer projects:", error);
       } finally {
+        setLoading(false);
       }
     };
 
@@ -67,8 +62,8 @@ const Page = () => {
       )
       .join(' '); 
   };
-   
-  
+
+
 
   return (
     <div>
@@ -77,23 +72,18 @@ const Page = () => {
         setIsOpen={setIsModalOpen}
         isOpen={isModalOpen}
         cover="/images/hero-developer-section.png"
-        imageSrc={
-          propertyProfile?.logo?.preview
-            ? propertyProfile?.logo?.preview
-            : "/images/developers/aldar-logo.png"
-        }
+        imageSrc={propertyProfile?.logo?.preview ?? "/images/developers/aldar-logo.png"}
         className="xs:overflow-show rounded-none xl:rounded-[20px] lg:rounded-[20px] md:rounded-[20px] xs:bg-mob-custom"
+        loading={loading}
       >
         <div>
           <h2 className="text-2xl font-medium text-white xs:text-black">
-            {" "}
-            {capitalizeWords(propertyProfile.name || "Aldar Properties PJSC")}
-
+            {capitalizeWords(propertyProfile?.name || "Aldar Properties PJSC")}
           </h2>
 
           <div className="space-y-1 text-sm text-white/80 xs:text-black">
             <p>Properties: {propertyProfile?.properties_count ?? 0}</p>
-            <p>Founded in: 2000 y.</p>
+            <p>Founded in: {propertyProfile?.founded} y.</p>
           </div>
 
           <div className="flex flex-wrap gap-3 mt-2">
@@ -111,7 +101,7 @@ const Page = () => {
                 height={20}
                 alt="visit icon"
               />{" "}
-              Visit Aldar
+              Visit Website
             </Button>
           </div>
         </div>

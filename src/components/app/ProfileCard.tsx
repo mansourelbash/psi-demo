@@ -4,7 +4,6 @@ import { ForwardIcon } from "../icons/forward-icon";
 import Image from "next/image";
 import ShareModal from "./ShareModal";
 import { ProfileCardProps } from "@/types/Shared";
-import { useState, useEffect } from "react";
 import LoaderSpinner from "./Loader"; 
 
 export default function ProfileCard({
@@ -14,14 +13,9 @@ export default function ProfileCard({
   children,
   cover,
   className = "",
+  loading,
 }: ProfileCardProps & { className?: string }) {
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (imageSrc || children) {
-      setIsLoading(false);
-    }
-  }, [imageSrc, children]);
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -48,7 +42,7 @@ export default function ProfileCard({
         url="Https://Psinv.Net/En/Developer/Aldar-Properties-Pjsc"
       />
 
-      {isLoading ? (
+      {loading ? (
         <div className="flex justify-center items-center h-[180px]">
           <LoaderSpinner className="text-white-loader" /> 
         </div>

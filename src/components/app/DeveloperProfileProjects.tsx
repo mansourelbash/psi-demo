@@ -88,6 +88,8 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
         } else {
           setProjects([]);
         }
+
+        console.log(developerProjectsData,'developerProjectsData')
   
         setTotalPages(developerProjectsData.pages !== undefined ? developerProjectsData.pages : 1);
       } catch (error) {
