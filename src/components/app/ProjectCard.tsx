@@ -51,6 +51,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project, useResponsive }) =>
         router.push(
           `/${settings.locale}/${CityIds[settings.city]}/project/${project.id}`
         )
+
       }
     >
       <AspectRatio
@@ -95,7 +96,10 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project, useResponsive }) =>
                 size='icon'
                 className='rounded-full bg-background size-[29px]'
                 variant='ghost'
-                onClick={() => setIsOpen(true)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsOpen(true);
+                }}
 
               >
                 <ShareFat size={16} />
@@ -109,6 +113,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project, useResponsive }) =>
                 size='icon'
                 className='rounded-full bg-background size-[29px]'
                 variant='ghost'
+                onClick={(e) => e.stopPropagation()}
               >
                 <CompareIcon className='size-4' />
               </Button>
@@ -116,6 +121,8 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project, useResponsive }) =>
                 size='icon'
                 className='rounded-full bg-background size-[29px]'
                 variant='ghost'
+                onClick={(e) => e.stopPropagation()}
+
               >
                 <Heart size={16} />
               </Button>
@@ -174,6 +181,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project, useResponsive }) =>
             <Button
               variant='primary-blue'
               className='font-normal gap-1 w-[80px] h-9 px-0'
+              onClick={(e) => e.stopPropagation()}
             >
               <Phone size={14} /> Call
             </Button>
@@ -183,6 +191,7 @@ export const ProjectCard: FC<ProjectCardProps> = ({ project, useResponsive }) =>
             <Button
               variant='primary-blue'
               className='font-normal gap-1 w-[80px] h-9 px-0'
+              onClick={(e) => e.stopPropagation()}
             >
               <EnvelopeSimple size={14} /> Email
             </Button>
@@ -205,6 +214,7 @@ export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
   if (!project) {
     return null;
   }
+  console.log(project,'project')
   const currentDate = moment();
   const handoverDate = moment(project?.handover_date);
   return (
