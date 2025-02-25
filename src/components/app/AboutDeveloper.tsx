@@ -5,11 +5,16 @@ import { getDevelopersProfile } from "@/services/developers";
 import React, { useEffect } from "react";
 
 interface Props {
-    propertyId: number
-  }
+  propertyId: number
+}
+interface Company {
+  name: string;
+}
+  
 const AboutDeveloper = ({propertyId}:Props) => {
     const [overview, setOverview] = React.useState("");
-    const [company, setCompany] = React.useState({});
+    const [company, setCompany] = React.useState<Company | null>(null);
+    
 
     useEffect(() => {
       const fetchData = async () => {

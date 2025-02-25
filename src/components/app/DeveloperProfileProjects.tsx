@@ -24,6 +24,9 @@ interface Project extends PropertyListModel {
   location: Location;
   handover_date: string | null;
 }
+interface ProfileData {
+  name: string;
+}
 
 const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
   propertyId,
@@ -61,7 +64,7 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
 
   const [selectedLocations, setSelectedLocations] = useState<string[]>(["dubai"]);
   const [selectedStatues, setSelectedStatues] = useState<string>("ready");
-  const [profileData, setProfileData] = useState({});
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);  
   const handleToggleLocation = (locationId: string) => {
     setSelectedLocations((prev) =>
       prev.includes(locationId) ? prev.filter((id) => id !== locationId) : [...prev, locationId]
@@ -83,7 +86,9 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
           itemsPerPage
         );
         const developerProfileData = await getDevelopersProfile(propertyId);
-        developerProfileData ? setProfileData(developerProfileData) : ''
+        if (developerProfileData) {
+          setProfileData(developerProfileData);
+        }        
         if (Array.isArray(developerProjectsData.items)) {
           setProjects(developerProjectsData.items as Project[]);
         } else {
