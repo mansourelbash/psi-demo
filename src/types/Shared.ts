@@ -125,20 +125,45 @@ export type Positions =
   | 'WEB_HOME_PAGE_MAIN_IMAGE'
   | 'GENERAL';
 
+export type CardProps = {
+  title: string;
+  description?: string;
+  children?: React.ReactNode;
+  className?: string;
+};
 
-  export type CardProps = {
-    title: string;
-    description?: string;
-    children?: React.ReactNode;
-    className?: string;
+export interface ProfileCardProps {
+  id: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
+  imageSrc: string;
+  children: React.ReactNode;
+  cover?: string;
+}
+
+export type Locations = {
+  id: number;
+  name: string;
+  crm_location_id: number;
+  source: string;
+  lookup_item_id: number;
+  description: string | null;
+  is_active: boolean;
+  is_featured: boolean;
+  unit_types: LookupModel[] | null;
+  location: {
+    lat: number;
+    lng: number;
   };
-  
-  export interface ProfileCardProps {
-    id: string
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-    isOpen: boolean
-    imageSrc: string
-    children: React.ReactNode
-    cover?: string
-    loading?: React.ReactNode
-  }
+  media: ImageModel[] | null;
+};
+
+export interface ProfileCardProps {
+  id: string
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  isOpen: boolean
+  imageSrc: string
+  children: React.ReactNode
+  cover?: string
+  loading?: React.ReactNode
+}

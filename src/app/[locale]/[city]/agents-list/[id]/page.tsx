@@ -39,7 +39,7 @@ const AgentDetailsPage = () => {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const agent = getProfileData(id);
       if (agent) {
         setAgentDetails(agent);
@@ -76,7 +76,7 @@ const AgentDetailsPage = () => {
       console.log("Fetched data for:", filter);
       setTotalPages(Math.ceil(units.length / itemsPerPage));
     } catch (error) {
-      console.error("Error fetching units:", error);
+      console.error('Error fetching units:', error);
     }
   }, [filter, units.length]);
 
@@ -94,7 +94,7 @@ const AgentDetailsPage = () => {
     <div>
       {agentDetails && (
         <>
-          {" "}
+          {' '}
           <ProfileCard
             id={id}
             setIsOpen={setIsModalOpen}
@@ -102,7 +102,7 @@ const AgentDetailsPage = () => {
             imageSrc={
               agentDetails?.image
                 ? `/images/agents/${agentDetails?.image}`
-                : "/images/agents/agent (3).png"
+                : '/images/agents/agent (3).png'
             }
             cover="/images/hero-agent-section.png"
             className="xs:overflow-show rounded-none xl:rounded-[20px] lg:rounded-[20px] md:rounded-[20px] xs:bg-mob-custom"
@@ -117,20 +117,20 @@ const AgentDetailsPage = () => {
             <p className="text-white mb-4 xs:text-black">The Branch : St. Regis</p>
             <div className="flex flex-wrap gap-2 xs:justify-center">
               <Button
-                variant="primary-blue"
-                className="font-normal gap-1 w-[80px] h-9 px-1"
+                variant='primary-blue'
+                className='font-normal gap-1 w-[80px] h-9 px-1'
               >
                 <Phone size={14} /> Call
               </Button>
               <Button
-                variant="default"
-                className="font-normal gap-1 w-[80px] h-9 px-1"
+                variant='default'
+                className='font-normal gap-1 w-[80px] h-9 px-1'
               >
                 <EnvelopeSimple size={14} /> Email
               </Button>
               <Button
-                variant="primary-green"
-                className="font-normal gap-1 h-9 px-2 text-white"
+                variant='primary-green'
+                className='font-normal gap-1 h-9 px-2 text-white'
               >
                 <WhatsAppIcon /> WhatsApp
               </Button>
@@ -226,7 +226,7 @@ const AgentDetailsPage = () => {
                     {Array.from({ length: 10 }).map((_, index) => (
                       <ReviewCard
                         key={index}
-                        text="The agent has been great in helping us to buy an apartment in Saadiyat Island. He is so professional and respectful. His marketing is great. Keep it on Hazim. Thank you 👌"
+                        text='The agent has been great in helping us to buy an apartment in Saadiyat Island. He is so professional and respectful. His marketing is great. Keep it on Hazim. Thank you 👌'
                       />
                     ))}
                   </div>
@@ -245,35 +245,35 @@ const AgentDetailsPage = () => {
             </div>
             <div className="col-span-1 order-1 xl:order-2 lg:order-2 md:order-2 xs:mx-5px">
               <CardComponent
-                title="Hello I’m Hazim👋"
-                className="min-h-[200px] md:min-h-[300px]"
-                description="With 8 years in Abu Dhabi’s real estate market, Hazim Al Swaidi is known for his deep market knowledge and commitment to client satisfaction. Specializing in residential and commercial properties, he ensures smooth and successful transactions, making him a trusted name in the industry."
+                title='Hello I’m Hazim👋'
+                className='min-h-[200px] md:min-h-[300px]'
+                description='With 8 years in Abu Dhabi’s real estate market, Hazim Al Swaidi is known for his deep market knowledge and commitment to client satisfaction. Specializing in residential and commercial properties, he ensures smooth and successful transactions, making him a trusted name in the industry.'
               />
               <CardComponent
                 title="Contact The Agent"
                 className="min-h-[500px] hidden lg:block md:block xl:block w-full"
               >
-                <div className="flex flex-col gap-4">
+                <div className='flex flex-col gap-4'>
                   <input
-                    className="p-3 rounded-[7px] border border-gray-300 placeholder-black"
-                    type="text"
-                    placeholder="Your Name"
+                    className='p-3 rounded-[7px] border border-gray-300 placeholder-black'
+                    type='text'
+                    placeholder='Your Name'
                   />
                   <input
-                    className="p-3 rounded-[7px] border border-gray-300 placeholder-black"
-                    type="number"
-                    placeholder="Phone"
+                    className='p-3 rounded-[7px] border border-gray-300 placeholder-black'
+                    type='number'
+                    placeholder='Phone'
                   />
                   <input
-                    className="p-3 rounded-[7px] border border-gray-300 placeholder-black"
-                    type="text"
-                    placeholder="E-Mail"
+                    className='p-3 rounded-[7px] border border-gray-300 placeholder-black'
+                    type='text'
+                    placeholder='E-Mail'
                   />
                   <textarea
-                    className="p-3 rounded-[7px] border border-gray-300 min-h-[120px] placeholder-black"
-                    placeholder="Message"
+                    className='p-3 rounded-[7px] border border-gray-300 min-h-[120px] placeholder-black'
+                    placeholder='Message'
                   ></textarea>
-                  <Button className="w-full bg-[#2A2852] hover:bg-[#2A2852]/90 text-white py-3 rounded-[7px]">
+                  <Button className='w-full bg-[#2A2852] hover:bg-[#2A2852]/90 text-white py-3 rounded-[7px]'>
                     Send Message
                   </Button>
                 </div>
@@ -281,11 +281,11 @@ const AgentDetailsPage = () => {
 
               <div className="relative mt-[20px] rounded-[15px] overflow-hidden hidden lg:flex md:flex xl:flex">
                 <Image
-                  src="/images/book-now.jpg"
-                  alt="Yas Riva Property"
+                  src='/images/book-now.jpg'
+                  alt='Yas Riva Property'
                   width={800}
                   height={1000}
-                  className="w-full"
+                  className='w-full'
                   priority
                 />
               </div>

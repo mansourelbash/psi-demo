@@ -206,16 +206,16 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
             <div className='flex gap-1 items-center overflow-hidden text-sm'>
               {icon && icon}
               <div className='truncate'>
-              {renderValue
-              ? (renderValue(value, selectedLabel) || String(selectedLabel)) ??
-                String(initText) ??
-                String(value || placeholder) ??
-                String(dictionary!.SELECT_PLACEHOLDER)
-              : String(selectedLabel) ??
-                String(initText) ??
-                String(value || placeholder) ??
-                String(dictionary!.SELECT_PLACEHOLDER)}
-          </div>
+                {selectedLabel
+                  ? (renderValue?.(value, selectedLabel) ||
+                      String(selectedLabel)) ??
+                    String(initText) ??
+                    String(value || placeholder) ??
+                    String(dictionary!.SELECT_PLACEHOLDER)
+                  : String(initText) ??
+                    String(value || placeholder) ??
+                    String(dictionary!.SELECT_PLACEHOLDER)}
+              </div>
             </div>
             <div className='flex gap-2 items-center'>
               {onPlusClick && (
@@ -254,7 +254,7 @@ export const AppSelect = forwardRef<HTMLButtonElement, Props>(
             ref={commandRef}
           >
             {searchable ? (
-                <CommandInput
+              <CommandInput
                 value={searchValue}
                 placeholder={String(dictionary!.SELECT_SEARCH_PLACEHOLDER)}
                 onValueChange={(search) => {
