@@ -20,7 +20,6 @@ const AboutDeveloper = ({propertyId}:Props) => {
       const fetchData = async () => {
         try {
           const developerProjectsData = await getDevelopersProfile(propertyId);
-           console.log("Developer Data:", developerProjectsData);
           if (!developerProjectsData) {
             throw new Error("Developer data not found");
           }

@@ -22,7 +22,6 @@ const MultiCheckboxSelect: React.FC<MultiCheckboxSelectProps> = ({
 }) => {
 
   const handleSelection = (optionId: string) => {
-    console.log("Selected option:", optionId);
     if (isMulti) {
       onToggleOption(optionId);
     } else {
@@ -34,7 +33,6 @@ const MultiCheckboxSelect: React.FC<MultiCheckboxSelectProps> = ({
   };
 
   const handleGroupSelection = (group: OptionGroup) => {
-    console.log(group,'group')
     const groupOptionIds = group.options.map((opt) => opt.id);
     const allSelected = groupOptionIds.every((id) =>
       (selectedOptions as string[]).includes(id)

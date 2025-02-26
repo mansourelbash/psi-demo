@@ -73,7 +73,6 @@ const AgentDetailsPage = () => {
         setUnits(data);
       }
 
-      console.log("Fetched data for:", filter);
       setTotalPages(Math.ceil(units.length / itemsPerPage));
     } catch (error) {
       console.error('Error fetching units:', error);

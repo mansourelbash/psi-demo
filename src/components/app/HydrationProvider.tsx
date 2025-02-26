@@ -21,7 +21,6 @@ export const HydrationProvider = ({
   useHydrateAtoms([[settingsAtom, { ...settings, locale }]], {
     dangerouslyForceHydrate: true,
   });
-  console.log('🚀 ~ settings:', settings);
 
   return <>{children}</>;
 };

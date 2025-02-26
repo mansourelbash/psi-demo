@@ -85,6 +85,7 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
           currentPage,
           itemsPerPage
         );
+        
         const developerProfileData = await getDevelopersProfile(propertyId);
         if (developerProfileData) {
           setProfileData(developerProfileData);
@@ -95,7 +96,6 @@ const DeveloperProfileProjects: React.FC<DeveloperProfileProjectsProps> = ({
           setProjects([]);
         }
 
-        console.log(developerProjectsData,'developerProjectsData')
   
         setTotalPages(developerProjectsData.pages !== undefined ? developerProjectsData.pages : 1);
       } catch (error) {

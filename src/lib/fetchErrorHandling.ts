@@ -6,7 +6,6 @@ export async function fetchWithErrorHandling<T>(
 ): Promise<T> {
   const res = await fetch(url, options)
 
-  console.log(res.status)
 
   if (res.status === 404) {
     notFound()
