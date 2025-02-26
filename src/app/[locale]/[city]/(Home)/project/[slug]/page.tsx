@@ -1,7 +1,7 @@
 import { CityIds } from '@/types/Shared';
 import { FC } from 'react';
 import { ToolbarSection } from '../../unit/[operation]/[slug]/toolbar-section/ToolbarSection';
-import { getProperty } from '@/services/properties';
+import { getDeveloperByProperty, getProperty } from '@/services/properties';
 import { Container } from '@/components/ui/container';
 import TopGalleryCarousel from '@/components/app/project-components/TopGalleryCarousel';
 import ProjectMainInfo from '@/components/app/project-components/ProjectMainInfo';
@@ -32,10 +32,9 @@ interface PropertyPageModel {
 const Property: FC<PropertyPageModel> = async ({ params }) => {
   const { slug, city } = await params;
   const property = await getProperty(slug);
-  console.log(
-    '🚀 ~ constProperty:FC<PropertyPageModel>= ~ property:',
-    property
-  );
+  const developer = await getDeveloperByProperty(property.id);
+  
+
   const breadcrumbData = [
     {
       name: 'Home',
@@ -97,7 +96,7 @@ const Property: FC<PropertyPageModel> = async ({ params }) => {
           <ProjectFloorPlans property={property} />
           <ProjectMasterPlan property={property} />
           <ProjectPaymentPlans property={property} />
-          <ProjectDeveloper property={property} />
+          <ProjectDeveloper developer={developer} />
           <ProjectSectionCarousel
             city={city}
             title={

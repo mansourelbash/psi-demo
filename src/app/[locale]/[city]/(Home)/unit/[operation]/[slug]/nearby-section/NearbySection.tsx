@@ -9,7 +9,7 @@ type Props = {
 export const NearbySection = async ({ unit }: Props) => {
   const landmarks = await getLandmarks(unit.property_id.toString())
 
-  // console.log(landmarks)
+
 
   return (
     <div className="space-y-7 mt-[54px]">

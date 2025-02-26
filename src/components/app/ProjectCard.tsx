@@ -214,7 +214,6 @@ export const ProjectCardFlat: FC<ProjectCardProps> = ({ project }) => {
   if (!project) {
     return null;
   }
-  console.log(project,'project')
   const currentDate = moment();
   const handoverDate = moment(project?.handover_date);
   return (
