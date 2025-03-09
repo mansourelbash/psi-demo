@@ -32,23 +32,26 @@ const ProjectSectionCarousel: FC<
   return (
     <Container>
       <Carousel opts={{ align: 'start' }} className='w-full space-y-[30px]'>
-        <div className='flex justify-between gap-2'>
-          <TypographyH2>{title}</TypographyH2>
-          <div className='flex gap-3 items-center'>
-            <div className='flex gap-3'>
-              <CarouselPrevious className='size-[50px] relative top-0 left-0 right-0 translate-y-0' />
-              <CarouselNext className='size-[50px] relative top-0 left-0 right-0 translate-y-0' />
-            </div>
-            {showSeeMore && (
-              <Button
-                variant='primary-blue'
-                className='w-[165px] h-[50px] rounded-lg'
-              >
-                See More
-              </Button>
-            )}
-          </div>
-        </div>
+      <div className="flex flex-wrap justify-between gap-2">
+  <TypographyH2 className="w-full sm:w-auto">
+    {title}
+  </TypographyH2>
+  <div className="flex gap-3 items-center w-full sm:w-auto justify-between sm:justify-end mt-4 sm:mt-0">
+    <div className="flex gap-3">
+      <CarouselPrevious className="size-[50px] relative top-0 left-0 right-0 translate-y-0" />
+      <CarouselNext className="size-[50px] relative top-0 left-0 right-0 translate-y-0" />
+    </div>
+    {showSeeMore && (
+      <Button
+        variant="primary-blue"
+        className="w-full sm:w-[165px] h-[50px] rounded-lg mt-2 sm:mt-0"
+      >
+        See More
+      </Button>
+    )}
+  </div>
+</div>
+
         <CarouselContent>
           {properties.items?.map((project, index) => (
             <CarouselItem key={index} className='lg:basis-auto ps-6'>

@@ -12,21 +12,20 @@ import Image from "next/image"
 
 export const MediaSection = () => {
   return (
-    <Container className="bg-secondary-white rounded-[20px] pt-10 pb-16 flex flex-col items-center gap-[100px]">
-      <div className="flex flex-col items-center gap-14 pb-4">
+    <Container className="bg-secondary-white rounded-[20px] pt-10 pb-16 flex flex-col items-center gap-10">
+      <div className="flex flex-col items-center gap-10 pb-4">
         <div className="max-w-[996px] text-center space-y-3.5">
           <TypographyH2>
             <TextHighlight>Media</TextHighlight> Publications
           </TypographyH2>
           <p className="text-lg">
-            {`Stay updated with the latest news, insights, and trends from the
-            world of real estate.`}
+            {`Stay updated with the latest news, insights, and trends from the world of real estate.`}
           </p>
         </div>
-        <div className="flex gap-3 max-w-[1430px] w-[95%]">
+        <div className="flex flex-wrap justify-center gap-6 max-w-[1430px] w-full">
           {Array.from({ length: 3 }).map((_, index) => (
             <div
-              className="border rounded-lg overflow-hidden bg-background"
+              className="border rounded-lg overflow-hidden bg-background w-full sm:w-[48%] lg:w-[30%]"
               key={index}
             >
               <AspectRatio ratio={348 / 217} className="relative">
@@ -34,8 +33,7 @@ export const MediaSection = () => {
               </AspectRatio>
               <div className="pt-[18px] pb-3.5 px-5">
                 <h3 className="text-lg">
-                  Cooperation between “ThinkProp” and “Property Shop Investments
-                  (PSI)”
+                  Cooperation between “ThinkProp” and “Property Shop Investments (PSI)”
                 </h3>
                 <Separator className="my-3.5" />
                 <div className="flex gap-2.5 items-center">
@@ -56,6 +54,7 @@ export const MediaSection = () => {
           ))}
         </div>
       </div>
+
       <div className="space-y-10">
         <div className="max-w-[996px] text-center space-y-3.5 mx-auto">
           <TypographyH2>
@@ -66,6 +65,7 @@ export const MediaSection = () => {
           </p>
         </div>
       </div>
+
       <div className="space-y-10 w-full">
         <div className="max-w-[996px] text-center space-y-3.5 mx-auto">
           <TypographyH2>
@@ -97,8 +97,8 @@ export const MediaSection = () => {
         </Accordion>
       </div>
     </Container>
-  )
-}
+  );
+};
 
 const faqs = [
   {

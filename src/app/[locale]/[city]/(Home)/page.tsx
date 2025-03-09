@@ -1,3 +1,4 @@
+
 import { AboutUsAwardsSection } from './about-us-awards-section/AboutUsAwardsSection';
 import { AppSection } from './app-section/AppSection';
 import { EasyInstallmentsSection } from './easy-installments-section/EasyInstallmentsSection';
@@ -12,6 +13,8 @@ import { ReadyToMoveSection } from './ready-to-move-section/ReadyToMoveSection';
 import { Suspense } from 'react';
 import { Locale } from '@/i18n.config';
 import { CityIds } from '@/types/Shared';
+import MapSection from './map-section/MapSection';
+import LoaderSpinner from '@/components/app/Loader';
 
 type HomeProps = {
   params: Promise<{
@@ -24,8 +27,8 @@ export default async function Home({ params }: HomeProps) {
   return (
     <Suspense
       fallback={
-        <div className='w-full'>
-          <h2 className='text-center'>loading....</h2>
+        <div className='relative inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50'>
+          <LoaderSpinner />
         </div>
       }
     >
@@ -37,6 +40,7 @@ export default async function Home({ params }: HomeProps) {
         <PopularAreasSection />
         <NewLaunchesProjects city={city} />
         <EasyInstallmentsSection city={city} />
+        <MapSection />
         <ReadyToMoveSection city={city} />
         <AppSection />
         <HigherROISection city={city} locale={locale} />
