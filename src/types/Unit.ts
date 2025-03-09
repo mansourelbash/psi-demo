@@ -77,6 +77,7 @@ export type UnitModelModel = {
   rent_per_year_to: number;
   selling_price_from: number;
   selling_price_to: number;
+  property_name: string;
   units_bed_no: number;
   units_rent_no: number;
   units_sale_no: number;
@@ -84,6 +85,12 @@ export type UnitModelModel = {
   primary_view: LookupModel[] | null;
   secondary_view: LookupModel[] | null;
   media: ImageModel[] | null;
+  city_id?: string | number;
+  location: {
+    lat: number;
+    lng: number;
+  }
+  units_count: number;
 };
 
 export enum OperationType {

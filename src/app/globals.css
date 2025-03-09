@@ -157,4 +157,28 @@
   color: #fff
 }
 
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib{
+  display: none;
+}
+[data-overlayscrollbars] {
+  position: absolute !important;
+}
+.mapboxgl-canvas-container .mapboxgl-canvas{border-radius: 15px !important;}
 
+.custom-scrollbar .os-scrollbar {
+  --os-handle-bg: #E0592A;
+  --os-handle-bg-hover: #D44F20;
+  --os-handle-bg-active: #C8481E;
+}
+
+.custom-scrollbar .os-scrollbar-handle {
+  background-color: var(--os-handle-bg);
+}
+
+.custom-scrollbar .os-scrollbar-handle:hover {
+  background-color: var(--os-handle-bg-hover);
+}
+
+.custom-scrollbar .os-scrollbar-handle:active {
+  background-color: var(--os-handle-bg-active);
+}
