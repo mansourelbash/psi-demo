@@ -16,6 +16,13 @@ import { FC } from "react";
 type FeaturedProjectsSectionProps = {
   city: keyof typeof CityIds;
 };
+export const formatCityLabel = (cityKey: string): string => {
+  return cityKey
+    .toLowerCase()
+    .split("_")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
 export const FeaturedProjectsSection: FC<
   FeaturedProjectsSectionProps
 > = async ({ city }) => {
@@ -31,7 +38,7 @@ export const FeaturedProjectsSection: FC<
         <div className="flex flex-wrap justify-between gap-2 px-3">
           <TypographyH2 className="w-full sm:w-auto">
             Discover Our <TextHighlight>Featured</TextHighlight> Projects in{" "}
-            {city}
+            {formatCityLabel(city)}
           </TypographyH2>
           <div className="flex gap-3 items-center w-full sm:w-auto mt-2 sm:mt-0">
             <div className="flex gap-3 w-full sm:w-auto">

@@ -37,13 +37,13 @@ const AboutDeveloper = ({propertyId}:Props) => {
     }, [propertyId]);
 
   return (
-    <div className="border-gray-300 min-h-[200px] md:min-h-[300px] rounded-[15px] border p-[20px] md:p-[30px] xs:mx-5px">
+    <div className="border-[#ECECEC] min-h-[200px] md:min-h-[300px] rounded-[15px] border p-[20px] md:p-[30px] xs:mx-5px">
       <h4 className="text-center font-semibold text-[16px] md:text-[20px]">
       About {company?.name ? capitalizeWords(company.name) : ""} 🏢
       </h4>
 
-      <p className="mt-4 text-[#414042] text-[16px] md:text-[14px]">
-        {overview || "Loading overview..."}
+      <p className="mt-4 text-[#414042] text-[16px] md:text-[14px] text-left">
+        {overview || "overview..."}
       </p>
     </div>
   );

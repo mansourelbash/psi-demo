@@ -20,6 +20,8 @@ type DataType = {
   link: string
 }
 
+
+
 export const useShareDialog = () => {
   const [open, setOpen] = useState(false)
   const [data, setData] = useState<DataType>()

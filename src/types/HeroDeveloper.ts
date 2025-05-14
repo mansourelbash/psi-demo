@@ -1,10 +1,19 @@
 export interface Developer {
   id: number | string;
   name?: string;
-  logo: {
-    preview: string;
+  logo?: {
+    preview?: string;
   };
   city?: string;
+   
+  title?: string;
+  location?: [
+    {
+      lat?: string;
+      lng?: string;
+    }
+  ];
+  types?: string[];
 }
 
 export interface HeroDeveloperProps {

@@ -19,9 +19,9 @@ const TopGalleryCarousel: FC<TopGalleryCarouselProps> = ({ property }) => {
   const handoverDate = moment(property.handover_date);
   return (
     <Carousel opts={{ align: 'start' }} className=' relative'>
-      <CarouselPrevious className='size-[50px] z-50 absolute top-[50%]  left-1 ' />
-      <CarouselNext className='size-[50px] absolute z-50 top-[50%] right-5  ' />
-      <div className='absolute  left-10 top-8 z-50 flex gap-[10px]'>
+      <CarouselPrevious className='size-[50px] z-20 absolute top-[50%]  left-1 ' />
+      <CarouselNext className='size-[50px] absolute z-20 top-[50%] right-5  ' />
+      <div className='absolute  left-3 top-3 z-50 flex gap-[10px]'>
         {property.handover_date && (
           <Chip
             variant='flat'

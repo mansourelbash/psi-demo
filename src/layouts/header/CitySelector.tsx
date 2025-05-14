@@ -1,5 +1,6 @@
 'use client';
 
+import { formatCityLabel } from '@/app/[locale]/[city]/(Home)/featured-projects-section/FeaturedProjectsSection';
 import { dictionaryAtom, settingsAtom } from '@/atoms/settingsAtoms';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -26,7 +27,7 @@ export const CitySelector = () => {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant='ghost' className='hover:bg-transparent'>
-            {city}
+            {formatCityLabel(city)}
             <CaretDown size={12} />
           </Button>
         </PopoverTrigger>

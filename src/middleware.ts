@@ -17,9 +17,9 @@ function getLocale(request: NextRequest) {
   return match(languages, locales, defaultLocale);
 }
 
-export function middleware(request: NextRequest) {
-  // Check if there is any supported locale in the pathname
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
   const pathnameLocale = i18n.locales.find(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
@@ -32,14 +32,7 @@ export function middleware(request: NextRequest) {
     CityIds[CityIds.ABU_DHABI];
   const locale = pathnameLocale || getLocale(request);
 
-  // if (pathnameLocale) {
-  //   const response = NextResponse.next();
-  //   response.cookies.set('locale', pathnameLocale);
-  //   return response;
-  // }
-
   if (!pathnameLocale) {
-    // Redirect to include locale and city
     request.nextUrl.pathname = `/${locale}/${city}${pathname}`;
     const response = NextResponse.redirect(request.nextUrl);
     response.cookies.set('locale', locale);
@@ -48,7 +41,6 @@ export function middleware(request: NextRequest) {
   }
 
   if (!pathname.includes(`/${city}`)) {
-    // Redirect to include city in the path if missing
     request.nextUrl.pathname = `/${locale}/${city}${pathname.replace(
       `/${locale}`,
       ''
@@ -58,17 +50,14 @@ export function middleware(request: NextRequest) {
     response.cookies.set('city', city);
     return response;
   }
-  // Redirect if there is no locale
 
   const response = NextResponse.next();
   response.cookies.set('locale', locale);
   response.cookies.set('city', city);
   return response;
 }
-// See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    // Skip all internal paths (_next)
-    '/((?!_next|api|favicon.ico|logo*|iconpsi*|visiticon*|images|icons|public/|js).*)',
+    '/((?!_next|api/auth|favicon.ico|logo*|iconpsi*|visiticon*|images|icons|public/|js).*)',
   ],
 };

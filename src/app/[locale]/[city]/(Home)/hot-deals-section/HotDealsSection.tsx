@@ -11,6 +11,7 @@ import { Container } from '@/components/ui/container';
 import { TextHighlight, TypographyH2 } from '@/components/ui/typography';
 import { getUnits } from '@/services/units';
 import { CityIds } from '@/types/Shared';
+import { formatCityLabel } from '../featured-projects-section/FeaturedProjectsSection';
 
 type Props = {
   operation: 'SALE' | 'RENT';
@@ -26,7 +27,7 @@ export const HotDealsSection = async ({ operation, city }: Props) => {
   <TypographyH2 className="w-full sm:w-auto">
     Discover the <TextHighlight>Hot Deals</TextHighlight> Units For{' '}
     <span className="capitalize">{operation.toLowerCase()}</span> in{' '}
-    {city}
+    {formatCityLabel(city)}
   </TypographyH2>
   <div className="flex gap-3 items-center w-full sm:w-auto justify-between sm:justify-end mt-4 sm:mt-0">
     <div className="flex gap-3">

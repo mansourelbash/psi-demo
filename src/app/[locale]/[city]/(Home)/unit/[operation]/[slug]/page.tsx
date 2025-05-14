@@ -63,8 +63,11 @@ export default async function Unit({ params }: UnitProps) {
     <main className='py-[70px]'>
       <ToolbarSection breadcrumbData={breadcrumbData} />
       <GallerySection unit={unit} />
-      <Container className='mt-[70px] grid grid-cols-12 gap-6'>
-        <div className='col-span-9'>
+      <Container className='mt-[70px] container mx-auto px-0 py-8'>
+        <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-12 gap-8'>
+
+       
+        <div className='col-span-1 md:col-span-1 xl:col-span-9'>
           <DetailsSection unit={unit} property={property} />
           <Separator className='my-10 w-[90%]' />
           <PropertyOverviewSection unit={unit} />
@@ -84,8 +87,12 @@ export default async function Unit({ params }: UnitProps) {
             initialInterest={initialInterest}
           />
         </div>
-        <div className='col-span-3 flex flex-col gap-9'>
-          <ListingAgentCard unitId={unit.id} operation={operation} />
+        <div className='block md:hidden lg:block xl:col-span-3'>
+          <div className='flex flex-col gap-9'>
+
+          
+          <ListingAgentCard unitId={unit.id} operation={operation} route_to={true}/>
+
           <SubmitInquiry
             unitTypeId={unit.unit_type!.id!}
             propertyId={unit.property_id}
@@ -94,6 +101,8 @@ export default async function Unit({ params }: UnitProps) {
           />
           <RegulatoryInformation />
           <Banner />
+          </div>
+        </div>
         </div>
         <div className='col-span-12 flex flex-col gap-16'>
           <UnitsSectionCarousel

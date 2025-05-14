@@ -113,11 +113,10 @@
   }
   .xs\:bg-mob-custom {
     background-size: 100% 33% !important;
-    background-position: center center !important;
+    background-position: top center !important;
     height: auto !important;
     background-attachment: local !important;
     background-repeat: no-repeat !important;
-    background-position: top !important;
   }
 
   .xs\:text-black{
@@ -181,4 +180,14 @@
 
 .custom-scrollbar .os-scrollbar-handle:active {
   background-color: var(--os-handle-bg-active);
+}
+
+.react-datepicker__month .react-datepicker__month-text, .react-datepicker__month .react-datepicker__quarter-text{
+  padding: 5px 2px;
+}
+
+.rounded-cover-image img{border-radius: 20px}
+
+[data-side="top"] {
+  display: none !important;
 }

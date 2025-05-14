@@ -9,15 +9,27 @@ import {
 } from "@/components/ui/carousel";
 import { Container } from "@/components/ui/container";
 import { TextHighlight, TypographyH2 } from "@/components/ui/typography";
+import { getPropertiesByLabel } from "@/services/properties";
+import { CityIds, ComponentWithCity } from "@/types/Shared";
+import { FC } from "react";
+import { formatCityLabel } from "../featured-projects-section/FeaturedProjectsSection";
 
-export const EducationSection = () => {
+export const EducationSection: FC<ComponentWithCity> = async ({
+  city,
+}) => {
+    const properties = await getPropertiesByLabel(CityIds[city], {
+      label: "BEST_FOR_SCHOOLS",
+      page: 1,
+      per_page: 10,
+    });
+
+    if (!properties.items?.length) return null;
   return (
     <Container>
       <Carousel opts={{ align: "start" }} className="w-full space-y-[30px]">
         <div className="flex flex-wrap justify-between gap-2">
           <TypographyH2 className="w-full sm:w-auto">
-            <TextHighlight>Easy Installments</TextHighlight> at Your Doorstep in
-            Abu Dhabi
+            <TextHighlight>Education</TextHighlight> at Your Doorstep in {formatCityLabel(city)}
           </TypographyH2>
           <div className="flex gap-3 items-center w-full sm:w-auto justify-between sm:justify-end mt-4 sm:mt-0">
             <div className="flex gap-3">
@@ -34,9 +46,9 @@ export const EducationSection = () => {
         </div>
 
         <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index} className="lg:basis-1/4">
-              <ProjectCard />
+          {properties.items.map((project, index) => (
+            <CarouselItem key={index} className="lg:basis-auto ps-6">
+              <ProjectCard project={project} />
             </CarouselItem>
           ))}
         </CarouselContent>

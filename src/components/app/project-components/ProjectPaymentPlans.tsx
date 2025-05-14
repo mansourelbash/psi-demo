@@ -9,7 +9,7 @@ const ProjectPaymentPlans: ProjectComponent = async ({ property }) => {
     return null;
   }
   return (
-    <div className='flex flex-col items-center justify-center bg-[#F9F9F9] gap-5  py-12'>
+    <div className='flex flex-col items-center justify-center bg-[#F9F9F9] gap-5 py-12'>
       <TypographyH2 className='capitalize'>
         {property.name} {''}
         <TextHighlight>Payment Plan</TextHighlight>

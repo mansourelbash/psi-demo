@@ -1,78 +1,84 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Slider } from '@/components/ui/slider';
+import React, { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import RangeSlider from "../RangeSlider";
+import { PriceRangeIcon } from "@/components/icons/priceRangeIcon";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { PrimitiveAtom } from "jotai";
+import { Filters } from "@/atoms/MapFilterAtoms";
+
 
 interface SliderPriceProps {
   priceRange: [number, number];
-  handlePriceRangeChange: (value: string) => void;
+  classNames? :string
+  mainFiltersAtom?: PrimitiveAtom<Filters>;
 }
 
-const SliderPrice: React.FC<SliderPriceProps> = ({ priceRange, handlePriceRangeChange }) => {
-  const [minValue, setMinValue] = useState(priceRange[0]);
-  const [maxValue, setMaxValue] = useState(priceRange[1]);
+export default function SliderPrice({ priceRange, classNames, mainFiltersAtom }: SliderPriceProps) {
+  const [minValue, setMinValue] = useState<number>(priceRange[0]);
+  const [maxValue, setMaxValue] = useState<number>(priceRange[1]);
+  const [isOpen, setIsOpen] = useState(false);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setMinValue(priceRange[0]);
     setMaxValue(priceRange[1]);
   }, [priceRange]);
 
-  const onSliderChange = (value: number[]) => {
-    setMinValue(value[0]);
-    setMaxValue(value[1]);
-    handlePriceRangeChange(value.join(','));
+  const handleMinChange = (value: number) => {
+    if (value < 0) return;
+    setMinValue(value);
   };
 
-  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    if (!isNaN(value)) {
-      setMinValue(value);
-      handlePriceRangeChange([value, maxValue].join(','));
-    }
+  const handleMaxChange = (value: number) => {
+    if (value > 5000000) return;
+    setMaxValue(value);
   };
 
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    if (!isNaN(value)) {
-      setMaxValue(value);
-      handlePriceRangeChange([minValue, value].join(','));
-    }
+  const resetFilters = () => {
+    setMinValue(0);
+    setMaxValue(5000000);
   };
 
   return (
-    <div className="space-y-4">
-      <Slider
-        value={[minValue, maxValue]}
-        onValueChange={onSliderChange}
-        max={100_000_000}
-        min={0}
-        step={1_000}
-      />
-      
-      <div className="flex justify-between items-center mt-2 w-full max-w-[500px]">
-        <div className="flex flex-col w-[150px]">
-          <label htmlFor="minValue" className="text-sm">Min Value</label>
-          <input
-            id="minValue"
-            type="number"
-            value={minValue}
-            onChange={handleMinChange}
-            className="border p-2 w-full"
-          />
-        </div>
-        <div className="flex flex-col w-[150px]">
-          <label htmlFor="maxValue" className="text-sm">Max Value</label>
-          <input
-            id="maxValue"
-            type="number"
-            value={maxValue}
-            onChange={handleMaxChange}
-            className="border p-2 w-full"
-          />
-        </div>
-      </div>
-    </div>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" className={`w-full border-[#ECECEC] justify-between h-[48px] text-[#6e6d6e] ${classNames ? `${classNames}` : ''}`}>
+          {minValue > 0 && maxValue ? (
+            <span>{minValue} - {maxValue}</span>
+          ) : (
+            "Price Range"
+          )}
+          {isOpen ? (
+            <ChevronUp className="ml-2 w-4 h-4 text-gray-600" />
+          ) : (
+            <ChevronDown className="ml-2 w-4 h-4 text-gray-600" />
+          )}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[290px] p-4">
+        <RangeSlider
+          min={0}
+          max={5000000}
+          minValue={minValue}
+          maxValue={maxValue}
+          onMinChange={handleMinChange}
+          onMaxChange={handleMaxChange}
+          trackColor="bg-gray-400"
+          handleColor="bg-[#E0592A]"
+          buttonClass="text-sm text-red-500 pl-1"
+          buttonText="Reset"
+          onReset={resetFilters}
+          trackRef={trackRef}
+          minPlaceholder="From"
+          maxPlaceholder="To"
+          Icon={PriceRangeIcon}
+          priceRange={priceRange}
+          atom={mainFiltersAtom}
+        />
+      </PopoverContent>
+    </Popover>
   );
-};
-
-export default SliderPrice;
+}

@@ -15,6 +15,7 @@ import { Locale } from '@/i18n.config';
 import { CityIds } from '@/types/Shared';
 import MapSection from './map-section/MapSection';
 import LoaderSpinner from '@/components/app/Loader';
+import { EducationSection } from './education-section/EducationSection';
 
 type HomeProps = {
   params: Promise<{
@@ -37,13 +38,14 @@ export default async function Home({ params }: HomeProps) {
         <FeaturedProjectsSection city={city} />
         <HotDealsSection operation='SALE' city={city} />
         <HotDealsSection operation='RENT' city={city} />
-        <PopularAreasSection />
+        <PopularAreasSection city={city} />
         <NewLaunchesProjects city={city} />
         <EasyInstallmentsSection city={city} />
         <MapSection />
         <ReadyToMoveSection city={city} />
         <AppSection />
         <HigherROISection city={city} locale={locale} />
+        <EducationSection city={city}  />
         <AboutUsAwardsSection />
         <MediaSection />
       </main>

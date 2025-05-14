@@ -91,6 +91,8 @@ export type UnitModelModel = {
     lng: number;
   }
   units_count: number;
+  developerName?: string
+  locationFeatures?: number
 };
 
 export enum OperationType {

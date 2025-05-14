@@ -55,3 +55,5 @@ export const sectionRefAtom = atom<MutableRefObject<HTMLDivElement | null>>(crea
 export const isMobileMenuOpenAtom = atom(false);
 
 export const openMenuIndexAtom = atom<number | null>(null);
+
+export const VerifyRegisterCompleted = atom(false);

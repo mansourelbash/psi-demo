@@ -1,5 +1,4 @@
-'use client';
-
+"use client";
 import {
   Pagination,
   PaginationContent,
@@ -8,7 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination';
+} from "@/components/ui/pagination";
 
 interface CustomPaginationProps {
   currentPage: number;
@@ -27,12 +26,18 @@ export function CustomPagination({
   maxVisiblePages = 5,
 }: CustomPaginationProps) {
   const getVisiblePages = () => {
+    if (totalPages <= maxVisiblePages) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
     const delta = Math.floor(maxVisiblePages / 2);
     let start = Math.max(currentPage - delta, 1);
-    const end = Math.min(start + maxVisiblePages - 1, totalPages);
+    let end = Math.min(start + maxVisiblePages - 1, totalPages);
 
-    if (end - start + 1 < maxVisiblePages) {
-      start = Math.max(end - maxVisiblePages + 1, 1);
+    if (end === totalPages) {
+      start = Math.max(totalPages - maxVisiblePages + 1, 1);
+    } else if (start === 1) {
+      end = Math.min(maxVisiblePages, totalPages);
     }
 
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
@@ -41,28 +46,36 @@ export function CustomPagination({
   const visiblePages = getVisiblePages();
 
   return (
-    <Pagination className='mt-5 mb-5'>
+    <Pagination className="mt-5 mb-5">
       <PaginationContent>
-        {currentPage > 1 && (
-          <PaginationItem>
-            <PaginationPrevious
-              className='hover:cursor-pointer text-[#2C2D65] font-semibold'
-              onClick={() => onPageChange(currentPage - 1)}
-            />
-          </PaginationItem>
-        )}
+        {/* Previous Button */}
+        <PaginationItem>
+          <PaginationPrevious
+            className={`font-medium ${
+              currentPage === 1
+                ? "text-gray-400 cursor-not-allowed pointer-events-none"
+                : "text-[#2C2D65] hover:cursor-pointer"
+            }`}
+            onClick={
+              currentPage === 1
+                ? undefined
+                : () => onPageChange(currentPage - 1)
+            }
+          />
+        </PaginationItem>
 
-        {showFirstLast && currentPage > 2 && (
+        {/* Show first page if needed */}
+        {showFirstLast && visiblePages[0] > 1 && (
           <>
             <PaginationItem>
               <PaginationLink
-                className='hover:cursor-pointer text-[#2C2D65] font-semibold'
+                className="hover:cursor-pointer text-[#2C2D65] font-medium"
                 onClick={() => onPageChange(1)}
               >
                 1
               </PaginationLink>
             </PaginationItem>
-            {currentPage > 3 && (
+            {visiblePages[0] > 2 && (
               <PaginationItem>
                 <PaginationEllipsis />
               </PaginationItem>
@@ -70,6 +83,7 @@ export function CustomPagination({
           </>
         )}
 
+        {/* Page Numbers */}
         {visiblePages.map((page) => (
           <PaginationItem key={page}>
             <PaginationLink
@@ -77,8 +91,8 @@ export function CustomPagination({
               onClick={() => onPageChange(page)}
               className={
                 currentPage === page
-                  ? 'border-2 border-[#ECECEC] text-[#2C2D65] font-semibold'
-                  : 'hover:cursor-pointer text-[#2C2D65] font-semibold'
+                  ? "border-2 border-[#ECECEC] text-[#2C2D65] font-medium"
+                  : "hover:cursor-pointer text-[#2C2D65] font-medium"
               }
             >
               {page}
@@ -86,32 +100,41 @@ export function CustomPagination({
           </PaginationItem>
         ))}
 
-        {showFirstLast && currentPage < totalPages - 1 && (
-          <>
-            {currentPage < totalPages - 2 && (
+        {/* Show last page if needed */}
+        {showFirstLast &&
+          visiblePages[visiblePages.length - 1] < totalPages && (
+            <>
+              {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              )}
               <PaginationItem>
-                <PaginationEllipsis />
+                <PaginationLink
+                  className="hover:cursor-pointer text-[#2C2D65] font-medium"
+                  onClick={() => onPageChange(totalPages)}
+                >
+                  {totalPages}
+                </PaginationLink>
               </PaginationItem>
-            )}
-            <PaginationItem>
-              <PaginationLink
-                className='hover:cursor-pointer text-[#2C2D65] font-semibold'
-                onClick={() => onPageChange(totalPages)}
-              >
-                {totalPages}
-              </PaginationLink>
-            </PaginationItem>
-          </>
-        )}
+            </>
+          )}
 
-        {currentPage < totalPages && (
-          <PaginationItem>
-            <PaginationNext
-              className='hover:cursor-pointer text-[#2C2D65] font-semibold'
-              onClick={() => onPageChange(currentPage + 1)}
-            />
-          </PaginationItem>
-        )}
+        {/* Next Button */}
+        <PaginationItem>
+          <PaginationNext
+            className={`font-medium ${
+              currentPage === totalPages
+                ? "text-gray-400 cursor-not-allowed pointer-events-none"
+                : "text-[#2C2D65] hover:cursor-pointer"
+            }`}
+            onClick={
+              currentPage === totalPages
+                ? undefined
+                : () => onPageChange(currentPage + 1)
+            }
+          />
+        </PaginationItem>
       </PaginationContent>
     </Pagination>
   );

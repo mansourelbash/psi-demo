@@ -5,7 +5,7 @@ import React from "react";
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ text }) => {
   return (
-    <div className="p-6 bg-white rounded-lg shadow-sm border">
+    <div className="p-6 bg-white rounded-lg shadow-sm border border-[#ECECEC]">
       <div className="flex flex-wrap justify-between gap-2 mb-3">
         <div className="w-full sm:w-auto">
           <Image

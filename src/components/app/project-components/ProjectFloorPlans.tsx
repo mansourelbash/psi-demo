@@ -29,7 +29,7 @@ const ProjectFloorPlans: FC<ProjectComponentProps> = async ({ property }) => {
       <Accordion
         type='single'
         collapsible
-        className='w-[95%] max-w-[1283px] mx-auto space-y-2.5'
+        className='w-full  max-w-[1283px] mx-auto space-y-2.5'
       >
         {Object.entries(groupedBy).map(([key, value], index) => (
           <AccordionItem

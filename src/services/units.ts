@@ -36,7 +36,7 @@ export const getUnits = async (
       cache: 'no-cache',
     }
   );
-
+  
   return res.json();
 };
 

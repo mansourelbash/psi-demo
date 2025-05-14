@@ -9,7 +9,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { Container } from '@/components/ui/container';
 import { TypographyH2 } from '@/components/ui/typography';
 import { getUnits } from '@/services/units';
 import { CityIds, OperationType } from '@/types/Shared';
@@ -21,6 +20,7 @@ type Props = {
   title: string | ReactNode;
   showSeeMore?: boolean;
   property_id?: string;
+  label?: "FEATURED" | "HOT_DEALS" | "HIGHER_ROI"
 };
 
 const UnitsSectionCarousel: FC<Props> = async ({
@@ -30,14 +30,16 @@ const UnitsSectionCarousel: FC<Props> = async ({
   title,
   showSeeMore,
   property_id,
+  label
 }) => {
   const units = await getUnits(operation, CityIds[city], {
     community_id,
     property_id,
+    label,
   });
   if (!units.length) return null;
   return (
-    <Container>
+    <>
       <Carousel opts={{ align: 'start' }} className='w-full space-y-[30px]'>
         <div className='flex justify-between gap-2'>
           <TypographyH2 className=' capitalize'>{title}</TypographyH2>
@@ -59,12 +61,12 @@ const UnitsSectionCarousel: FC<Props> = async ({
         <CarouselContent>
           {units?.map((unit, index) => (
             <CarouselItem key={index} className='lg:basis-auto ps-6'>
-              <UnitCard unit={unit} operation={operation} />
+              <UnitCard unit={unit} operation={operation} route_to={`/unit/${operation}/${unit.id}`} />
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
-    </Container>
+    </>
   );
 };
 export default UnitsSectionCarousel;

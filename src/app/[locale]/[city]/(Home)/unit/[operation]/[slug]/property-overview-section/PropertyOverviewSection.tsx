@@ -16,11 +16,12 @@ import { UnitModel } from '@/types/Unit';
 type Props = {
   unit: UnitModel;
 };
+
 export const PropertyOverviewSection = ({ unit }: Props) => {
   return (
     <div className='space-y-7'>
       <TypographyH2 className='font-medium'>Property Overview</TypographyH2>
-      <div className='grid grid-cols-3 gap-[20px]'>
+      <div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-5'>
         <Info>
           <InfoIconContainer>
             <PriceLabelIcon className='size-6' />
@@ -71,7 +72,7 @@ export const PropertyOverviewSection = ({ unit }: Props) => {
           </InfoIconContainer>
           <InfoDataContainer>
             <InfoTitle>Community</InfoTitle>
-            <InfoDesc>{unit.ownership?.name ?? '---'}</InfoDesc>
+            <InfoDesc>{unit.community?.name ?? '---'}</InfoDesc>
           </InfoDataContainer>
         </Info>
       </div>

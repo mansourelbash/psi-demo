@@ -27,8 +27,8 @@ export default function ProfileCard({
 
   return (
     <div
-      className={`relative container mx-auto overflow-hidden p-6 mt-[50px] xs:mt-0 ${cover ?? 'bg-[#051831]'} ${className}`}
-      style={{ backgroundImage: cover ? `url(${cover})` : 'none', backgroundSize: 'cover', backgroundPosition: 'center' }}
+    className={`relative container w-full lg:w-[92.5%] lg:m-auto md:w-[95%] p-6 overflow-hidden lg:mt-[50px] xs:mt-0 ${cover ?? 'bg-[#051831]'} ${className}`}
+    style={{ backgroundImage: cover ? `url(${cover})` : 'none', backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
       <button
         onClick={handleOpenModal}

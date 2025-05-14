@@ -27,27 +27,23 @@ type UnitCardProps = {
   locale?: string;
   classNames?: string;
   width?: string;
+  route_to?: string;
 };
 export const UnitCard: FC<UnitCardProps> = ({
   unit,
   operation,
   classNames,
   width,
+  route_to,
 }) => {
   if (!unit) return null;
   const currentDate = moment();
   const handoverDate = unit?.handover_date ? moment(unit.handover_date) : null;
+  
   return (
-    <Link href={`unit/${operation}/${unit.id}`}>
-      <div
-        className={`p-2.5 rounded-[18px] border h-full flex flex-col justify-between ${
-          width ? width : "w-[410px]"
-        } ${classNames ?? ""}`}
-      >
-        <AspectRatio
-          ratio={1.44 / 1}
-          className="rounded-lg overflow-hidden relative "
-        >
+    <div className={`p-2.5 rounded-[18px] border flex flex-col h-full ${width ? width : "w-[410px]"} ${classNames ?? ""}`}>
+      <Link href={`${route_to ? route_to : `unit/${operation}/${unit.id}`}`} className="block flex-shrink-0">
+        <AspectRatio ratio={1.44 / 1} className="rounded-lg overflow-hidden relative">
           <Image
             src={unit.cover_photo?.at(0)?.preview ?? "/images/hero.png"}
             alt="test"
@@ -116,11 +112,14 @@ export const UnitCard: FC<UnitCardProps> = ({
             </div>
           </div>
         </AspectRatio>
-        <div className="p-5 pt-2.5">
+      </Link>
+
+      <div className="p-5 pt-2.5 mt-auto">
+        <Link href={`${route_to ? route_to : `unit/${operation}/${unit.id}`}`} className="block">
           <div className="flex justify-between flex-wrap gap-2">
             <h2 className="text-[22px] leading-[26px] font-medium text-2xl text-primary">
               <CurrencyConverter>
-                {operation === "SALE" ? unit.selling_price : unit.rent_per_year}
+                {unit.selling_price | unit.rent_per_year}
               </CurrencyConverter>
               {operation === "RENT" && " per year"}
             </h2>
@@ -158,29 +157,36 @@ export const UnitCard: FC<UnitCardProps> = ({
               </span>
             </div>
           </div>
-          <Separator className="mt-2.5 mb-3.5" />
-          <div className="flex flex-wrap gap-2">
+        </Link>
+
+        <Separator className="mt-2.5 mb-3.5" />
+        <div className="flex flex-wrap gap-2 w-full">
+          <Link href="tel:+97122052888" className="flex-1" passHref>
             <Button
               variant="primary-blue"
-              className="font-normal gap-1 w-[80px] h-9 px-0 rounded-md"
+              className="font-normal gap-1 h-9 px-0 w-full"
             >
               <Phone size={14} /> Call
             </Button>
+          </Link>
+          <Link href="mailto:info@psinv.net" className="flex-1" passHref>
             <Button
               variant="primary-blue"
-              className="font-normal gap-1 w-[80px] h-9 px-0 rounded-md"
+              className="font-normal gap-1 h-9 px-0 rounded-md w-full"
             >
               <EnvelopeSimple size={14} /> Email
             </Button>
+          </Link>
+          <Link href="https://wa.me/+97122052888" className="flex-[2]" passHref>
             <Button
-              variant="outline"
-              className="font-normal gap-1 grow h-9 px-0 border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white rounded-md"
+              variant="primary-green"
+              className="font-normal h-9 bg-white w-full border border-whatsapp text-whatsapp hover:bg-whatsapp hover:text-white"
             >
               <WhatsAppIcon /> WhatsApp
             </Button>
-          </div>
+          </Link>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
