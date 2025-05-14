@@ -12,6 +12,7 @@ import { TextHighlight, TypographyH2 } from "@/components/ui/typography";
 import { getPropertiesByLabel } from "@/services/properties";
 import { CityIds, ComponentWithCity } from "@/types/Shared";
 import { FC } from "react";
+import { formatCityLabel } from "../featured-projects-section/FeaturedProjectsSection";
 
 export const EasyInstallmentsSection: FC<ComponentWithCity> = async ({
   city,
@@ -28,7 +29,7 @@ export const EasyInstallmentsSection: FC<ComponentWithCity> = async ({
         <div className="flex justify-between items-center gap-2 flex-wrap">
           <TypographyH2 className="w-full sm:w-auto">
             Discover Projects <TextHighlight>Easy Installments</TextHighlight>{" "}
-            in {city}
+            in {formatCityLabel(city)}
           </TypographyH2>
           <div className="flex gap-3 items-center w-full sm:w-auto justify-between sm:justify-end mt-4 sm:mt-0">
             <div className="flex gap-3">

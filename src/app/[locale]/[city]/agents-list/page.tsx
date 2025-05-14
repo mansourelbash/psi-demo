@@ -5,67 +5,159 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MapPin } from "lucide-react";
 import { AgentCard } from "@/components/app/agents/AgentCard";
-import { agents } from "@/data/data";
+// import { agents } from "@/data/data";
 import HeroSearch from "@/components/app/HeroSearch";
 import MultiCheckboxSelect from "@/components/app/MultiCheckboxSelect";
 import { motion, AnimatePresence } from "framer-motion";
 import { CustomPagination } from "@/components/app/CustomPagination";
 import { useRouter } from "next/navigation";
+import debounce from "lodash.debounce";
+import { useCallback } from "react";
+import {
+  OverlayScrollbarsComponent,
+} from "overlayscrollbars-react";
+import { API_URL } from "@/services/agents";
+import { Agent } from "@/types/agent";
+import "overlayscrollbars/overlayscrollbars.css";
+
 const MeetOurTeam = () => {
   const languages = [
-    { id: "arabic", name: "Arabic" },
-    { id: "english", name: "English" },
-    { id: "spanish", name: "Spanish" },
-    { id: "french", name: "French" },
-    { id: "german", name: "German" },
-    { id: "italian", name: "Italian" },
+    { id: 18103, name: "Arabic" },
+    { id: 18104, name: "English" },
+    { id: 56262, name: "Spanish" },
+    { id: 56261, name: "Russian" },
+    { id: 56280, name: "Farsi" },
+    { id: 56259, name: "German" },
+    { id: 56267, name: "Dutch" },
+    { id: 56258, name: "French" },
   ];
-
+  
   const servicesType = [
-    { id: "sales", name: "Sales" },
-    { id: "rent", name: "Rent" },
-    { id: "buy", name: "Buy" },
+    { id: 431, name: "Rent" },
+    { id: 430, name: "Buy" },
   ];
-
+  
   const groupedOptions = [
     {
       label: "Abu Dhabi",
       options: [
-        { id: "saadiyat-island", name: "Saadiyat Island" },
-        { id: "al-reem-island", name: "Al Reem Island" },
-        { id: "yas-island", name: "Yas Island" },
-        { id: "town-square-dubai-abu-dhabi", name: "Town Square Dubai" },
+        { id: 30022, name: "Saadiyat Island" },
+        { id: 28880, name: "Al Reem Island" },
+        { id: 35395, name: "Yas Island" },
+        { id: 35593, name: "Town Square Dubai" },
       ],
     },
     {
       label: "Dubai",
       options: [
-        { id: "palm-jumeirah", name: "Palm Jumeirah" },
-        { id: "downtown-dubai", name: "Downtown Dubai" },
-        { id: "dubai-creek", name: "Dubai Creek" },
-        { id: "town-square-dubai", name: "Town Square Dubai" },
+        { id: 27268, name: "Palm Jumeirah District" },
+        { id: 27298, name: "Downtown Dubai" },
+        { id: 27292, name: "Dubai Creek" },
+        { id: 27278, name: "Town Square Dubai" },
       ],
     },
   ];
 
+  const normalizedGroupedOptions = groupedOptions.map(group => ({
+    ...group,
+    options: group.options.map(opt => ({
+      ...opt,
+      id: opt.id.toString(),
+    }))
+  }));
+  
+
   const [currentPage, setCurrentPage] = useState(1);
+  const [agents, setAgents] = useState<Agent[]>([]);
   const [totalPages, setTotalPages] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [searchName, setSearchName] = useState("");
+  const [suggestions, setSuggestions] = useState<Agent[]>([]);
   const [selectedService, setSelectedService] = useState<string[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string[]>([]);
   const [selectedSpecialist, setSelectedSpecialist] = useState<string[]>([]);
   const [isClient, setIsClient] = useState<boolean>(false);
   const router = useRouter();
-  const agentsPerPage = 10;
-  const startIndex = (currentPage - 1) * agentsPerPage;
+
+  const suggestionsRef = useRef<HTMLDivElement | null>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    const element = suggestionsRef.current;
+    if (element && !element.contains(event.target as Node)) {
+      setSuggestions([]);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [searchFilters, setSearchFilters] = useState({
-    name: '',
-    service: [] as string[],
-    language: [] as string[],
-    specialist: [] as string[],
-  });
+
+  const fetchAgentSuggestions = async (query: string) => {
+    try {
+      const response = await fetch(
+        `https://web.dev.psi-crm.com/api/agents?name=${query}`
+      );
+      const data = await response.json();
+      setSuggestions(data.items);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
+  };
+
+  const debouncedFetch = useCallback(
+    debounce((query: string) => {
+      if (query.length > 1) fetchAgentSuggestions(query);
+      else setSuggestions([]);
+    }, 300),
+    []
+  );
+
+  useEffect(() => {
+    if (document.activeElement?.tagName === "INPUT") {
+      debouncedFetch(searchName);
+    }
+  }, [searchName]);
+  
+
+  const getAllAgentsFromApi = async (page: number) => {
+    try {
+      const isBuySelected = selectedService.includes("430");
+      const isRentSelected = selectedService.includes("431");
+  
+      const queryParams = new URLSearchParams({
+        page: String(page),
+        per_page: "10",
+        name: searchName,
+      });
+  
+      if (selectedLanguage.length)
+        queryParams.append("languages", selectedLanguage.join(","));
+  
+      if (selectedSpecialist.length)
+        queryParams.append("communities", selectedSpecialist.join(","));
+  
+      if (isBuySelected) queryParams.append("sale_listing_agent", "true");
+      if (isRentSelected) queryParams.append("lease_listing_agent", "true");
+  
+      const url = `${API_URL}/agents?${queryParams.toString()}`;
+      const response = await fetch(url);
+      const json = await response.json();
+  
+      setAgents(json.items);
+      setTotalPages(json.pages);
+    } catch (error) {
+      console.error("Failed to fetch agents:", error);
+    }
+  };
+  
+  
+  useEffect(() => {
+    getAllAgentsFromApi(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -96,13 +188,8 @@ const MeetOurTeam = () => {
   };
 
   const handleSearch = () => {
-    setSearchFilters({
-      name: searchName,
-      service: selectedService,
-      language: selectedLanguage,
-      specialist: selectedSpecialist,
-    });
-    setCurrentPage(1);
+    setCurrentPage(1); 
+    getAllAgentsFromApi(1);
   };
 
   const handleToggleLanguage = (locationId: string) => {
@@ -113,11 +200,11 @@ const MeetOurTeam = () => {
     );
     setCurrentPage(1);
   };
-  const handleToggleService = (locationId: string) => {
+  const handleToggleService = (option: string) => {
     setSelectedService((prev) =>
-      prev.includes(locationId)
-        ? prev.filter((id) => id !== locationId)
-        : [...prev, locationId]
+      prev.includes(option)
+        ? prev.filter((item) => item !== option)
+        : [...prev, option]
     );
     setCurrentPage(1);
   };
@@ -130,45 +217,17 @@ const MeetOurTeam = () => {
     );
     setCurrentPage(1);
   };
+ 
 
-  const filteredAgents = agents.filter((agent) => {
-    const matchesName = agent.name
-      .toLowerCase()
-      .includes(searchFilters.name.toLowerCase());
-  
-    const matchesService =
-      searchFilters.service.length === 0 ||
-      searchFilters.service.some((service) =>
-        agent.services.some((s) => s.toLowerCase() === service.toLowerCase())
-      );
-  
-    const matchesLanguage =
-      searchFilters.language.length === 0 ||
-      searchFilters.language.some((language) =>
-        agent.languages.some((l) => l.toLowerCase() === language.toLowerCase())
-      );
-  
-    const matchesSpecialist =
-      searchFilters.specialist.length === 0 ||
-      searchFilters.specialist.some((specialist) =>
-        agent.areaOfSpecialist.some(
-          (a) => a.toLowerCase().trim() === specialist.toLowerCase().trim()
-        )
-      );
-  
-    return matchesName && matchesService && matchesLanguage && matchesSpecialist;
-  });
-  
-  const displayedAgents = filteredAgents.slice(
-    startIndex,
-    startIndex + agentsPerPage
-  );
-  useEffect(() => {
-    setTotalPages(Math.ceil(filteredAgents.length / 10));
-  }, [filteredAgents]);
+  const handleSelect = (selectedAgent: { name: string }) => {
+    setSearchName(selectedAgent.name);
+    setSuggestions([]);
+  };
+
   const searchInputs = (
     <>
       <div className="grid gap-4 md:grid-cols-5 items-center">
+
         <div className="relative border-r border-gray-300 pr-1">
           <MapPin className="absolute left-1 top-2.5 h-5 w-5 text-muted-foreground" />
           <Input
@@ -177,10 +236,43 @@ const MeetOurTeam = () => {
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
           />
+
+          {suggestions && suggestions.length > 0 && (
+            <div
+              className="custom-scrollbar absolute left-0 right-0 bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-10"
+              ref={suggestionsRef}
+            >
+              <OverlayScrollbarsComponent
+                options={{ scrollbars: { autoHide: "leave" } }}
+                className="max-h-60 bg-white"
+              >
+                {suggestions.map((agent) => (
+                  <div
+                    key={agent?.id}
+                    className="p-2 cursor-pointer hover:bg-gray-100"
+                    onClick={() => {
+                      handleSelect(agent);
+                      setSuggestions([]);
+                    }}
+                  >
+                    <div className="flex flex-col">
+                      <span className="font-medium flex gap-3">
+                        {agent?.name}</span>
+                      {agent?.name && (
+                        <span className="text-sm text-gray-500 mt-2">
+                          {agent?.title?.name}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </OverlayScrollbarsComponent>
+            </div>
+          )}
         </div>
 
         <MultiCheckboxSelect
-          options={servicesType}
+          options={servicesType.map(option => ({ ...option, id: option.id.toString() }))}
           selectedOptions={selectedService}
           onToggleOption={handleToggleService}
           placeholder="Services"
@@ -198,7 +290,7 @@ const MeetOurTeam = () => {
           selectedOptions={selectedSpecialist}
           onToggleOption={toggleOption}
           isMulti
-          groups={groupedOptions}
+          groups={normalizedGroupedOptions}
           placeholder="Area of Specialist"
           variant="primary"
           textAlign="left"
@@ -209,7 +301,7 @@ const MeetOurTeam = () => {
         />
 
         <MultiCheckboxSelect
-          options={languages}
+          options={languages.map(option => ({ ...option, id: option.id.toString() }))}
           selectedOptions={selectedLanguage}
           onToggleOption={handleToggleLanguage}
           placeholder="Language"
@@ -253,7 +345,7 @@ const MeetOurTeam = () => {
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"
                   layout
                 >
-                  {displayedAgents.map((agent) => (
+                  {agents.map((agent) => (
                     <motion.div
                       key={agent.id}
                       className="justify-center hover:cursor-pointer"
@@ -272,13 +364,13 @@ const MeetOurTeam = () => {
                 </motion.div>
               </AnimatePresence>
             </div>
-            {filteredAgents && (
+            {agents && (
               <CustomPagination
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
                 showFirstLast={true}
-                maxVisiblePages={10}
+                maxVisiblePages={2}
                 // isMobile={isMobile}
               />
             )}

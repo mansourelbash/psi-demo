@@ -25,50 +25,55 @@ type Props = {
 export const DetailsSection = ({ unit, property }: Props) => {
   return (
     <>
-      <h1 className='text-[32px] font-medium'>{unit.title}</h1>
-      <div className='flex gap-2 items-center text-lg leading-tight font-medium mt-5'>
+      <h1 className="text-2xl md:text-[32px] font-medium">{unit.title}</h1>
+
+      <div className="flex flex-wrap gap-2 items-center text-base md:text-lg leading-tight font-medium mt-5">
         <MapPin size={20} />
-        <span>{`Apartment for ${unit.operation_type?.name} in ${unit.community?.name}, ${unit.community?.name}, ${unit.city.name}`}</span>
+        <span>
+          {`Apartment for ${unit.operation_type?.name} in ${unit.community?.name}, ${unit.community?.name}, ${unit.city?.name ?? ''}`}
+        </span>
       </div>
-      <div className='text-primary text-[44px] leading-tight font-medium mt-[44px]'>
-        {/* {new Intl.NumberFormat().format(unit.selling_price)}{' '} */}
-        {/* {unit.selling_price}{" "} */}
-        {/* <span className='text-[32px] font-normal'>AED</span> */}
-        <CurrencyConverter className='text-[32px] font-normal'>
+
+      <div className="text-primary text-3xl md:text-[44px] leading-tight font-medium mt-10">
+        <CurrencyConverter className="text-xl md:text-[32px] font-normal">
           {unit.selling_price}
         </CurrencyConverter>
       </div>
-      <div className='grid grid-cols-3 gap-[20px] mt-[40px]'>
+
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-[20px] mt-10">
         <Info>
           <InfoIconContainer>
-            <BedSideIcon className='size-6' />
+            <BedSideIcon className="size-6" />
           </InfoIconContainer>
           <InfoDataContainer>
             <InfoTitle>Bedrooms</InfoTitle>
             <InfoDesc>{unit.bedrooms} Beds</InfoDesc>
           </InfoDataContainer>
         </Info>
+
         <Info>
           <InfoIconContainer>
-            <BathIcon className='size-6' />
+            <BathIcon className="size-6" />
           </InfoIconContainer>
           <InfoDataContainer>
             <InfoTitle>Bathrooms</InfoTitle>
             <InfoDesc>{unit.bathrooms} Baths</InfoDesc>
           </InfoDataContainer>
         </Info>
+
         <Info>
           <InfoIconContainer>
-            <CityIcon className='size-6' />
+            <CityIcon className="size-6" />
           </InfoIconContainer>
           <InfoDataContainer>
             <InfoTitle>Type</InfoTitle>
             <InfoDesc>{unit.unit_type?.name}</InfoDesc>
           </InfoDataContainer>
         </Info>
+
         <Info>
           <InfoIconContainer>
-            <SizeIcon className='size-6' />
+            <SizeIcon className="size-6" />
           </InfoIconContainer>
           <InfoDataContainer>
             <InfoTitle>Size</InfoTitle>
@@ -79,13 +84,14 @@ export const DetailsSection = ({ unit, property }: Props) => {
             )}
           </InfoDataContainer>
         </Info>
+
         <Info>
           <InfoIconContainer>
             {unit.operation_type?.id == OperationType.Sale && (
-              <SaleIcon className='size-6' />
+              <SaleIcon className="size-6" />
             )}
             {unit.operation_type?.id == OperationType.Rent && (
-              <RentIcon className='size-6' />
+              <RentIcon className="size-6" />
             )}
           </InfoIconContainer>
           <InfoDataContainer>
@@ -93,9 +99,10 @@ export const DetailsSection = ({ unit, property }: Props) => {
             <InfoDesc>For {unit.operation_type?.name ?? '---'}</InfoDesc>
           </InfoDataContainer>
         </Info>
+
         <Info>
           <InfoIconContainer>
-            <DeveloperIcon className='size-6' />
+            <DeveloperIcon className="size-6" />
           </InfoIconContainer>
           <InfoDataContainer>
             <InfoTitle>Developer</InfoTitle>

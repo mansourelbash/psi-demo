@@ -26,9 +26,9 @@ const CurrencyConverter: FC<CurrencyConverterProps> = ({
     return new Intl.NumberFormat('en-US').format(+number.toFixed());
   };
 
-  if (!children) return emptyValue ?? null;
+  if (children === null || children === undefined) return emptyValue ?? null;
 
-  if (!currency) return null; // adding this line to mismatch the hydration rendering
+  if (!currency) return null; 
 
   switch (currency) {
     case Currencies.USD:

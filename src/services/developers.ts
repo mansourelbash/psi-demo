@@ -10,10 +10,31 @@ const DEVELOPER_URL = `${process.env.API_URL}/developers`;
 
 export const getDevelopers = async (
   page: number,
-  per_page: number
+  per_page: number,
+  options?: {
+    query?: string;
+    isAutocomplete?: boolean;
+    cityId?: string
+  }
 ): Promise<DeveloperModel> => {
+  const searchParams = new URLSearchParams({
+    page: page.toString(),
+    per_page: per_page.toString(),
+  });
+
+  if (options?.query) {
+    searchParams.append("q", options.query);
+  }
+
+  if (options?.isAutocomplete) {
+    searchParams.append("is_autocomplete", "true");
+  }
+  if (options?.cityId) {
+    searchParams.append("city_id", options.cityId);
+  }
+
   const res = await fetch(
-    `${DEVELOPER_URL}?page=${page}&per_page=${per_page}`,
+    `${DEVELOPER_URL}?${searchParams.toString()}`,
     {
       cache: "force-cache",
     }

@@ -72,6 +72,7 @@ export const getPropertyUnitModels = async (
 type GetPropertiesByLabelParams = PaginateParams & {
   label?: ProjectLabel;
   developer_id?: string | null;
+  community_id?: string
 };
 export const getPropertiesByLabel = async (
   cityId: CityIds,

@@ -52,23 +52,23 @@ const UnitModelTable: FC<{ data: UnitModelModel[] }> = ({ data }) => {
             </SpaceUnitConverter>
           ),
         },
-        {
-          accessorKey: 'available',
-          header: ({ column }) => (
-            <DataTableColumnHeader column={column} title='available' />
-          ),
-          cell: ({ row }) => {
-            const unit = row.original;
-            return (
-              <>
-                Rent {unit.units_rent_no}{' '}
-                <span className='text-[#E0592A]'>
-                  Sale {unit.units_sale_no}
-                </span>
-              </>
-            );
-          },
-        },
+        // {
+        //   accessorKey: 'available',
+        //   header: ({ column }) => (
+        //     <DataTableColumnHeader column={column} title='available' />
+        //   ),
+        //   cell: ({ row }) => {
+        //     const unit = row.original;
+        //     return (
+        //       <>
+        //         Rent {unit.units_rent_no}{' '}
+        //         <span className='text-[#E0592A]'>
+        //           Sale {unit.units_sale_no}
+        //         </span>
+        //       </>
+        //     );
+        //   },
+        // },
         {
           accessorKey: 'media',
           header: ({ column }) => (

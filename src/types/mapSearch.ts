@@ -1,3 +1,5 @@
+import { ImageModel, ItemModel } from "./Shared";
+
 export type CoverPhoto = {
   original: string;
   preview: string;
@@ -38,7 +40,7 @@ export type MapSearchItems = {
   property_id?: number;
   property_name?: string;
   is_favorite?: boolean;
-  unit_type?: UnitType;
+  unit_type: ItemModel | null;
   city?: City;
   community?: Community;
   sub_community?: SubCommunity;
@@ -49,5 +51,16 @@ export type MapSearchItems = {
   furnishing?: number;
   selling_price?: number;
   location?: Location;
-  units_count: number;
+  units_count?: number;
+  handover_date?: string;
+  sale_roi?: number;
+  rent_roi?: number;
+  total_area_sqft?: number;
+  rent_per_year?: number;
+  operation_type?: string; 
+  listing_agent?: {
+    name: string;
+    profile_image: ImageModel;
+  };
+  total?: number | string
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, RefObject, useRef } from "react";
-import { MapPin, SlidersHorizontal } from "lucide-react";
+import { MapPin, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -13,15 +13,13 @@ import {
 import { Input } from "@/components/ui/input";
 import SliderPrice from "@/components/app/map/SliderPrice";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import AddtionalFilter from "./AddtionalFilter";
 import { Map } from "mapbox-gl";
-import { getFilterationSearchData } from "@/services/map-search";
 import { useAtom, useSetAtom } from "jotai";
 import {
   activePointClickedAtom,
@@ -30,13 +28,19 @@ import {
 } from "./MapSearch";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import "overlayscrollbars/overlayscrollbars.css";
+import { filtersAtom } from "@/atoms/MapFilterAtoms";
+import { AdvanceIcon } from "@/components/icons/advance-icon";
+import BedsPathsFilter from "./BedsPathsFilter";
+import PropertyTypeFilter from "./PropertyTypeFilter";
+import { MapSearchItems } from "@/types/mapSearch";
+import { getFilterationSearchUnits } from "@/services/map-search-refactor";
 
 interface SearchMapProps {
   className?: string;
   mapContainerRef: RefObject<Map | null>;
 }
 
-interface Suggestion {
+export interface Suggestion {
   title: string;
   subtitle?: string;
   city_id?: string;
@@ -46,6 +50,15 @@ interface Suggestion {
   };
 }
 
+export const debounce = (func: () => void, delay: number) => {
+  let timer: NodeJS.Timeout;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func();
+    }, delay);
+  };
+};
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function SearchMap({
@@ -55,88 +68,55 @@ export default function SearchMap({
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [completionStatus, setCompletionStatus] = useState("ANY");
-  const [cityId, setCityId] = useState("");
-  const [propertyType, setPropertyType] = useState<number | null>(null);
-  const [developer, setDeveloper] = useState("");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000]);
   const setMapItems = useSetAtom(mapItemsAtom);
   const [, setActivePointClicked] = useAtom(activePointClickedAtom);
+  const [filters, setFilters] = useAtom(filtersAtom);
+  const [propertyTypeOpen, setPropertyTypeOpen] = useState(false);
+
+  const {
+    completionStatus,
+    cityId,
+    propertyType,
+    propertyUsage,
+    operationType,
+    priceRange,
+    selectedUnitRate,
+    bedrooms,
+    bathrooms,
+    petsAllowed,
+    selectedInProperty,
+    selectedPopular,
+    selectedAmenities,
+    outdoorSelection,
+    otherSelection,
+    selectedBuildingCommunity,
+    selectedFloorHeight,
+    selectedUnitFeatures,
+    selectedCity,
+    propertySize,
+    selectedFurnishing,
+    handoverFrom,
+    handoverTo,
+    unitRefNumber,
+    developerName,
+    plotSizeFrom,
+    plotSizeTo,
+    selectedPrimary,
+    isPrimarySelected,
+    numberOfFloors,
+    locationFeatures,
+    villaLocation,
+    officeType
+  } = filters;
 
   const setUnitItems = useSetAtom(unitsItemAtom);
   const suggestionsRef = useRef<HTMLDivElement | null>(null);
-  const propertyTypes = {
-    null: "Any",
-    411: "Apartment",
-    413: "Villa",
-    422: "Townhouse",
-    416: "Retail",
-    419: "Plot",
-    426: "Penthouse",
-    21966: "Mixed Used Building",
-    421: "Mixed Used Plots",
-    62114: "Duplex",
-    21965: "Compound",
-    21963: "Building",
-    428: "Farm",
-    63599: "Hotel Apartment",
-    62060: "Mansion",
-    21968: "Residential Floor",
-    63563: "Terraced Apartment",
-    412: "Furnished Apartment",
-    70022: "Simplex",
-    417: "Office",
-    70024: "Shop",
-    414: "Warehouse",
-    70025: "Showroom",
-    21964: "Commercial Building",
-    418: "Commercial Villa",
-    424: "Commercial Floor",
-    427: "Common Area",
-    429: "Storage",
-    425: "Business Center",
-    420: "Commercial Plot",
-  };
-
-  const handleCompletionStatusChange = (value: string) => {
-    setCompletionStatus(value.toUpperCase());
-  };
-
-  const handlePropertyTypeChange = (value: string) => {
-    const selectedId = Number(value);
-    setPropertyType(selectedId);
-    console.log("Property Type:", selectedId);
-  };
-
-  const handleDeveloperChange = (value: string) => {
-    setDeveloper(value);
-    console.log("Developer:", value);
-  };
-
-  const handlePriceRangeChange = (value: string) => {
-    const parsedValue = value.split(",").map(Number) as [number, number];
-
-    if (
-      parsedValue.length === 2 &&
-      !isNaN(parsedValue[0]) &&
-      !isNaN(parsedValue[1])
-    ) {
-      setPriceRange(parsedValue);
-    } else {
-      console.error("Invalid price range format:", value);
-    }
-
-    console.log("Price Range:", parsedValue);
-  };
-
-  const debounce = (func: () => void, delay: number) => {
-    let timer: NodeJS.Timeout;
-    return () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        func();
-      }, delay);
-    };
+  const isRent = operationType === "RENT";
+  const handleCompletionStatusChange = (item: "ANY" | "READY" | "OFFPLAN") => {
+    setFilters((prev) => ({
+      ...prev,
+      completionStatus: item.toUpperCase() as "ANY" | "OFFPLAN" | "READY",
+    }));
   };
 
   const fetchSuggestions = useCallback(
@@ -172,14 +152,14 @@ export default function SearchMap({
         zoom: 7,
       });
     }
-  }, [location, propertyType, developer]);
+  }, [location]);
 
   const handleSelect = (item: Suggestion) => {
     if (item?.city_id) {
-      setCityId(item.city_id);
+      setFilters((prev) => ({ ...prev, cityId: item.city_id }));
     } else {
       if (!location) {
-        setCityId("");
+        setFilters((prev) => ({ ...prev, cityId: "" }));
       }
     }
     setLocation(item.title);
@@ -195,7 +175,7 @@ export default function SearchMap({
       } else {
         console.error("Invalid coordinates for location:", item?.location);
       }
-    } 
+    }
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -219,15 +199,43 @@ export default function SearchMap({
       setUnitItems([]);
       setActivePointClicked(null);
       if (!location) {
-        setCityId("");
+        setFilters((prev) => ({ ...prev, selectedCity: "" }));
       }
-      const newData = await getFilterationSearchData({
+      const newData = await getFilterationSearchUnits<MapSearchItems[]>({
         completionStatus,
         cityId,
         propertyType,
         priceRange: [priceRange[0], priceRange[1]],
+        selectedUnitRate,
+        operationType,
+        propertyUsage,
+        bedrooms,
+        bathrooms,
+        petsAllowed,
+        selectedInProperty,
+        selectedPopular,
+        selectedAmenities,
+        outdoorSelection,
+        otherSelection,
+        selectedBuildingCommunity,
+        selectedFloorHeight,
+        selectedUnitFeatures,
+        selectedCity,
+        propertySize,
+        selectedFurnishing,
+        handoverFrom,
+        handoverTo,
+        unitRefNumber,
+        developerName,
+        plotSizeFrom,
+        plotSizeTo,
+        selectedPrimary,
+        isPrimarySelected,
+        numberOfFloors,
+        locationFeatures,
+        villaLocation,
+        officeType
       });
-
       setMapItems(newData);
 
       mapContainerRef?.current?.flyTo({
@@ -243,159 +251,183 @@ export default function SearchMap({
     const newLocation = e.target.value;
     setLocation(newLocation);
 
+
     if (newLocation.trim() === "") {
-      setCityId("");
+      setFilters((prev) => ({ ...prev, selectedCity: "", cityId: "" }));
     } else {
       fetchSuggestions();
     }
   };
 
   return (
-    <div className={`w-[95%] mx-auto bg-white rounded-lg ${className}`}>
-      <div className="flex flex-col md:flex-row items-center gap-2 p-2">
-        <div className="relative w-full md:w-auto md:flex-1 border-r">
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-            <MapPin size={18} />
-          </div>
-          <Input
-            className="pl-10 h-12 border-none border-r border-[#ECECEC] rounded-none focus:ring-0 focus-visible:ring-0 z-60 relative"
-            placeholder="Search by City, Community, Tower"
-            value={location}
-            onChange={handleLocationChange}
-          />
-          {suggestions && suggestions?.length > 0 && (
+    <div className={`w-full  mx-auto bg-white ${className}`}>
+      <div id="map-search-section" className="flex flex-col sm:flex-row justify-between items-stretch gap-2 pb-2 w-full">
+  <div className="flex w-full sm:w-auto sm:min-w-[250px] rounded-sm overflow-hidden border">
+    <Button
+      className={`rounded-none h-12 sm:h-[45px] grow ${
+        operationType === "SALE" ? "bg-primary text-white" : "bg-white"
+      } hover:ghost`}
+      variant={operationType === "SALE" ? "outline" : "ghost"}
+      onClick={() =>
+        setFilters((prev) => ({
+          ...prev,
+          operationType: "SALE",
+        }))
+      }
+    >
+      Buy
+    </Button>
+
+    <Button
+      className={`rounded-none h-12 sm:h-[45px] grow ${
+        operationType === "RENT" ? "bg-primary text-white" : "bg-white"
+      } hover:ghost`}
+      variant={operationType === "RENT" ? "outline" : "ghost"}
+      onClick={() =>
+        setFilters((prev) => ({
+          ...prev,
+          operationType: "RENT",
+        }))
+      }
+    >
+      Rent
+    </Button>
+  </div>
+
+  <div className="relative w-full sm:flex-1">
+    <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+      <MapPin size={18} />
+    </div>
+    <Input
+      className="pl-10 h-12 focus:ring-0 focus-visible:ring-0 z-60 relative placeholder:text-[#414042] w-full"
+      placeholder="Search by City, Community, Tower"
+      value={location}
+      onChange={handleLocationChange}
+    />
+    {suggestions && suggestions?.length > 0 && (
+      <div
+        className="custom-scrollbar absolute left-0 right-0 bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-10"
+        ref={suggestionsRef}
+      >
+        <OverlayScrollbarsComponent
+          options={{ scrollbars: { autoHide: "leave" } }}
+          className="max-h-60 bg-white"
+        >
+          {suggestions.map((suggestion, index) => (
             <div
-              className="absolute left-0 right-0 bg-white border border-gray-300 mt-1 rounded-md shadow-lg z-10"
-              ref={suggestionsRef}
+              key={index}
+              className="p-2 cursor-pointer hover:bg-gray-100"
+              onClick={() => {
+                handleSelect(suggestion);
+                setSuggestions([]);
+              }}
             >
-              <OverlayScrollbarsComponent
-                options={{ scrollbars: { autoHide: "leave" } }}
-                className="max-h-60 bg-white"
-              >
-                {suggestions.map((suggestion, index) => (
-                  <div
-                    key={index}
-                    className="p-2 cursor-pointer hover:bg-gray-100"
-                    onClick={() => {handleSelect(suggestion)
-                      setSuggestions([]); 
-                    }
-
-                    }
-                  >
-                    <div className="flex flex-col">
-                      <span className="font-medium">{suggestion.title}</span>
-                      {suggestion.subtitle && (
-                        <span className="text-sm text-gray-500">
-                          {suggestion.subtitle}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </OverlayScrollbarsComponent>
+              <div className="flex flex-col">
+                <span className="font-medium">{suggestion.title}</span>
+                {suggestion.subtitle && (
+                  <span className="text-sm text-gray-500">
+                    {suggestion.subtitle}
+                  </span>
+                )}
+              </div>
             </div>
-          )}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-2 w-full md:w-auto custom-shadow-button">
-          <Select
-            value={completionStatus}
-            onValueChange={handleCompletionStatusChange}
-          >
-            <SelectTrigger className="h-12 border-0 focus:ring-0 min-w-[180px] shadow-none border-r border-[#ECECEC] rounded-none">
-              <SelectValue>
-                {completionStatus === "READY"
-                  ? "Ready"
-                  : completionStatus === "OFFPLAN"
-                  ? "Off Plan"
-                  : "Any"}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="any">Any</SelectItem>
-              <SelectItem value="ready">Ready</SelectItem>
-              <SelectItem value="offplan">Off Plan</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select onValueChange={handlePropertyTypeChange}>
-            <SelectTrigger className="h-12 border-0 focus:ring-0 min-w-[180px] shadow-none border-r border-[#ECECEC] rounded-none">
-              <SelectValue placeholder="Property Type" />
-            </SelectTrigger>
-            <SelectContent>
-              {Object.entries(propertyTypes)
-                .sort(([, valueA], [, valueB]) => {
-                  if (valueA === "Any") return -1;
-                  if (valueB === "Any") return 1;
-                  return valueA.localeCompare(valueB);
-                })
-                .map(([id, name]) => (
-                  <SelectItem key={id} value={id}>
-                    {name}
-                  </SelectItem>
-                ))}
-            </SelectContent>
-          </Select>
-
-         
-          <Select value={developer} onValueChange={handleDeveloperChange}>
-            <SelectTrigger className="h-12 border-0 focus:ring-0 min-w-[180px] shadow-none border-r border-[#ECECEC] rounded-none">
-              <SelectValue placeholder="Developer" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="emaar">Emaar</SelectItem>
-              <SelectItem value="damac">Damac</SelectItem>
-              <SelectItem value="nakheel">Nakheel</SelectItem>
-              <SelectItem value="meraas">Meraas</SelectItem>
-            </SelectContent>
-          </Select>
-
-         
-          <Select
-            value={`${priceRange[0]}-${priceRange[1]}`}
-            onValueChange={handlePriceRangeChange}
-          >
-            <SelectTrigger className="h-12 border-0 focus:ring-0 min-w-[180px] shadow-none border-r border-[#ECECEC] rounded-none">
-              <SelectValue placeholder="Price Range" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={`${priceRange[0]}-${priceRange[1]}`}>
-                ${priceRange[0].toLocaleString()} - $
-                {priceRange[1].toLocaleString()}
-              </SelectItem>
-              <SliderPrice
-                priceRange={priceRange}
-                handlePriceRangeChange={handlePriceRangeChange}
-              />
-            </SelectContent>
-          </Select>
-        </div>
-        <div className="flex items-center gap-2 w-full md:w-auto">
-          <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-12 w-12 border-0"
-              >
-                <SlidersHorizontal className="h-5 w-5" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[1200px]">
-              <DialogHeader>
-                <DialogTitle>Additional Filters</DialogTitle>
-              </DialogHeader>
-              <AddtionalFilter setIsOpen={setIsOpen} />
-            </DialogContent>
-          </Dialog>
-
-          <Button
-            className="h-12 w-full md:w-auto bg-[#2a2f5a] hover:bg-[#22254a] text-white px-10"
-            onClick={handleSearch}
-          >
-            Search
-          </Button>
-        </div>
+          ))}
+        </OverlayScrollbarsComponent>
       </div>
+    )}
+  </div>
+
+  <div className="hidden sm:grid grid-cols-1 md:grid-cols-[160px_1fr_1fr_1fr] gap-2 w-full md:w-auto custom-shadow-button">
+    <Popover open={propertyTypeOpen} onOpenChange={setPropertyTypeOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          className="rounded-md font-medium h-12 sm:h-[48px] text-ellipsis text-[#6e6d6e]"
+        >
+          Property Type
+          {propertyTypeOpen ? (
+            <ChevronUp className="w-4 h-4 text-gray-600" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-gray-600" />
+          )}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="w-[350px] bg-white border rounded-md shadow-lg p-1"
+        side="bottom"
+      >
+        <PropertyTypeFilter render="map-search" />
+      </PopoverContent>
+    </Popover>
+    <BedsPathsFilter render="map-search"/>
+    <SliderPrice priceRange={priceRange} />
+    <Select
+      value={completionStatus}
+      onValueChange={handleCompletionStatusChange}
+      disabled={isRent}
+    >
+      <SelectTrigger className="h-12 focus:ring-0 min-w-[180px] shadow-none">
+        <SelectValue placeholder="Completion status">
+          {completionStatus === "READY"
+            ? "Ready"
+            : completionStatus === "OFFPLAN"
+            ? "Off Plan"
+            : "Completion Status"}
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="any">Any</SelectItem>
+        <SelectItem value="ready">Ready</SelectItem>
+        <SelectItem value="offplan">Off Plan</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+
+  <div className="flex items-center gap-2 w-full sm:w-auto">
+   
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className={`w-12 border rounded-md h-12 sm:h-[49px] ${
+            isOpen && "bg-[#FCEDE9] border-[#f15a29]"
+          }`}
+        >
+          <AdvanceIcon
+            className={`size-6 ml:2 ${isOpen && "text-[#f15a29]"}`}
+          />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-full sm:w-[600px] p-0 m-0">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between border-b p-3">
+            <X
+              className="cursor-pointer h-4 w-4"
+              onClick={() => setIsOpen(false)}
+            />
+            <h3 className="text-lg font-semibold text-center flex-1">
+              Filters
+            </h3>
+          </div>
+          <AddtionalFilter
+            render="map-search"
+            mapContainerRef={
+              mapContainerRef as React.RefObject<mapboxgl.Map>
+            }
+          />
+        </div>
+      </PopoverContent>
+    </Popover>
+
+    <Button
+      className="h-12 w-full sm:w-auto rounded-sm bg-[#2C2D65] hover:bg-[#22254a] text-white px-4 sm:px-12"
+      onClick={handleSearch}
+    >
+      Search
+    </Button>
+  </div>
+</div>
     </div>
   );
 }

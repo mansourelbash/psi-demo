@@ -17,78 +17,65 @@ import CurrencyConverter from '@/components/app/CurrencyConverter';
 type Props = {
   property: ProjectSummaryModel;
 };
+
 export const ProjectSummerySection = ({ property }: Props) => {
+  const items = [
+    {
+      icon: <LocationIcon className='size-6 text-primary' />,
+      title: 'Location',
+      desc: property.community_name ?? '---',
+    },
+    {
+      icon: <PriceLabelIcon className='size-6 text-primary' />,
+      title: 'Starting price from',
+      desc: (
+        <CurrencyConverter emptyValue='---'>
+          {property?.min_selling_price}
+        </CurrencyConverter>
+      ),
+    },
+    {
+      icon: <CalendarIcon className='size-6 text-primary' />,
+      title: 'Launched date',
+      desc: property.launch_date ?? '---',
+    },
+    {
+      icon: <BoxSizeIcon className='size-6 text-primary' />,
+      title: 'Area Form (sq.ft)',
+      desc: `${property.min_total_sqft} to ${property.max_total_sqft}`,
+    },
+    {
+      icon: <BoxSizeIcon className='size-6 text-primary' />,
+      title: 'Handover',
+      desc: property.handover_date ?? '---',
+    },
+    {
+      icon: <HardHatIcon className='size-6 text-primary' />,
+      title: 'Developer',
+      desc: property.developer_name ?? '---',
+    },
+    {
+      icon: <SecurityCameraIcon className='size-6 text-primary' />,
+      title: 'Service Charge',
+      desc: property.service_charge ?? '---',
+    },
+  ];
+
   return (
     <div className='space-y-7'>
-      <TypographyH2 className='font-medium'>Project Summery</TypographyH2>
-      <div className='space-y-4'>
-        <Info>
-          <LocationIcon className='size-6 text-primary' />
-          <InfoDataContainer className='flex gap-[50px] items-center'>
-            <InfoTitle className='w-[250px] text-lg font-medium'>
-              Location
-            </InfoTitle>
-            <InfoDesc>{property.community_name ?? '---'}</InfoDesc>
-          </InfoDataContainer>
-        </Info>
-        <Info>
-          <PriceLabelIcon className='size-6 text-primary' />
-          <InfoDataContainer className='flex gap-[50px] items-center'>
-            <InfoTitle className='w-[250px] text-lg font-medium'>
-              Starting price from
-            </InfoTitle>
-            <InfoDesc>
-              <CurrencyConverter emptyValue='---'>
-                {property.min_selling_price}
-              </CurrencyConverter>
-            </InfoDesc>
-          </InfoDataContainer>
-        </Info>
-        <Info>
-          <CalendarIcon className='size-6 text-primary' />
-          <InfoDataContainer className='flex gap-[50px] items-center'>
-            <InfoTitle className='w-[250px] text-lg font-medium'>
-              Launched date
-            </InfoTitle>
-            <InfoDesc>{property.launch_date ?? '---'}</InfoDesc>
-          </InfoDataContainer>
-        </Info>
-        <Info>
-          <BoxSizeIcon className='size-6 text-primary' />
-          <InfoDataContainer className='flex gap-[50px] items-center'>
-            <InfoTitle className='w-[250px] text-lg font-medium'>
-              Area Form (sq.ft)
-            </InfoTitle>
-            <InfoDesc>{`${property.min_total_sqft} to ${property.max_total_sqft}`}</InfoDesc>
-          </InfoDataContainer>
-        </Info>
-        <Info>
-          <BoxSizeIcon className='size-6 text-primary' />
-          <InfoDataContainer className='flex gap-[50px] items-center'>
-            <InfoTitle className='w-[250px] text-lg font-medium'>
-              Handover
-            </InfoTitle>
-            <InfoDesc>{property.handover_date ?? '---'}</InfoDesc>
-          </InfoDataContainer>
-        </Info>
-        <Info>
-          <HardHatIcon className='size-6 text-primary' />
-          <InfoDataContainer className='flex gap-[50px] items-center'>
-            <InfoTitle className='w-[250px] text-lg font-medium'>
-              Developer
-            </InfoTitle>
-            <InfoDesc>{property.developer_name ?? '---'}</InfoDesc>
-          </InfoDataContainer>
-        </Info>
-        <Info>
-          <SecurityCameraIcon className='size-6 text-primary' />
-          <InfoDataContainer className='flex gap-[50px] items-center'>
-            <InfoTitle className='w-[250px] text-lg font-medium'>
-              Service Charge
-            </InfoTitle>
-            <InfoDesc>{property.service_charge ?? '---'}</InfoDesc>
-          </InfoDataContainer>
-        </Info>
+      <TypographyH2 className='font-medium'>Project Summary</TypographyH2>
+      <div className='grid grid-cols-2 sm:grid-cols-2 gap-4'>
+        {items.map(({ icon, title, desc }, i) => (
+          <Info key={i} className='flex items-start gap-4'>
+            {icon}
+            <InfoDataContainer>
+              <InfoTitle className='text-base sm:text-lg font-medium'>
+                {title}
+              </InfoTitle>
+              <InfoDesc className='text-sm sm:text-base'>{desc}</InfoDesc>
+            </InfoDataContainer>
+          </Info>
+        ))}
       </div>
     </div>
   );

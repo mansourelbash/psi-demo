@@ -13,7 +13,7 @@ import { phoneExpression } from '@/lib/regex';
 import { propertyListRequest } from '@/services/properties';
 import ButtonGroup from '@/components/app/ButtonGroup';
 import { AppSelect } from '@/components/app/AppSelect';
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 const schema = Yup.object().shape({
   firstName: Yup.string().required('First Name is required'),
@@ -52,9 +52,9 @@ const SubmitInquiry: FC<SubmitInquiryProps> = ({
     lastName: '',
     email: '',
     phone: '',
-    calls: false,
-    channels: false,
-    projects: false,
+    calls: true,
+    channels: true,
+    projects: true,
     unitTypeId: !unitTypes ? _unitTypeId ?? apartmentTypeId : undefined,
   };
   const form = useFormik({
@@ -81,6 +81,7 @@ const SubmitInquiry: FC<SubmitInquiryProps> = ({
       }
     },
   });
+
   return (
     <div className='w-[400px] lg:w-auto h-fit border border-[#ECECEC] rounded-[15px] p-[30px]'>
       <TypographyH2 className='text-[#414042] text-2xl font-medium'>
@@ -97,7 +98,7 @@ const SubmitInquiry: FC<SubmitInquiryProps> = ({
         />
       )}
       <form onSubmit={form.handleSubmit}>
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-2'>
           <div className='flex flex-col mt-4 relative'>
             <label className='text-[#414042] text-sm font-normal  absolute  bg-white p-1 left-3 -top-4'>
               First Name
@@ -115,7 +116,7 @@ const SubmitInquiry: FC<SubmitInquiryProps> = ({
               {form.touched.firstName && form.errors.firstName}
             </TextHighlight>
           </div>
-          <div className='flex flex-col gap-4 mt-4 relative'>
+          <div className='flex flex-col mt-4 relative'>
             <label className='text-[#414042] text-sm font-normal  absolute  bg-white p-1 left-3 -top-4'>
               Last Name
             </label>
@@ -187,7 +188,7 @@ const SubmitInquiry: FC<SubmitInquiryProps> = ({
               </TextHighlight>
             </div>
           )}
-          <div className='flex flex-col gap-y-3'>
+          <div className='flex flex-col gap-y-3 mt-5'>
             <div className='flex gap-x-3 '>
               <Checkbox
                 id='calls'

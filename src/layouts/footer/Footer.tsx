@@ -1,3 +1,5 @@
+import { AppleIcon } from "@/components/icons/apple-icon"
+import { GooglePlay } from "@/components/icons/google-play-icon"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { Input } from "@/components/ui/input"
@@ -5,7 +7,6 @@ import { Separator } from "@/components/ui/separator"
 import {
   ArrowRight,
   FacebookLogo,
-  GooglePlayLogo,
   InstagramLogo,
   LinkedinLogo,
   SnapchatLogo,
@@ -19,7 +20,7 @@ export const Footer = () => {
   return (
     <footer className="bg-secondary-white py-[30px] space-y-20 max-w-full xs:mx-5px">
       <Container>
-        <div className="flex justify-between gap-2 flex-wrap">
+        <div className="flex flex-wrap justify-between gap-2"> {/* Ensures items wrap properly */}
           <Image src="/logo.svg" width={84} height={74} alt="" />
           <div className="flex gap-5 items-center">
             <span className="text-lg font-medium">Follow Us</span>
@@ -35,7 +36,8 @@ export const Footer = () => {
         </div>
         <Separator className="mt-[30px]" />
       </Container>
-      <Container className="flex justify-between gap-12 flex-col md:flex-row"> {/* Adjusted for responsiveness */}
+
+      <Container className="flex flex-col md:flex-row gap-6 sm:gap-12"> {/* Adjusted gap for mobile responsiveness */}
         <div className="max-w-[370px] space-y-11">
           <div className="space-y-6">
             <h4>Property Shop Investment L.L.C</h4>
@@ -65,8 +67,9 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-between grow flex-col sm:flex-row"> {/* Adjusted for responsiveness */}
-          <div className="space-y-8">
+
+        <div className="flex flex-wrap justify-between gap-8 sm:gap-12 md:flex-row w-full"> {/* Added flex-wrap for mobile */}
+          <div className="space-y-8 w-full sm:w-auto">
             <h4 className="text-lg font-medium">Explore</h4>
             <div className="flex flex-col gap-5 text-primary text-sm font-medium">
               <Link href="#">Buy</Link>
@@ -77,78 +80,74 @@ export const Footer = () => {
               <Link href="#">Crypto</Link>
             </div>
           </div>
-          <div className="space-y-8">
-            <h4 className="text-lg font-medium">Explore</h4>
+
+          <div className="space-y-8 w-full sm:w-auto">
+            <h4 className="text-lg font-medium">New Projects</h4>
             <div className="flex flex-col gap-5 text-primary text-sm font-medium">
-              <Link href="#">Buy</Link>
-              <Link href="#">Rent</Link>
-              <Link href="#">Youngster Program</Link>
-              <Link href="#">List Your Property</Link>
-              <Link href="#">Build Your Villa</Link>
-              <Link href="#">Crypto</Link>
+              <Link href="#">Saadiyat Lagoons</Link>
+              <Link href="#">Hudayriyat Island</Link>
+              <Link href="#">Hudayriyat Island</Link>
+              <Link href="#">Ramhan Island</Link>
+              <Link href="#">Athlon</Link>
+              <Link href="#">More</Link>
             </div>
           </div>
-          <div className="space-y-8">
-            <h4 className="text-lg font-medium">Explore</h4>
+
+          <div className="space-y-8 w-full sm:w-auto">
+            <h4 className="text-lg font-medium">Important Links</h4>
             <div className="flex flex-col gap-5 text-primary text-sm font-medium">
-              <Link href="#">Buy</Link>
-              <Link href="#">Rent</Link>
-              <Link href="#">Youngster Program</Link>
-              <Link href="#">List Your Property</Link>
-              <Link href="#">Build Your Villa</Link>
-              <Link href="#">Crypto</Link>
+              <Link href="#">Mortgage Calculator</Link>
+              <Link href="#">About Us</Link>
+              <Link href="#">Contact Us</Link>
+              <Link href="#">Careers</Link>
+              <Link href="#">Blog</Link>
+              <Link href="#">Sitemap</Link>
             </div>
           </div>
-          <div className="space-y-8">
-            <h4 className="text-lg font-medium">Explore</h4>
+
+          <div className="space-y-8 w-full sm:w-auto">
+            <h4 className="text-lg font-medium">Contact us</h4>
             <div className="flex flex-col gap-5 text-primary text-sm font-medium">
-              <Link href="#">Buy</Link>
-              <Link href="#">Rent</Link>
-              <Link href="#">Youngster Program</Link>
-              <Link href="#">List Your Property</Link>
-              <Link href="#">Build Your Villa</Link>
-              <Link href="#">Crypto</Link>
+              <Link href="#">Local Tel: 600 548 200</Link>
+              <Link href="#">Int&apos;l Tel: +971 2205 2999</Link>
             </div>
           </div>
         </div>
-        <div className="space-y-8">
+
+        {/* App download section */}
+        <div className="space-y-8 w-full sm:w-auto">
           <h4 className="text-lg font-medium">Get the app</h4>
           <div className="flex flex-col gap-5">
-            <Button
-              className="h-[75px] justify-start gap-4 py-4"
-              variant="primary-blue"
-            >
-              <GooglePlayLogo size={23} />
+            <Button className="h-[75px] justify-start gap-4 py-4">
+              <AppleIcon className="size-8 ml:2" />
               <Separator orientation="vertical" className="bg-white/20" />
               <div className="flex flex-col gap-1 items-start">
-                <span>Get in on</span>
-                <span className="text-lg font-medium">Google Play</span>
+                <span>Download on the</span>
+                <span className="text-lg font-medium">Apple Store</span>
               </div>
             </Button>
-            <Button
-              className="h-[75px] justify-start gap-4 py-4"
-              variant="primary-blue"
-            >
-              <GooglePlayLogo size={23} />
+            <Button className="h-[75px] justify-start gap-4 py-4">
+              <GooglePlay className="size-6 ml:2" />
               <Separator orientation="vertical" className="bg-white/20" />
               <div className="flex flex-col gap-1 items-start">
-                <span>Get in on</span>
+                <span>Get it on</span>
                 <span className="text-lg font-medium">Google Play</span>
               </div>
             </Button>
           </div>
         </div>
       </Container>
+
       <Container className="space-y-[30px]">
         <Separator />
         <div className="text-center space-y-3 text-sm font-medium">
           <p>All Rights Reserved © 2024 Property Shop Investment LLC.</p>
           <p>
-            License No.:CN-1100434 | Brokerage No.:202100982107 | Privacy |
-            Terms of use
+            License No.:CN-1100434 | Brokerage No.:202100982107 | Privacy | Terms of use
           </p>
         </div>
       </Container>
     </footer>
-  )
-}
+  );
+};
+

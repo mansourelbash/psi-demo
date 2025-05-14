@@ -84,13 +84,14 @@ export type ProjectSummaryModel = {
   is_luxury: boolean;
 };
 
-export type PropertyListModel = BasePropertyModel & {
+export type PropertyListModel = BasePropertyModel & Location & {
   location: {
     lat?: number;
     lng?: number;
   };
   handover_date: string | null;
 };
+
 
 export type PropertyByDeveloperModel = {
   id: number;
@@ -119,7 +120,7 @@ export enum InstallmentTypes {
 }
 
 export type Developer = {
-  id: number;
+  id: number | string;
   name: string;
   email: string;
   phone: string;
@@ -130,4 +131,8 @@ export type Developer = {
   establish_date: string;
   logo: ImageModel;
   properties_count: number;
+  title? : {
+    name: string;
+  }
+  phone_number?: string;
 };

@@ -30,7 +30,7 @@ const ButtonGroup: FC<ButtonGroupProps> = ({
           className={cn(
             activeCategory === category
               ? 'bg-[#2C2D65] hover:bg-blue-800'
-              : 'border-[#414042] text-#414042',
+              : 'border-[#ECECEC]  text-[#414042]',
             'px-8',
             buttonClassName
           )}

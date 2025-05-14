@@ -63,21 +63,21 @@ const Page = () => {
         isOpen={isModalOpen}
         cover="/images/hero-developer-section.png"
         imageSrc={propertyProfile?.logo?.preview ?? "/images/developers/aldar-logo.png"}
-        className="xs:overflow-show rounded-none xl:rounded-[20px] lg:rounded-[20px] md:rounded-[20px] xs:bg-mob-custom"
+        className={`xs:overflow-show rounded-none xl:rounded-[20px] lg:rounded-[20px] md:rounded-[20px] ${!loading ? 'xs:bg-mob-custom' : '' }`}
         loading={loading}
       >
         <div>
-          <h2 className="text-2xl font-medium text-white xs:text-black">
+          <h2 className="text-2xl font-medium text-white xs:text-black text-left">
             {capitalizeWords(propertyProfile?.name || "Aldar Properties PJSC")}
           </h2>
 
-          <div className="space-y-1 text-sm text-white/80 xs:text-black">
+          <div className="space-y-1 text-sm text-left text-white/80 xs:text-black my-4">
             <p>Properties: {propertyProfile?.properties_count ?? 0}</p>
             <p>Founded in: {propertyProfile?.founded} y.</p>
           </div>
 
-          <div className="flex flex-wrap gap-3 mt-2">
-            <Button
+          <div className="flex flex-wrap gap-3 mt-2 lg:justify-start">
+          <Button
               onClick={handleScroll}
               variant="outline"
               className="h-8 border-white/20 bg-transparent text-black bg-[#FFFFFF] hover:bg-slate-100 xs:bg-blue-custom"
@@ -96,7 +96,8 @@ const Page = () => {
           </div>
         </div>
       </ProfileCard>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 h-auto container mt-[40px] mb-5">
+      
+      <div className="lg:m-auto md:w-[95%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 h-auto p-[24px] w-full lg:w-[95%] mt-[40px] mb-5">
         <div className="col-span-1 md:col-span-2 lg:col-span-3">
           <DeveloperProfileProjects propertyId={parseInt(id)} />
         </div>

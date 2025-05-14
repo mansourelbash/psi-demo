@@ -13,6 +13,7 @@ import { Locale } from "@/i18n.config";
 import { getUnits } from "@/services/units";
 import { CityIds, ComponentWithCity } from "@/types/Shared";
 import { FC } from "react";
+import { formatCityLabel } from "../featured-projects-section/FeaturedProjectsSection";
 
 export const HigherROISection: FC<
   ComponentWithCity & { locale: Locale }
@@ -30,7 +31,7 @@ export const HigherROISection: FC<
         <div className="flex flex-wrap justify-between gap-2 px-3">
           <TypographyH2 className="w-full sm:w-auto">
             Discover Units With <TextHighlight>Higher ROI</TextHighlight> in{" "}
-            {city}
+            {formatCityLabel(city)}
           </TypographyH2>
           <div className="flex gap-3 items-center w-full sm:w-auto mt-2 sm:mt-0">
             <div className="flex gap-3 w-full sm:w-auto">

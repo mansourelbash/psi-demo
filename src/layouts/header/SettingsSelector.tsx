@@ -80,16 +80,16 @@ const SettingsPopoverContent = ({ onSave }: { onSave: () => void }) => {
   return (
     <>
       <div className='flex flex-col gap-2.5'>
-        <div className='flex gap-1'>
+        <div className='flex gap-[5px]'>
           <Button
-            className='grow text-xs font-medium'
+            className='grow text-xs font-medium h-[36px]'
             variant={selectedSize == Sizes.SQ_FT ? 'primary-blue' : 'outline'}
             onClick={() => setSelectedSize(Sizes.SQ_FT)}
           >
             SQ FT
           </Button>
           <Button
-            className='grow text-xs font-medium'
+            className='grow text-xs font-medium h-[36px]'
             variant={selectedSize == Sizes.SQ_M ? 'primary-blue' : 'outline'}
             onClick={() => setSelectedSize(Sizes.SQ_M)}
           >
@@ -98,7 +98,7 @@ const SettingsPopoverContent = ({ onSave }: { onSave: () => void }) => {
         </div>
         <div className='flex flex-col gap-1'>
           <Label className='text-xs font-medium'>Select Language</Label>
-          <div className='flex gap-1 flex-wrap'>
+          <div className='flex gap-[5px] flex-wrap'>
             {langs.map((lang, index) => (
               <Button
                 key={index}
@@ -120,7 +120,7 @@ const SettingsPopoverContent = ({ onSave }: { onSave: () => void }) => {
         </div>
         <div className='flex flex-col gap-1'>
           <Label className='text-xs font-medium'>Select Currency</Label>
-          <div className='flex gap-1 flex-wrap'>
+          <div className='flex gap-[5px] flex-wrap'>
             {currencies.map((currency, index) => (
               <Chip
                 key={index}
@@ -132,7 +132,7 @@ const SettingsPopoverContent = ({ onSave }: { onSave: () => void }) => {
                     ? 'primary-blue'
                     : 'secondary'
                 }
-                className='w-[50px] justify-center cursor-pointer'
+                className='w-[60px] h-[30px] justify-center cursor-pointer'
                 onClick={() =>
                   setSelectedCurrency(
                     currency.value as SettingsProps['currency']
